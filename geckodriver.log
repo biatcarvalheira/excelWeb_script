@@ -1,0 +1,272 @@
+1701781528381	geckodriver	INFO	Listening on 127.0.0.1:51113
+1701781528838	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/App ... s" "localhost" "-foreground" "-no-remote" "-profile" "/var/folders/6f/vz93yj050m53kmt1536hr0lw0000gn/T/rust_mozprofileQq0qUd"
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1701781529701	Marionette	INFO	Marionette enabled
+console.error: "Warning: unrecognized command line flag" "-remote-allow-hosts"
+1701781530235	Marionette	INFO	Listening on port 51130
+WebDriver BiDi listening on ws://127.0.0.1:51114
+Read port: 51130
+1701781530527	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+DevTools listening on ws://127.0.0.1:51114/devtools/browser/a5908218-dfa2-4661-be4a-6300c6b73f39
+Marionette threw an error: TypeError: this.curBrowser.contentBrowser is null
+GeckoDriver.prototype.navigateTo@chrome://remote/content/marionette/driver.sys.mjs:872:3
+
+console.error: "Marionette threw an error: TypeError: this.curBrowser.contentBrowser is null\nGeckoDriver.prototype.navigateTo@chrome://remote/content/marionette/driver.sys.mjs:872:3\n"
+1701781538517	Marionette	INFO	Stopped listening on port 51130
+1702039980231	geckodriver	INFO	Listening on 127.0.0.1:50991
+1702039980709	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/App ... s" "localhost" "-foreground" "-no-remote" "-profile" "/var/folders/6f/vz93yj050m53kmt1536hr0lw0000gn/T/rust_mozprofiletuRf3s"
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1702039981583	Marionette	INFO	Marionette enabled
+console.error: "Warning: unrecognized command line flag" "-remote-allow-hosts"
+1702039981864	Marionette	INFO	Listening on port 51000
+WebDriver BiDi listening on ws://127.0.0.1:50992
+Read port: 51000
+1702039982200	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+DevTools listening on ws://127.0.0.1:50992/devtools/browser/fc43f7c0-4981-4f7b-85f9-58109277aff6
+JavaScript warning: https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js, line 30: unreachable code after return statement
+JavaScript warning: https://z.moatads.com/nbcuyieldheader7581548001/moatheader.js, line 312: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+JavaScript error: https://www.cnbc.com/quotes/ZM, line 62: ReferenceError: mps is not defined
+1702040011593	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
+JavaScript warning: https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js, line 30: unreachable code after return statement
+JavaScript warning: https://z.moatads.com/nbcuyieldheader7581548001/moatheader.js, line 312: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+JavaScript warning: https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js line 2 > eval, line 30: unreachable code after return statement
+1702040270512	geckodriver	INFO	Listening on 127.0.0.1:51395
+1702040271030	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/App ... s" "localhost" "-foreground" "-no-remote" "-profile" "/var/folders/6f/vz93yj050m53kmt1536hr0lw0000gn/T/rust_mozprofile3AShB7"
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1702040271754	Marionette	INFO	Marionette enabled
+console.error: "Warning: unrecognized command line flag" "-remote-allow-hosts"
+1702040272012	Marionette	INFO	Listening on port 51403
+Read port: 51403
+WebDriver BiDi listening on ws://127.0.0.1:51396
+1702040272195	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+DevTools listening on ws://127.0.0.1:51396/devtools/browser/d9508863-902f-4da1-a3c1-7a900b7f257a
+JavaScript error: https://www.cnbc.com/quotes/AAPL, line 61: TypeError: mps.geo.data is undefined
+JavaScript error: https://mps.cnbc.com/fetch/ext/load-cnbc-web.js?nowrite=2, line 1030: TypeError: mps.pagevars is undefined
+JavaScript warning: https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js, line 30: unreachable code after return statement
+JavaScript warning: https://z.moatads.com/nbcuyieldheader7581548001/moatheader.js, line 312: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+JavaScript error: https://www.cnbc.com/quotes/ZM line 2 > injectedScript, line 220: TypeError: mParticle.Identity.getCurrentUser is not a function
+JavaScript warning: https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js line 2 > eval, line 30: unreachable code after return statement
+JavaScript warning: https://pagead2.googlesyndication.com/bg/Dtt_-LR3WxpzwV0Gscftq1A_D1owstvxoTnWWhwY4Ow.js line 2 > eval line 689 > eval line 1 > eval line 1 > eval, line 1: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+1702040302571	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
+1702040361816	geckodriver	INFO	Listening on 127.0.0.1:51778
+1702040362334	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/App ... s" "localhost" "-foreground" "-no-remote" "-profile" "/var/folders/6f/vz93yj050m53kmt1536hr0lw0000gn/T/rust_mozprofileInUgxQ"
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1702040363067	Marionette	INFO	Marionette enabled
+console.error: "Warning: unrecognized command line flag" "-remote-allow-hosts"
+1702040363312	Marionette	INFO	Listening on port 51786
+Read port: 51786
+WebDriver BiDi listening on ws://127.0.0.1:51779
+1702040363493	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: "Listener for event 'frame' did not return a promise."
+console.warn: "Listener for event 'frame' did not return a promise."
+console.warn: "Listener for event 'frame' did not return a promise."
+JavaScript warning: https://pagead2.googlesyndication.com/bg/Dtt_-LR3WxpzwV0Gscftq1A_D1owstvxoTnWWhwY4Ow.js line 2 > eval line 1141 > eval line 1 > eval line 1 > eval, line 1: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+console.warn: "Listener for event 'frame' did not return a promise."
+DevTools listening on ws://127.0.0.1:51779/devtools/browser/f869d3cc-83ce-46d5-bba9-39ea6014f44d
+JavaScript warning: https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js, line 30: unreachable code after return statement
+JavaScript error: https://www.cnbc.com/quotes/AAPL, line 61: TypeError: mps.geo.data is undefined
+JavaScript warning: https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js, line 30: unreachable code after return statement
+JavaScript error: https://www.cnbc.com/quotes/ZM line 2 > injectedScript, line 220: TypeError: mParticle.Identity.getCurrentUser is not a function
+JavaScript warning: https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js line 2 > eval, line 30: unreachable code after return statement
+JavaScript warning: https://z.moatads.com/nbcuyieldheader7581548001/moatheader.js, line 312: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+JavaScript warning: https://pagead2.googlesyndication.com/bg/Dtt_-LR3WxpzwV0Gscftq1A_D1owstvxoTnWWhwY4Ow.js line 2 > eval line 2158 > eval line 1 > eval line 1 > eval, line 1: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+JavaScript warning: https://cdn.cxense.com/cx.js, line 6: Script terminated by timeout at:
+o@https://cdn.cxense.com/cx.js:6:2573
+i@https://cdn.cxense.com/cx.js:6:2248
+get@https://cdn.cxense.com/cx.js:6:2602
+ei@https://cdn.cxense.com/cx.js:6:46019
+Wo@https://cdn.cxense.com/cx.js:6:69077
+qo/<@https://cdn.cxense.com/cx.js:6:69448
+nrWrapper@https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js line 2 > eval:2:19266
+
+JavaScript warning: https://gum.criteo.com/syncframe?origin=publishertag&topUrl=www.cnbc.com&us_privacy=1---#{%22uid%22:{%22origin%22:0},%22lwid%22:{%22origin%22:0},%22bundle%22:{%22origin%22:0},%22optout%22:{%22value%22:false,%22origin%22:0},%22sid%22:{%22origin%22:0},%22tld%22:%22cnbc.com%22,%22topUrl%22:%22www.cnbc.com%22,%22version%22:139,%22cw%22:true,%22lsw%22:true,%22origin%22:%22publishertag%22,%22requestId%22:%220.492985037209027%22}, line 14: Script terminated by timeout at:
+r.prototype.flushEventQueue@https://gum.criteo.com/syncframe?origin=publishertag&topUrl=www.cnbc.com&us_privacy=1---#{%22uid%22:{%22origin%22:0},%22lwid%22:{%22origin%22:0},%22bundle%22:{%22origin%22:0},%22optout%22:{%22value%22:false,%22origin%22:0},%22sid%22:{%22origin%22:0},%22tld%22:%22cnbc.com%22,%22topUrl%22:%22www.cnbc.com%22,%22version%22:139,%22cw%22:true,%22lsw%22:true,%22origin%22:%22publishertag%22,%22requestId%22:%220.492985037209027%22}:14:3137
+r/<@https://gum.criteo.com/syncframe?origin=publishertag&topUrl=www.cnbc.com&us_privacy=1---#{%22uid%22:{%22origin%22:0},%22lwid%22:{%22origin%22:0},%22bundle%22:{%22origin%22:0},%22optout%22:{%22value%22:false,%22origin%22:0},%22sid%22:{%22origin%22:0},%22tld%22:%22cnbc.com%22,%22topUrl%22:%22www.cnbc.com%22,%22version%22:139,%22cw%22:true,%22lsw%22:true,%22origin%22:%22publishertag%22,%22requestId%22:%220.492985037209027%22}:14:3642
+
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+1702040391918	Marionette	INFO	Stopped listening on port 51786
+1702040426065	geckodriver	INFO	Listening on 127.0.0.1:52131
+1702040426583	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/App ... s" "localhost" "-foreground" "-no-remote" "-profile" "/var/folders/6f/vz93yj050m53kmt1536hr0lw0000gn/T/rust_mozprofileqUhRhh"
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1702040427302	Marionette	INFO	Marionette enabled
+console.error: "Warning: unrecognized command line flag" "-remote-allow-hosts"
+1702040427556	Marionette	INFO	Listening on port 52139
+Read port: 52139
+WebDriver BiDi listening on ws://127.0.0.1:52132
+1702040427852	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+DevTools listening on ws://127.0.0.1:52132/devtools/browser/685571c9-fa37-4a78-8e12-999c707091cc
+JavaScript warning: https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js, line 30: unreachable code after return statement
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+JavaScript warning: https://cdn.tinypass.com/api/tinypass.min.js, line 1: Script terminated by timeout at:
+Te@https://cdn.tinypass.com/api/tinypass.min.js:1:28893
+Ee@https://cdn.tinypass.com/api/tinypass.min.js:1:28797
+e@https://cdn.tinypass.com/api/tinypass.min.js:1:131418
+e/<@https://cdn.tinypass.com/api/tinypass.min.js:1:131508
+nrWrapper@https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js line 2 > eval:2:19266
+
+1702040454716	Marionette	INFO	Stopped listening on port 52139
+1702040470784	geckodriver	INFO	Listening on 127.0.0.1:52312
+1702040470793	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/App ... s" "localhost" "-foreground" "-no-remote" "-profile" "/var/folders/6f/vz93yj050m53kmt1536hr0lw0000gn/T/rust_mozprofileYeup7D"
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1702040471494	Marionette	INFO	Marionette enabled
+console.error: "Warning: unrecognized command line flag" "-remote-allow-hosts"
+1702040471739	Marionette	INFO	Listening on port 52318
+Read port: 52318
+WebDriver BiDi listening on ws://127.0.0.1:52313
+1702040472049	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+DevTools listening on ws://127.0.0.1:52313/devtools/browser/62b4c5b7-1f14-4dda-b9c5-24837f62fd33
+Marionette threw an error: TypeError: this.curBrowser.contentBrowser is null
+GeckoDriver.prototype.navigateTo@chrome://remote/content/marionette/driver.sys.mjs:872:3
+
+console.error: "Marionette threw an error: TypeError: this.curBrowser.contentBrowser is null\nGeckoDriver.prototype.navigateTo@chrome://remote/content/marionette/driver.sys.mjs:872:3\n"
+1702040501617	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
+1702040763103	geckodriver	INFO	Listening on 127.0.0.1:52861
+1702040763620	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/App ... s" "localhost" "-foreground" "-no-remote" "-profile" "/var/folders/6f/vz93yj050m53kmt1536hr0lw0000gn/T/rust_mozprofileyrjcqZ"
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1702040764369	Marionette	INFO	Marionette enabled
+console.error: "Warning: unrecognized command line flag" "-remote-allow-hosts"
+1702040764621	Marionette	INFO	Listening on port 52869
+Read port: 52869
+WebDriver BiDi listening on ws://127.0.0.1:52862
+1702040764802	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+DevTools listening on ws://127.0.0.1:52862/devtools/browser/862d38c2-4c1b-45ab-bc3c-f92f19e9c347
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+JavaScript error: https://mps.cnbc.com/fetch/ext/load-cnbc-web.js?nowrite=2, line 1030: TypeError: mps.pagevars is undefined
+JavaScript error: https://www.cnbc.com/quotes/AAPL, line 61: TypeError: mps.geo.data is undefined
+JavaScript warning: https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js, line 30: unreachable code after return statement
+JavaScript error: https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js line 2 > eval, line 1379: TypeError: window.__EventBus__ is undefined
+JavaScript warning: https://z.moatads.com/nbcuyieldheader7581548001/moatheader.js, line 312: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+JavaScript error: https://www.cnbc.com/quotes/BABA line 2 > injectedScript, line 220: TypeError: mParticle.Identity.getCurrentUser is not a function
+JavaScript error: https://www.cnbc.com/quotes/LI, line 59: ReferenceError: mps is not defined
+Marionette threw an error: TypeError: this.curBrowser.contentBrowser is null
+GeckoDriver.prototype.navigateTo@chrome://remote/content/marionette/driver.sys.mjs:872:3
+
+console.error: "Marionette threw an error: TypeError: this.curBrowser.contentBrowser is null\nGeckoDriver.prototype.navigateTo@chrome://remote/content/marionette/driver.sys.mjs:872:3\n"
+1702040794382	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
+1702040795756	Marionette	INFO	Stopped listening on port 52869
+console.warn: services.settings: main/addons-manager-settings sync interrupted by shutdown
+console.warn: services.settings: main/partitioning-exempt-urls sync interrupted by shutdown
+console.warn: services.settings: main/search-telemetry-v2 sync interrupted by shutdown
+console.warn: services.settings: main/translations-wasm sync interrupted by shutdown
+console.warn: services.settings: main/normandy-recipes-capabilities sync interrupted by shutdown
+console.warn: services.settings: main/translations-models sync interrupted by shutdown
+console.warn: services.settings: main/search-config sync interrupted by shutdown
+console.warn: services.settings: main/devtools-compatibility-browsers sync interrupted by shutdown
+console.warn: services.settings: main/url-classifier-skip-urls sync interrupted by shutdown
+console.error: (new Error("IndexedDB: main/language-dictionaries getLastModified() IndexedDB:  execute() The application is shutting down", "resource://services-settings/IDBHelpers.sys.mjs", 16))
+1702040803492	geckodriver	INFO	Listening on 127.0.0.1:52994
+1702040803503	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/App ... s" "localhost" "-foreground" "-no-remote" "-profile" "/var/folders/6f/vz93yj050m53kmt1536hr0lw0000gn/T/rust_mozprofilecW9Bgn"
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1702040804218	Marionette	INFO	Marionette enabled
+console.error: "Warning: unrecognized command line flag" "-remote-allow-hosts"
+1702040804480	Marionette	INFO	Listening on port 53000
+Read port: 53000
+WebDriver BiDi listening on ws://127.0.0.1:52995
+1702040804775	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+DevTools listening on ws://127.0.0.1:52995/devtools/browser/688c7e44-0511-4b4b-944b-9c2f2549fcc3
+JavaScript warning: https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js, line 30: unreachable code after return statement
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+JavaScript error: https://www.cnbc.com/quotes/BABA, line 62: ReferenceError: mps is not defined
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+1702040847844	geckodriver	INFO	Listening on 127.0.0.1:53125
+1702040847854	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/App ... s" "localhost" "-foreground" "-no-remote" "-profile" "/var/folders/6f/vz93yj050m53kmt1536hr0lw0000gn/T/rust_mozprofile1kQKHC"
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1702040848574	Marionette	INFO	Marionette enabled
+console.error: "Warning: unrecognized command line flag" "-remote-allow-hosts"
+1702040848831	Marionette	INFO	Listening on port 53131
+Read port: 53131
+WebDriver BiDi listening on ws://127.0.0.1:53126
+1702040849133	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+DevTools listening on ws://127.0.0.1:53126/devtools/browser/a29e9755-7e59-4682-b5f7-500498cd4139
+JavaScript error: https://mps.cnbc.com/fetch/ext/load-cnbc-web.js?nowrite=2, line 1030: TypeError: mps.pagevars is undefined
+JavaScript error: https://www.cnbc.com/quotes/AAPL, line 61: TypeError: mps.geo.data is undefined
+JavaScript error: https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js line 2 > eval, line 1379: TypeError: window.__EventBus__ is undefined
+JavaScript warning: https://z.moatads.com/nbcuyieldheader7581548001/moatheader.js, line 312: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+JavaScript error: , line 0: AbortError: The operation was aborted. 
+JavaScript error: , line 0: AbortError: The operation was aborted. 
+JavaScript error: https://www.cnbc.com/quotes/BABA, line 62: ReferenceError: mps is not defined
+1702040879342	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
+1702040898084	Marionette	INFO	Stopped listening on port 53131
+1702040899144	geckodriver::marionette	ERROR	Failed to close browser connection: Socket is not connected (os error 57)
+1702040927742	geckodriver	INFO	Listening on 127.0.0.1:53257
+1702040927753	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/App ... s" "localhost" "-foreground" "-no-remote" "-profile" "/var/folders/6f/vz93yj050m53kmt1536hr0lw0000gn/T/rust_mozprofilehQXgSh"
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1702040928459	Marionette	INFO	Marionette enabled
+console.error: "Warning: unrecognized command line flag" "-remote-allow-hosts"
+1702040928744	Marionette	INFO	Listening on port 53263
+Read port: 53263
+WebDriver BiDi listening on ws://127.0.0.1:53258
+1702040929051	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+DevTools listening on ws://127.0.0.1:53258/devtools/browser/7f5cf891-f03b-45c2-92e6-6e1789fc47d9
+JavaScript warning: https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js, line 30: unreachable code after return statement
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+JavaScript warning: https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js, line 30: unreachable code after return statement
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+JavaScript warning: https://z.moatads.com/nbcuyieldheader7581548001/moatheader.js, line 312: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+JavaScript error: https://www.cnbc.com/quotes/LI, line 59: ReferenceError: mps is not defined
+1702040958917	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
+Marionette threw an error: TypeError: this.curBrowser.contentBrowser is null
+GeckoDriver.prototype.navigateTo@chrome://remote/content/marionette/driver.sys.mjs:872:3
+
+console.error: "Marionette threw an error: TypeError: this.curBrowser.contentBrowser is null\nGeckoDriver.prototype.navigateTo@chrome://remote/content/marionette/driver.sys.mjs:872:3\n"
+1702040996158	Marionette	INFO	Stopped listening on port 53263
+1702041022491	geckodriver	INFO	Listening on 127.0.0.1:53395
+1702041022502	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/App ... s" "localhost" "-foreground" "-no-remote" "-profile" "/var/folders/6f/vz93yj050m53kmt1536hr0lw0000gn/T/rust_mozprofilesH8x5G"
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1702041023234	Marionette	INFO	Marionette enabled
+console.error: "Warning: unrecognized command line flag" "-remote-allow-hosts"
+1702041023526	Marionette	INFO	Listening on port 53401
+Read port: 53401
+WebDriver BiDi listening on ws://127.0.0.1:53396
+1702041023859	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+DevTools listening on ws://127.0.0.1:53396/devtools/browser/3719eea0-d1b5-49e4-be8a-53e806200bc9
+JavaScript error: https://www.cnbc.com/quotes/AAPL, line 61: TypeError: mps.geo.data is undefined
+JavaScript warning: https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js, line 30: unreachable code after return statement
+JavaScript error: https://www.cnbc.com/quotes/BABA, line 62: ReferenceError: mps is not defined
+1702041053318	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
+JavaScript warning: https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js, line 30: unreachable code after return statement
+JavaScript warning: https://z.moatads.com/nbcuyieldheader7581548001/moatheader.js, line 312: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+JavaScript warning: https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js line 2 > eval, line 30: unreachable code after return statement
+JavaScript error: https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js line 2 > eval, line 1379: TypeError: window.__EventBus__ is undefined
+JavaScript warning: https://z.moatads.com/nbcuyieldheader7581548001/moatheader.js, line 312: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+JavaScript warning: https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js, line 30: unreachable code after return statement
+JavaScript warning: https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js, line 30: unreachable code after return statement
+JavaScript warning: https://z.moatads.com/nbcuyieldheader7581548001/moatheader.js, line 312: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+JavaScript warning: https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js, line 30: unreachable code after return statement
+JavaScript warning: https://z.moatads.com/nbcuyieldheader7581548001/moatheader.js, line 312: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+JavaScript warning: https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js line 2 > eval, line 30: unreachable code after return statement
+JavaScript warning: https://pagead2.googlesyndication.com/bg/Dtt_-LR3WxpzwV0Gscftq1A_D1owstvxoTnWWhwY4Ow.js line 2 > eval line 7073 > eval line 1 > eval line 1 > eval, line 1: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+JavaScript warning: https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js, line 30: unreachable code after return statement
+JavaScript warning: https://z.moatads.com/nbcuyieldheader7581548001/moatheader.js, line 312: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+JavaScript warning: https://pagead2.googlesyndication.com/bg/Dtt_-LR3WxpzwV0Gscftq1A_D1owstvxoTnWWhwY4Ow.js line 2 > eval line 1744 > eval line 1 > eval line 1 > eval, line 1: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+JavaScript warning: https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js, line 30: unreachable code after return statement
+JavaScript warning: https://z.moatads.com/nbcuyieldheader7581548001/moatheader.js, line 312: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+JavaScript warning: https://pagead2.googlesyndication.com/bg/Dtt_-LR3WxpzwV0Gscftq1A_D1owstvxoTnWWhwY4Ow.js line 2 > eval line 7221 > eval line 1 > eval line 1 > eval, line 1: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+JavaScript warning: https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js, line 30: unreachable code after return statement
+JavaScript warning: https://z.moatads.com/nbcuyieldheader7581548001/moatheader.js, line 312: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+JavaScript warning: https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js line 2 > eval, line 30: unreachable code after return statement
+JavaScript warning: https://pagead2.googlesyndication.com/bg/Dtt_-LR3WxpzwV0Gscftq1A_D1owstvxoTnWWhwY4Ow.js line 2 > eval line 6376 > eval line 1 > eval line 1 > eval, line 1: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
