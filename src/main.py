@@ -5,11 +5,12 @@ from excel_parser.excel_parser import *
 import os
 import sys
 import pandas as pd
+from datetime import datetime
 
 
 def main():
-    #print(project_root)
-   # print(data_input_directory)
+    # print(project_root)
+    # print(data_input_directory)
     df = format_data(column_headers)
     save_data(df, data_output_directory)
 
@@ -42,7 +43,9 @@ def save_data(data_frame, saving_directory):
 
 
 # --- lists and other data --- #
-data_output_directory = os.path.join(project_root, "data", "output", "output.xlsx")
+timestamp = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
+excel_filename = f'TDA_CNBC_DATA_{timestamp}.xlsx'
+data_output_directory = os.path.join(project_root, "data", "output", excel_filename)
 
 column_headers = [
     'check date >>', '01/09/23', 'trade date-entered?', 'option Expiration date', 'days till exp (trade date)',
@@ -69,4 +72,8 @@ def loading_bar(generator):
     print("\nLoading complete!")
 
 
-main()
+try:
+    main()
+
+except:
+    print('Error loading the program. Please try again.')

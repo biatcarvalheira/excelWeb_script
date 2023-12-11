@@ -28,7 +28,6 @@ def make_request_firefox(url):
 
 
 def make_request_headless(url):
-    print('and Extracting data from website...')
     options = webdriver.ChromeOptions()
     options.add_argument('--headless')  # Run Chrome in headless mode
     options.add_argument('--disable-gpu')  # Disable GPU usage (may prevent some issues)
@@ -51,7 +50,7 @@ def loading_bar(progress, total_symbols):
 
 def load_and_click(driver, xpath):
     try:
-        wait = WebDriverWait(driver, 30)
+        wait = WebDriverWait(driver, 10                                 )
         element = wait.until(EC.presence_of_element_located((By.XPATH, xpath)))
         label_content = element.text
         time.sleep(2)
@@ -80,6 +79,12 @@ def scrape_for_data():
     driver, success = make_request_headless('https://www.cnbc.com/quotes/AAPL')
     if success:
         total_symbols = len(underlying_symbol)
+        # if there's no xlsx file -- stop the program
+        if total_symbols == 0:
+            print('No .xlsx file was found')
+            sys.exit()
+        else:
+            print('Scraping website...')
 
         for index, u in enumerate(underlying_symbol, start=1):
             symbol_url = 'https://www.cnbc.com/quotes/' + u

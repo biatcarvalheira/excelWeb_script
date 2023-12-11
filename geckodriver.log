@@ -270,3 +270,56 @@ JavaScript warning: https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.m
 JavaScript warning: https://z.moatads.com/nbcuyieldheader7581548001/moatheader.js, line 312: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
 JavaScript warning: https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js line 2 > eval, line 30: unreachable code after return statement
 JavaScript warning: https://pagead2.googlesyndication.com/bg/Dtt_-LR3WxpzwV0Gscftq1A_D1owstvxoTnWWhwY4Ow.js line 2 > eval line 6376 > eval line 1 > eval line 1 > eval, line 1: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+JavaScript warning: https://static-redesign.cnbcfm.com/dist/chartiq-lib-90b42b5ce45a05e2797a.js, line 2: Script terminated by timeout at:
+keyStroke@https://static-redesign.cnbcfm.com/dist/chartiq-lib-90b42b5ce45a05e2797a.js:2:808940
+18808/a.Pz.UI.KeystrokeHub.prototype.processKeyStrokeClaims@https://static-redesign.cnbcfm.com/dist/chartiq-lib-90b42b5ce45a05e2797a.js:2:716277
+18808/a.Pz.UI.KeystrokeHub.prototype.handler@https://static-redesign.cnbcfm.com/dist/chartiq-lib-90b42b5ce45a05e2797a.js:2:716983
+18808/a.Pz.UI.KeystrokeHub/this.keystroke<@https://static-redesign.cnbcfm.com/dist/chartiq-lib-90b42b5ce45a05e2797a.js:2:707505
+18808/a.Pz.UI.Keystroke.prototype.keyup@https://static-redesign.cnbcfm.com/dist/chartiq-lib-90b42b5ce45a05e2797a.js:2:705667
+18808/a.Pz.UI.Keystroke.prototype.initialize/</<@https://static-redesign.cnbcfm.com/dist/chartiq-lib-90b42b5ce45a05e2797a.js:2:706917
+
+1702044708519	Marionette	INFO	Stopped listening on port 53401
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+[GFX1-]: CompositorBridgeChild receives IPC close with reason=AbnormalShutdown
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.

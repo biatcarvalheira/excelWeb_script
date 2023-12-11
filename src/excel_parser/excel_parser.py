@@ -15,10 +15,8 @@ script_directory = os.path.dirname(script_path)
 # ---- to use when exporting as an executable --- #
 project_root = os.path.abspath(os.path.join(script_directory))
 
-
 # Specify the relative path to the data/input directory
 data_input_directory = os.path.join(project_root, "data", "input")
-
 
 
 def get_xlsx(directory_path):
@@ -51,6 +49,7 @@ def get_xlsx(directory_path):
     except Exception as e:
         print(f"Error while listing directory '{directory_path}': {e}")
 
+
 def get_data_from_range(file_path, sheet_name, column_letters, start_row, end_row):
     try:
         # Load the Excel workbook
@@ -81,14 +80,17 @@ def get_data_from_range(file_path, sheet_name, column_letters, start_row, end_ro
         print(f"Error while processing the file '{file_path}': {e}")
         return None, None
 
+
 def removeNone_listOfLists(listName):
     for i, sublist in enumerate(listName):
         listName[i] = [value for value in sublist if value is not None]
     return listName
 
+
 def removeEmptyList(listName):
     cleaned_list = [sublist for sublist in listName if sublist]
     return cleaned_list
+
 
 def remove_stock_symbol(text):
     # Define a regular expression pattern to match stock symbols
@@ -101,6 +103,7 @@ def remove_stock_symbol(text):
     # return stock value
     return stock_symbols
 
+
 def remove_and_extract_date(text):
     date_pattern = re.compile(r'(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) \d{1,2} \d{4}')
     match = date_pattern.search(text)
@@ -109,6 +112,7 @@ def remove_and_extract_date(text):
         return extracted_date
     else:
         return 'not found'
+
 
 def extract_strike_value(text):
     strike_pattern = re.compile(r'\b\d+\.\d+\b')
@@ -119,6 +123,7 @@ def extract_strike_value(text):
     else:
         return 'not found'
 
+
 def extract_stock_type(text):
     stock_type_pattern = re.compile(r'\b(Call|Put)\b', re.IGNORECASE)
     match = stock_type_pattern.search(text)
@@ -128,7 +133,19 @@ def extract_stock_type(text):
     else:
         return 'not found'
 
+def has_sequence_case_insensitive(my_list, sequence):
+    # Convert both the list and the sequence to lowercase
+    my_list_lower = [str(item).lower() for item in my_list]
+    sequence_lower = [str(item).lower() for item in sequence]
+
+    # Iterate through the modified list and check for the modified sequence
+    for i in range(len(my_list_lower) - len(sequence_lower) + 1):
+        if my_list_lower[i:i+len(sequence_lower)] == sequence_lower:
+            return True
+    return False
+
 # - - - Lists to be used - - - - #
+header_list_check = ['Date', 'Description', 'Quantity', 'Symbol', 'Premium', 'Amount']
 result_lists = []
 underlying_symbol = []
 option_expiration_date = []
@@ -139,54 +156,47 @@ premium = []
 
 xlsx_file = get_xlsx(data_input_directory)
 if xlsx_file is not None:
-    print('Reading Input file ')
     first_sheet_name, file_path, columns, last_row = xlsx_file
     result_lists, headers = get_data_from_range(file_path, first_sheet_name, columns, 2, last_row)
 
+    if has_sequence_case_insensitive(headers, header_list_check):
+        print('File validation ✓')
+        print('Reading XLSX file...')
+        # cleaning result list
+        new_resultList = removeNone_listOfLists(result_lists)
+        final_resultList = removeEmptyList(new_resultList)
 
-# cleaning result list
-new_resultList = removeNone_listOfLists(result_lists)
-final_resultList = removeEmptyList(new_resultList)
+        ### - - - - - separating the content of the first list => result: 4 lists - - - - - #
 
-### - - - - - separating the content of the first list => result: 4 lists - - - - - #
+        # New Lists: option_expiration_date, strike, underlying_symbol, stock_type
+        for n in final_resultList[1]:
+            # --- underlying_symbol -- #
+            remove_value = remove_stock_symbol(n)
+            stock_symbol = ', '.join(remove_value)
+            underlying_symbol.append(stock_symbol)
 
-# New Lists: option_expiration_date, strike, underlying_symbol, stock_type
-for n in final_resultList[1]:
-    # --- underlying_symbol -- #
-    remove_value = remove_stock_symbol(n)
-    stock_symbol = ', '.join(remove_value)
-    underlying_symbol.append(stock_symbol)
+            # --- option_expiration_date -- #
+            expiration_date = remove_and_extract_date(n)
+            option_expiration_date.append(expiration_date)
 
-    # --- option_expiration_date -- #
-    expiration_date = remove_and_extract_date(n)
-    option_expiration_date.append(expiration_date)
+            # --- strike -- #
+            strike_value = extract_strike_value(n)
+            strike.append(strike_value)
 
-    # --- strike -- #
-    strike_value = extract_strike_value(n)
-    strike.append(strike_value)
+            # --- stock_type -- #
+            stock_type_v = extract_stock_type(n)
+            stock_type.append(stock_type_v)
 
-    # --- stock_type -- #
-    stock_type_v = extract_stock_type(n)
-    stock_type.append(stock_type_v)
+        # New List: quantity
+        for y in final_resultList[2]:
+            quantity.append(y)
 
-# New List: quantity
-for y in final_resultList[2]:
-    quantity.append(y)
-
-# New List: premium
-for y in final_resultList[4]:
-    premium.append(y)
-
-'''print(final_resultList)
-print(underlying_symbol)
-print(option_expiration_date)
-print(strike)
-print(stock_type)
-print(quantity)
-print(premium)'''
-
-
-
-
+        # New List: premium
+        for y in final_resultList[4]:
+            premium.append(y)
+    else:
+        print(f'INVALID INPUT FILE. The file should have headers with the following titles in this order:{header_list_check}')
+        print('Please start the program again!')
+        sys.exit()
 
 
