@@ -323,3 +323,102 @@ Exiting due to channel error.
 Exiting due to channel error.
 Exiting due to channel error.
 Exiting due to channel error.
+1702506161134	geckodriver	INFO	Listening on 127.0.0.1:55410
+1702506161605	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/App ... s" "localhost" "-foreground" "-no-remote" "-profile" "/var/folders/6f/vz93yj050m53kmt1536hr0lw0000gn/T/rust_mozprofiley3jVF2"
+*** You are running in headless mode.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1702506162206	Marionette	INFO	Marionette enabled
+console.error: "Warning: unrecognized command line flag" "-remote-allow-hosts"
+1702506162808	Marionette	INFO	Listening on port 55417
+WebDriver BiDi listening on ws://127.0.0.1:55411
+Read port: 55417
+1702506162965	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+DevTools listening on ws://127.0.0.1:55411/devtools/browser/2e4ff9d2-0367-4cd2-8d13-7ada647c24ab
+JavaScript warning: https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js, line 30: unreachable code after return statement
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+JavaScript error: https://www.cnbc.com/quotes/LI, line 59: ReferenceError: mps is not defined
+1702506192723	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
+JavaScript warning: https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js, line 30: unreachable code after return statement
+JavaScript warning: https://z.moatads.com/nbcuyieldheader7581548001/moatheader.js, line 312: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+JavaScript warning: https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js, line 30: unreachable code after return statement
+JavaScript warning: https://z.moatads.com/nbcuyieldheader7581548001/moatheader.js, line 312: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+JavaScript warning: https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js, line 30: unreachable code after return statement
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+JavaScript warning: https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js, line 30: unreachable code after return statement
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+JavaScript warning: https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js, line 30: unreachable code after return statement
+JavaScript warning: https://z.moatads.com/nbcuyieldheader7581548001/moatheader.js, line 312: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+JavaScript warning: https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js, line 30: unreachable code after return statement
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+JavaScript warning: https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js, line 30: unreachable code after return statement
+JavaScript warning: https://z.moatads.com/nbcuyieldheader7581548001/moatheader.js, line 312: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+JavaScript warning: https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js, line 30: unreachable code after return statement
+JavaScript warning: https://z.moatads.com/nbcuyieldheader7581548001/moatheader.js, line 312: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+JavaScript warning: https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js line 2 > eval, line 30: unreachable code after return statement
+JavaScript warning: https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js, line 30: unreachable code after return statement
+JavaScript warning: https://z.moatads.com/nbcuyieldheader7581548001/moatheader.js, line 312: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+JavaScript warning: https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js, line 30: unreachable code after return statement
+JavaScript warning: https://z.moatads.com/nbcuyieldheader7581548001/moatheader.js, line 312: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+JavaScript warning: https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js, line 30: unreachable code after return statement
+JavaScript warning: https://z.moatads.com/nbcuyieldheader7581548001/moatheader.js, line 312: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+JavaScript warning: https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js line 2 > eval, line 30: unreachable code after return statement
+JavaScript warning: https://pagead2.googlesyndication.com/bg/Dtt_-LR3WxpzwV0Gscftq1A_D1owstvxoTnWWhwY4Ow.js line 2 > eval line 3411 > eval line 1 > eval line 1 > eval, line 1: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+JavaScript warning: https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js, line 30: unreachable code after return statement
+JavaScript warning: https://z.moatads.com/nbcuyieldheader7581548001/moatheader.js, line 312: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+JavaScript error: https://www.cnbc.com/quotes/ARKK, line 62: ReferenceError: mps is not defined
+JavaScript warning: https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js, line 30: unreachable code after return statement
+1702506317547	Marionette	WARN	Ignoring event 'DOMContentLoaded' because document has an invalid readyState of 'complete'.
+1702506317548	Marionette	WARN	Ignoring event 'DOMContentLoaded' because document has an invalid readyState of 'complete'.
+JavaScript warning: https://z.moatads.com/nbcuyieldheader7581548001/moatheader.js, line 312: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+JavaScript warning: https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js, line 30: unreachable code after return statement
+JavaScript warning: https://z.moatads.com/nbcuyieldheader7581548001/moatheader.js, line 312: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+JavaScript warning: https://pagead2.googlesyndication.com/bg/Dtt_-LR3WxpzwV0Gscftq1A_D1owstvxoTnWWhwY4Ow.js line 2 > eval line 6855 > eval line 1 > eval line 1 > eval, line 1: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+JavaScript warning: https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js line 2 > eval, line 30: unreachable code after return statement
+JavaScript warning: https://gum.criteo.com/syncframe?origin=publishertag&topUrl=www.cnbc.com&us_privacy=1---#{%22uid%22:{%22origin%22:0},%22lwid%22:{%22origin%22:0},%22bundle%22:{%22origin%22:0},%22optout%22:{%22value%22:false,%22origin%22:0},%22sid%22:{%22origin%22:0},%22tld%22:%22cnbc.com%22,%22topUrl%22:%22www.cnbc.com%22,%22version%22:139,%22cw%22:true,%22lsw%22:true,%22origin%22:%22publishertag%22,%22requestId%22:%220.7291237103196737%22}, line 13: Script terminated by timeout at:
+r.prototype.logPixel@https://gum.criteo.com/syncframe?origin=publishertag&topUrl=www.cnbc.com&us_privacy=1---#{%22uid%22:{%22origin%22:0},%22lwid%22:{%22origin%22:0},%22bundle%22:{%22origin%22:0},%22optout%22:{%22value%22:false,%22origin%22:0},%22sid%22:{%22origin%22:0},%22tld%22:%22cnbc.com%22,%22topUrl%22:%22www.cnbc.com%22,%22version%22:139,%22cw%22:true,%22lsw%22:true,%22origin%22:%22publishertag%22,%22requestId%22:%220.7291237103196737%22}:13:3418
+r.prototype.flushEventQueue@https://gum.criteo.com/syncframe?origin=publishertag&topUrl=www.cnbc.com&us_privacy=1---#{%22uid%22:{%22origin%22:0},%22lwid%22:{%22origin%22:0},%22bundle%22:{%22origin%22:0},%22optout%22:{%22value%22:false,%22origin%22:0},%22sid%22:{%22origin%22:0},%22tld%22:%22cnbc.com%22,%22topUrl%22:%22www.cnbc.com%22,%22version%22:139,%22cw%22:true,%22lsw%22:true,%22origin%22:%22publishertag%22,%22requestId%22:%220.7291237103196737%22}:13:3152
+r/<@https://gum.criteo.com/syncframe?origin=publishertag&topUrl=www.cnbc.com&us_privacy=1---#{%22uid%22:{%22origin%22:0},%22lwid%22:{%22origin%22:0},%22bundle%22:{%22origin%22:0},%22optout%22:{%22value%22:false,%22origin%22:0},%22sid%22:{%22origin%22:0},%22tld%22:%22cnbc.com%22,%22topUrl%22:%22www.cnbc.com%22,%22version%22:139,%22cw%22:true,%22lsw%22:true,%22origin%22:%22publishertag%22,%22requestId%22:%220.7291237103196737%22}:13:3642
+
+JavaScript error: , line 0: TypeError: NetworkError when attempting to fetch resource.
+JavaScript warning: https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js, line 30: unreachable code after return statement
+JavaScript warning: https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js, line 30: unreachable code after return statement
+1702506346885	Marionette	INFO	Stopped listening on port 55417
+JavaScript warning: https://www.dianomi.com/js/contextfeed/contextfeed-frame.js, line 1: Script terminated by timeout at:
+N@https://www.dianomi.com/js/contextfeed/contextfeed-frame.js:1:13707
+_@https://www.dianomi.com/js/contextfeed/contextfeed-frame.js:1:82384
+bn/e/<@https://www.dianomi.com/js/contextfeed/contextfeed-frame.js:1:90357
+d@https://www.dianomi.com/js/contextfeed/contextfeed-frame.js:1:643
+306/x/t@https://www.dianomi.com/js/contextfeed/contextfeed-frame.js:1:1981
+306/S/</<@https://www.dianomi.com/js/contextfeed/contextfeed-frame.js:1:1072
+sn@https://www.dianomi.com/js/contextfeed/contextfeed-frame.js:1:76025
+o@https://www.dianomi.com/js/contextfeed/contextfeed-frame.js:1:76231
+on/</<@https://www.dianomi.com/js/contextfeed/contextfeed-frame.js:1:76291
+on/<@https://www.dianomi.com/js/contextfeed/contextfeed-frame.js:1:76169
+bn@https://www.dianomi.com/js/contextfeed/contextfeed-frame.js:1:94567
+yn@https://www.dianomi.com/js/contextfeed/contextfeed-frame.js:1:77519
+Xt/e/<@https://www.dianomi.com/js/contextfeed/contextfeed-frame.js:1:73919
+d@https://www.dianomi.com/js/contextfeed/contextfeed-frame.js:1:643
+306/x/t@https://www.dianomi.com/js/contextfeed/contextfeed-frame.js:1:1981
+306/S/</<@https://www.dianomi.com/js/contextfeed/contextfeed-frame.js:1:1072
+qt@https://www.dianomi.com/js/contextfeed/contextfeed-frame.js:1:72512
+o@https://www.dianomi.com/js/contextfeed/contextfeed-frame.js:1:74090
+Xt/Xt/<@https://www.dianomi.com/js/contextfeed/contextfeed-frame.js:1:74150
+Xt@https://www.dianomi.com/js/contextfeed/contextfeed-frame.js:1:74028
+Xt@https://www.dianomi.com/js/contextfeed/contextfeed-frame.js:1:74166
+Kt@https://www.dianomi.com/js/contextfeed/contextfeed-frame.js:1:72622
+Sn/e/<@https://www.dianomi.com/js/contextfeed/contextfeed-frame.js:1:96206
+d@https://www.dianomi.com/js/contextfeed/contextfeed-frame.js:1:643
+306/x/t@https://www.dianomi.com/js/contextfeed/contextfeed-frame.js:1:1981
+306/S/</<@https://www.dianomi.com/js/contextfeed/contextfeed-frame.js:1:1072
+sn@https://www.dianomi.com/js/contextfeed/contextfeed-frame.js:1:76025
+o@https://www.dianomi.com/js/contextfeed/contextfeed-frame.js:1:76231
+

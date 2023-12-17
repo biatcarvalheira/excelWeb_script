@@ -1,7 +1,10 @@
 import os
+
+import datetime as datetime
 import openpyxl
 import sys
 import re
+from datetime import datetime
 
 # Get the absolute path to the script
 script_path = os.path.abspath(sys.argv[0])
@@ -62,24 +65,25 @@ def get_data_from_range(file_path, sheet_name, column_letters, start_row, end_ro
         num_columns = len(column_letters)
         list_of_lists = [[] for _ in range(num_columns)]
 
-        # Get header values
+        # Get header values excluding 'none'
         header_row = worksheet[1]
-        header_values = [str(cell.value).lower().replace(' ', '_') for cell in header_row]
+        header_values = [str(cell.value).lower().replace(' ', '_') for cell in header_row if str(cell.value).lower() != 'none']
 
         # Iterate over the rows within the specified range
         for row_number in range(start_row, end_row + 1):
             for col_idx, column_letter in enumerate(column_letters):
                 cell_value = worksheet[column_letter + str(row_number)].value
-                list_of_lists[col_idx].append(cell_value)
+                if str(cell_value).lower() != 'none':
+                    list_of_lists[col_idx].append(cell_value)
 
         # Close the workbook
         workbook.close()
+
         return list_of_lists, header_values
 
     except Exception as e:
         print(f"Error while processing the file '{file_path}': {e}")
         return None, None
-
 
 def removeNone_listOfLists(listName):
     for i, sublist in enumerate(listName):
@@ -144,8 +148,20 @@ def has_sequence_case_insensitive(my_list, sequence):
             return True
     return False
 
+def convert_date_to_dd_mm_yyyy(input_format, output_format, date_item):
+    # Parse the date string into a datetime object
+    datetime_object = datetime.strptime(date_item, input_format)
+    date_formatted = datetime_object.strftime(output_format)
+    # Extract the date part and return it as datetime.date
+    return date_formatted
+
+def retrieve_numerical_value (input_text):
+    numeric_part = re.search(r'\d+', input_text).group()
+    numeric_value = int(numeric_part)
+    return numeric_value
+
 # - - - Lists to be used - - - - #
-header_list_check = ['Date', 'Description', 'Quantity', 'Symbol', 'Premium', 'Amount']
+header_list_check = ['Date', 'Description', 'Quantity', 'Symbol', 'Price', 'Amount']
 result_lists = []
 underlying_symbol = []
 option_expiration_date = []
@@ -153,12 +169,16 @@ strike = []
 stock_type = []
 quantity = []
 premium = []
+price = []
+date_of_extraction = []
+days_till_exp_date = []
+days_till_exp_date_current = []
 
 xlsx_file = get_xlsx(data_input_directory)
 if xlsx_file is not None:
     first_sheet_name, file_path, columns, last_row = xlsx_file
     result_lists, headers = get_data_from_range(file_path, first_sheet_name, columns, 2, last_row)
-
+    print(headers)
     if has_sequence_case_insensitive(headers, header_list_check):
         print('File validation ✓')
         print('Reading XLSX file...')
@@ -177,7 +197,8 @@ if xlsx_file is not None:
 
             # --- option_expiration_date -- #
             expiration_date = remove_and_extract_date(n)
-            option_expiration_date.append(expiration_date)
+            formatted_date = convert_date_to_dd_mm_yyyy("%b %d %Y", "%m/%d/%Y", expiration_date)
+            option_expiration_date.append(formatted_date)
 
             # --- strike -- #
             strike_value = extract_strike_value(n)
@@ -187,13 +208,56 @@ if xlsx_file is not None:
             stock_type_v = extract_stock_type(n)
             stock_type.append(stock_type_v)
 
+        # New list: price
+        for y in final_resultList[4]:
+            price.append(y)
+
         # New List: quantity
         for y in final_resultList[2]:
             quantity.append(y)
 
         # New List: premium
-        for y in final_resultList[4]:
+        for y in final_resultList[5]:
             premium.append(y)
+
+        # data calculation
+        length_of_data = len(final_resultList[1])
+        for index in range(length_of_data):
+            # get extraction date
+            today = str(datetime.today().date())
+            today_formatted = convert_date_to_dd_mm_yyyy("%Y-%m-%d", "%m/%d/%Y", today)
+            date_of_extraction.append(today_formatted)
+
+            # get days till exp
+            string_index = str(index+2)
+            formula_exp_date = '=C' + string_index + '-B'+ string_index
+            days_till_exp_date.append(formula_exp_date)
+
+            # get days till exp current
+            formula_exp_date_current = '=C' + string_index + '-TODAY()'
+            days_till_exp_date_current.append(formula_exp_date_current)
+
+
+
+
+
+
+
+
+
+
+
+
+
+            # days till expiration date current
+
+
+
+
+
+
+
+
     else:
         print(f'INVALID INPUT FILE. The file should have headers with the following titles in this order:{header_list_check}')
         print('Please start the program again!')

@@ -1,6 +1,4 @@
 import time
-from web_scraper.web_scraper import mkt_beta_list
-from web_scraper.web_scraper import underlying_price
 from excel_parser.excel_parser import *
 import os
 import sys
@@ -26,11 +24,13 @@ def format_data(column_headers):
     df['option Expiration date'] = option_expiration_date
     df['Strike'] = strike
     df['underlying symbol'] = underlying_symbol
-    df['underlying price at time of trade'] = underlying_price
     df['Type'] = stock_type
-    df['mkt beta'] = mkt_beta_list
     df['Qty'] = quantity
+    df['Trade Price/premium'] = price
     df['premium'] = premium
+    df['trade date-entered?'] = date_of_extraction
+    df['days till exp (trade date)'] = days_till_exp_date
+    df['days till exp (current)'] = days_till_exp_date_current
 
     return df
     # Specify the Excel file path
@@ -44,15 +44,18 @@ def save_data(data_frame, saving_directory):
 
 # --- lists and other data --- #
 timestamp = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
-excel_filename = f'TDA_CNBC_DATA_{timestamp}.xlsx'
+header_time_stamp = datetime.now().strftime('%m-%d-%Y')
+name_with_web_scraper = 'TDA_CNBC_DATA_'
+name_without_web_scraper = 'TDA_DATA_'
+excel_filename = f'{name_without_web_scraper}{timestamp}.xlsx'
 data_output_directory = os.path.join(project_root, "data", "output", excel_filename)
 
 column_headers = [
-    'check date >>', '01/09/23', 'trade date-entered?', 'option Expiration date', 'days till exp (trade date)',
+    'check date >>', header_time_stamp, 'trade date-entered?', 'option Expiration date', 'days till exp (trade date)',
     'days till exp (current)', 'order expiration date "time in force"', 'days till expiration (if an order)',
     'Strike', 'underlying symbol',
     'underlying price at time of trade', 'otm at time of trade', 'underlying price, current', 'otm, current.',
-    'weight', 'weighted otm', 'mkt beta', 'Type', 'mkt beta* mkt price*contracts', 'Qty',
+    '$ amount of stock itm can be called (-) or put (+)', 'weight', 'weighted otm', 'mkt beta', 'Type', 'mkt beta* mkt price*contracts', 'Qty',
     'mkt price *number of contracts', 'Trade Price/premium', 'trade price as percent of notional',
     'annual yield at strike at time of trade', 'yield on cost at time of trade', 'multiple on cost',
     'yield at current mkt price at time of trade', 'premium', 'contracted in august', 'contracted in september',

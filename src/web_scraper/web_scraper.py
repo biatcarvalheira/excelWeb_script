@@ -5,42 +5,64 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from excel_parser.excel_parser import *
 import sys
+import os
 import threading
+from selenium.common.exceptions import WebDriverException
 
+# Get the absolute path to the script
+script_path = os.path.abspath(sys.argv[0])
 
+# Get the directory where the script is located (folder containing scripts)
+script_directory = os.path.dirname(script_path)
+
+# IDE
+project_root = os.path.abspath(os.path.join(script_directory, ".."))
+
+#Executable
+#project_root = os.path.abspath(os.path.join(script_directory))
+driver_directory = os.path.join(project_root, "config", "chromedriver")
 def make_request_firefox(url):
     driver = webdriver.Firefox()
-
     # Open the specified URL
     driver.get(url)
-
     # Sleep for 1 second
     time.sleep(1)
-
     # Set the success flag to True
     success = True
-
     # Print a message
     print('Keep Chrome Window Open')
-
     # Return the driver object and the success flag
     return driver, success
 
 
-def make_request_headless(url):
+def make_request_headless_firefox(url):
+    options = webdriver.FirefoxOptions()
+    options.add_argument('--headless')  # Run Firefox in headless mode
+    try:
+        driver = webdriver.Firefox(options=options)
+        driver.get(url)
+        time.sleep(1)
+        success = True
+        return driver, success
+    except WebDriverException as e:
+        print(f"WebDriverException: {e}")
+        success = False
+        return None, success
+
+def make_request_headless(url, chromedriver_path):
     options = webdriver.ChromeOptions()
     options.add_argument('--headless')  # Run Chrome in headless mode
-    options.add_argument('--disable-gpu')  # Disable GPU usage (may prevent some issues)
-
-    # Specify the binary location if needed (e.g., for Chrome in a specific folder)
-    # options.binary_location = folder_path
-
-    driver = webdriver.Chrome(options=options)
-    driver.get(url)
-
-    time.sleep(1)
-    success = True
-    return driver, success
+    try:
+        # Specify the path to ChromeDriver executable
+        driver = webdriver.Chrome(executable_path=chromedriver_path, options=options)
+        driver.get(url)
+        time.sleep(1)
+        success = True
+        return driver, success
+    except WebDriverException as e:
+        print(f"WebDriverException: {e}")
+        success = False
+        return None, success
 
 def loading_bar(progress, total_symbols):
     percentage = int(progress / total_symbols * 100)
@@ -50,7 +72,7 @@ def loading_bar(progress, total_symbols):
 
 def load_and_click(driver, xpath):
     try:
-        wait = WebDriverWait(driver, 10                                 )
+        wait = WebDriverWait(driver, 10)
         element = wait.until(EC.presence_of_element_located((By.XPATH, xpath)))
         label_content = element.text
         time.sleep(2)
@@ -76,7 +98,7 @@ mkt_beta_list = []
 def scrape_for_data():
     global loading_thread, index
     error_list = []
-    driver, success = make_request_headless('https://www.cnbc.com/quotes/AAPL')
+    driver, success = make_request_headless(driver_directory,'https://www.cnbc.com/quotes/AAPL')
     if success:
         total_symbols = len(underlying_symbol)
         # if there's no xlsx file -- stop the program
