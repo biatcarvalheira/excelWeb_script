@@ -1,7 +1,7 @@
-import time
 from excel_parser.excel_parser import *
+from web_scraper.web_scraper import mkt_beta_list
+from web_scraper.web_scraper import underlying_price_at_time_of_trade
 import os
-import sys
 import pandas as pd
 from datetime import datetime
 
@@ -31,6 +31,8 @@ def format_data(column_headers):
     df['trade date-entered?'] = date_of_extraction
     df['days till exp (trade date)'] = days_till_exp_date
     df['days till exp (current)'] = days_till_exp_date_current
+    df['underlying price at time of trade'] = underlying_price_at_time_of_trade
+    df['mkt beta'] = mkt_beta_list
 
     return df
     # Specify the Excel file path
@@ -40,14 +42,15 @@ def save_data(data_frame, saving_directory):
     # Save the DataFrame to an Excel file
     data_frame.to_excel(saving_directory, index=False)
     print(f'Data saved to {saving_directory}')
+    print('************ Processes completed successfully! ************')
 
 
 # --- lists and other data --- #
 timestamp = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
 header_time_stamp = datetime.now().strftime('%m-%d-%Y')
-name_with_web_scraper = 'TDA_CNBC_DATA_'
+name_with_web_scraper = 'TDA_YAHOO_DATA_'
 name_without_web_scraper = 'TDA_DATA_'
-excel_filename = f'{name_without_web_scraper}{timestamp}.xlsx'
+excel_filename = f'{name_with_web_scraper}{timestamp}.xlsx'
 data_output_directory = os.path.join(project_root, "data", "output", excel_filename)
 
 column_headers = [
@@ -62,18 +65,6 @@ column_headers = [
     'contracted in october', 'contracted in november', 'contracted in december', 'cash if exercised', 'days >>',
     '10', '17', '24', '31', '38', '45', '50', '73', '101',
 ]
-
-
-def loading_bar(generator):
-    total_steps = 50
-    for progress in generator:
-        sys.stdout.write('\r')
-        sys.stdout.write(f"[{'=' * progress}{' ' * (total_steps - progress)}] {progress * 2}%")
-        sys.stdout.flush()
-        time.sleep(0.1)
-
-    print("\nLoading complete!")
-
 
 try:
     main()

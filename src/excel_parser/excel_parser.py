@@ -178,10 +178,10 @@ xlsx_file = get_xlsx(data_input_directory)
 if xlsx_file is not None:
     first_sheet_name, file_path, columns, last_row = xlsx_file
     result_lists, headers = get_data_from_range(file_path, first_sheet_name, columns, 2, last_row)
-    print(headers)
     if has_sequence_case_insensitive(headers, header_list_check):
         print('File validation ✓')
         print('Reading XLSX file...')
+        print('XLSX file processed ✓')
         # cleaning result list
         new_resultList = removeNone_listOfLists(result_lists)
         final_resultList = removeEmptyList(new_resultList)
@@ -236,27 +236,6 @@ if xlsx_file is not None:
             # get days till exp current
             formula_exp_date_current = '=C' + string_index + '-TODAY()'
             days_till_exp_date_current.append(formula_exp_date_current)
-
-
-
-
-
-
-
-
-
-
-
-
-
-            # days till expiration date current
-
-
-
-
-
-
-
 
     else:
         print(f'INVALID INPUT FILE. The file should have headers with the following titles in this order:{header_list_check}')
