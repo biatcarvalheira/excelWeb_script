@@ -13,10 +13,10 @@ script_path = os.path.abspath(sys.argv[0])
 script_directory = os.path.dirname(script_path)
 
 # ---- to use when working in IDE ---- #
-#project_root = os.path.abspath(os.path.join(script_directory, ".."))
+project_root = os.path.abspath(os.path.join(script_directory, ".."))
 
 # ---- to use when exporting as an executable --- #
-project_root = os.path.abspath(os.path.join(script_directory))
+#project_root = os.path.abspath(os.path.join(script_directory))
 
 # Specify the relative path to the data/input directory
 data_input_directory = os.path.join(project_root, "data", "input")
@@ -104,6 +104,7 @@ def remove_stock_symbol(text):
         stock_symbols = stock_pattern.findall(text)
     else:
         stock_symbols = 'not found'
+
     # return stock value
     return stock_symbols
 
@@ -134,6 +135,14 @@ def extract_stock_type(text):
 
     if match:
         return match.group().capitalize()
+    else:
+        return 'not found'
+
+def check_buying_situation(text):
+    buying_sit_pattern = re.compile(r'\b(Sold|Bought)\b', re.IGNORECASE)
+    match = buying_sit_pattern.search(text)
+    if match:
+        return match.group()
     else:
         return 'not found'
 
@@ -173,6 +182,7 @@ price = []
 date_of_extraction = []
 days_till_exp_date = []
 days_till_exp_date_current = []
+stock_buy_list = []
 
 xlsx_file = get_xlsx(data_input_directory)
 if xlsx_file is not None:
@@ -194,6 +204,8 @@ if xlsx_file is not None:
             remove_value = remove_stock_symbol(n)
             stock_symbol = ', '.join(remove_value)
             underlying_symbol.append(stock_symbol)
+            print(n)
+
 
             # --- option_expiration_date -- #
             expiration_date = remove_and_extract_date(n)
@@ -208,13 +220,23 @@ if xlsx_file is not None:
             stock_type_v = extract_stock_type(n)
             stock_type.append(stock_type_v)
 
+            # --- Stock buying situation -- #
+            stock_buy = check_buying_situation(n)
+            stock_buy_list.append(stock_buy)
+
+
+
         # New list: price
         for y in final_resultList[4]:
             price.append(y)
 
         # New List: quantity
-        for y in final_resultList[2]:
-            quantity.append(y)
+        for index, y in enumerate(final_resultList[2]):
+            if stock_buy_list[index].lower() == 'sold':
+                negative_y = y * -1
+                quantity.append(negative_y)
+            else:
+                quantity.append(y)
 
         # New List: premium
         for y in final_resultList[5]:
