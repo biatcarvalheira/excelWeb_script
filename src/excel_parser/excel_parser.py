@@ -204,7 +204,6 @@ if xlsx_file is not None:
             remove_value = remove_stock_symbol(n)
             stock_symbol = ', '.join(remove_value)
             underlying_symbol.append(stock_symbol)
-            print(n)
 
 
             # --- option_expiration_date -- #
