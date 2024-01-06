@@ -3,7 +3,7 @@ from web_scraper.web_scraper import mkt_beta_list
 from web_scraper.web_scraper import underlying_price_at_time_of_trade
 import os
 import pandas as pd
-from datetime import datetime
+from datetime import datetime, timedelta
 from openpyxl import load_workbook
 from pandas.tseries.offsets import BMonthBegin
 
@@ -38,8 +38,6 @@ def format_data(column_headers):
     df['mkt beta'] = mkt_beta_list
     df.insert(0, 'check date >>', '')  # or use an empty string: ''
 
-
-
     return df
     # Specify the Excel file path
 
@@ -49,6 +47,7 @@ def save_data(data_frame, saving_directory):
     data_frame.to_excel(saving_directory, index=False)
     print(f'Data saved to {saving_directory}')
     print('************ Processes completed successfully! ************')
+
 
 def insert_line_after(file_path, sheet_name, row_number, data):
     # Load the existing workbook
@@ -67,11 +66,33 @@ def insert_line_after(file_path, sheet_name, row_number, data):
     # Save the changes
     wb.save(file_path)
 
-# --- lists and other data --- #
+def find_next_9_fridays():
+    # Get today's date
+    today = datetime.now().date()
+
+    # Find the next Friday from today
+    days_until_next_friday = (4 - today.weekday() + 7) % 7
+    next_friday = today + timedelta(days=days_until_next_friday)
+
+    # Calculate the dates for the next 9 Fridays
+    next_fridays_primary_list = [next_friday + timedelta(weeks=i) for i in range(9)]
+    next_fridays = []
+    # Print the result in "mm/dd/yy" format
+    for date in next_fridays_primary_list:
+        formatted_date = date.strftime("%m/%d/%y")
+        next_fridays.append(formatted_date)
+
+    return next_fridays
+
+
+
+# --- LISTS AND OTHER DATA --- #
+
+# --- First Business Day (Cell2) --- #
 # Get the current date
 current_date = datetime.now()
 
-# Calculate the first business day of the current month and normalize to midnight
+# first business day
 first_business_day_current_month = pd.date_range(start=current_date, periods=1, freq=BMonthBegin()).normalize()[0]
 
 # Format the result to mm/dd/yy without the time
@@ -86,11 +107,15 @@ date_object = datetime.strptime(date_string, date_format)
 # Format date as a string
 formatted_date = date_object.strftime('%m/%d/%y')
 
-print(formatted_date)
-
-
+# --- Date of Extraction --- #
 timestamp = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
-header_time_stamp = datetime.now().strftime('%m/%d/%Y')
+header_time_stamp = datetime.now().strftime('%m/%d/%y')
+
+# --- Next 9 Fridays Dates --- #
+today = datetime.now().date()
+
+
+# ------------------#
 name_with_web_scraper = 'TDA_YAHOO_DATA_'
 name_without_web_scraper = 'TDA_DATA_'
 excel_filename = f'{name_with_web_scraper}{timestamp}.xlsx'
@@ -101,7 +126,8 @@ column_headers = [
     'days till exp (current)', 'order expiration date "time in force"', 'days till expiration (if an order)',
     'Strike', 'underlying symbol',
     'underlying price at time of trade', 'otm at time of trade', 'underlying price, current', 'otm, current.',
-    '$ amount of stock itm can be called (-) or put (+)', 'weight', 'weighted otm', 'mkt beta', 'Type', 'mkt beta* mkt price*contracts', 'Qty',
+    '$ amount of stock itm can be called (-) or put (+)', 'weight', 'weighted otm', 'mkt beta', 'Type',
+    'mkt beta* mkt price*contracts', 'Qty',
     'mkt price *number of contracts', 'Trade Price/premium', 'trade price as percent of notional',
     'annual yield at strike at time of trade', 'yield on cost at time of trade', 'multiple on cost',
     'yield at current mkt price at time of trade', 'premium', 'contracted in august', 'contracted in september',
@@ -109,11 +135,13 @@ column_headers = [
     '10', '17', '24', '31', '38', '45', '50', '73', '101',
 ]
 
-# add first line
+# first line content
 first_line_data = [header_time_stamp, formatted_date, 'Open Positions', "Total"] + [None] * (len(column_headers) - 3)
-
-
-
+fridays_list = find_next_9_fridays()
+start_position = 36
+for f in fridays_list:
+    first_line_data[start_position] = f
+    start_position += 1
 
 try:
     main()

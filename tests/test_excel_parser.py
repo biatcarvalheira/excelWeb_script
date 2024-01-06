@@ -1,24 +1,21 @@
-import pandas as pd
-from datetime import datetime
-from pandas.tseries.offsets import BMonthBegin
+from datetime import datetime, timedelta
 
-# Get the current date
-current_date = datetime.now()
 
-# Calculate the first business day of the current month and normalize to midnight
-first_business_day_current_month = pd.date_range(start=current_date, periods=1, freq=BMonthBegin()).normalize()[0]
 
-# Format the result to mm/dd/yy without the time
-formatted_result = first_business_day_current_month.strftime('%m/%d/%y')
+def find_next_9_fridays():
+    # Get today's date
+    today = datetime.now().date()
 
-print(f"The first business day of the current month is: {formatted_result}")
-date_string = '02/01/24'
-date_format = "%m/%d/%y"
+    # Find the next Friday from today
+    days_until_next_friday = (4 - today.weekday() + 7) % 7
+    next_friday = today + timedelta(days=days_until_next_friday)
 
-# Convert string to date
-date_object = datetime.strptime(date_string, date_format)
+    # Calculate the dates for the next 9 Fridays
+    next_fridays_primary_list = [next_friday + timedelta(weeks=i) for i in range(9)]
+    next_fridays = []
+    # Print the result in "mm/dd/yy" format
+    for date in next_fridays_primary_list:
+        formatted_date = date.strftime("%m/%d/%y")
+        next_fridays.append(formatted_date)
 
-# Format date as a string
-formatted_date = date_object.strftime('%m/%d/%y')
-
-print(formatted_date)
+    return next_fridays
