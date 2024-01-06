@@ -1,36 +1,24 @@
 import pandas as pd
-from src.excel_parser.excel_parser import *
-from src.web_scraper.web_scraper import *
-column_headers = [
-    'check date >>', '01/09/23', 'trade date-entered?', 'option Expiration date', 'days till exp (trade date)', 'days till exp (current)', 'order expiration date "time in force"', 'days till expiration (if an order)', 'Strike', 'underlying symbol',
-    'underlying price at time of trade', 'otm at time of trade', 'underlying price, current', 'otm, current.', 'weight', 'weighted otm', 'mkt beta', 'Type', 'mkt beta* mkt price*contracts', 'Qty',
-    'mkt price *number of contracts', 'Trade Price/premium', 'trade price as percent of notional', 'annual yield at strike at time of trade', 'yield on cost at time of trade', 'multiple on cost', 'yield at current mkt price at time of trade', 'premium', 'contracted in august', 'contracted in september',
-    'contracted in october', 'contracted in november', 'contracted in december', 'cash if exercised', 'days >>', '10', '17', '24', '31', '38', '45', '50', '73', '101',
-]
+from datetime import datetime
+from pandas.tseries.offsets import BMonthBegin
 
-number_of_headers = len(column_headers)
+# Get the current date
+current_date = datetime.now()
 
-# Create an empty DataFrame with 40 columns
-columns = [column_headers[i] for i in range(1, number_of_headers)]
-df = pd.DataFrame(columns=columns)
+# Calculate the first business day of the current month and normalize to midnight
+first_business_day_current_month = pd.date_range(start=current_date, periods=1, freq=BMonthBegin()).normalize()[0]
 
-# Fill specific columns with initial values
-df['option Expiration date'] = option_expiration_date
-df['Strike'] = strike
-df['underlying symbol'] = underlying_symbol
-df['underlying price at time of trade'] = underlying_price
-df['Type'] = stock_type
-df['mkt beta'] = mkt_beta_list
-df['Qty'] = quantity
-df['premium'] = premium
+# Format the result to mm/dd/yy without the time
+formatted_result = first_business_day_current_month.strftime('%m/%d/%y')
 
+print(f"The first business day of the current month is: {formatted_result}")
+date_string = '02/01/24'
+date_format = "%m/%d/%y"
 
-# Specify the Excel file path
-data_output_directory = os.path.join(project_root, "data", "output", "output.xlsx")
+# Convert string to date
+date_object = datetime.strptime(date_string, date_format)
 
+# Format date as a string
+formatted_date = date_object.strftime('%m/%d/%y')
 
-
-# Save the DataFrame to an Excel file
-df.to_excel(data_output_directory, index=False)
-
-print(f'Data saved to {data_output_directory}')
+print(formatted_date)
