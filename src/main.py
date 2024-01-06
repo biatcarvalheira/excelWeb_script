@@ -69,5 +69,5 @@ column_headers = [
 try:
     main()
 
-except:
-    print('Error loading the program. Please try again.')
+except Exception as e:
+    print(f'Error loading the program. {e}\nPlease try again.')
