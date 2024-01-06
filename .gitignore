@@ -1,0 +1,6 @@
+# Ignore the entire "logs" folder
+docs/
+
+# Ignore all folders named "temp"
+data/output
+
