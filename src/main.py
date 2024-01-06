@@ -114,6 +114,18 @@ header_time_stamp = datetime.now().strftime('%m/%d/%y')
 # --- Next 9 Fridays Dates --- #
 today = datetime.now().date()
 
+# --- Previous Months --- #
+def last_five_months():
+    today = datetime.now()
+    last_five_months_dates = [today - timedelta(days=30*i) for i in range(5)]
+
+    # Formatting the month names and printing in reverse order
+    formatted_months = [date.strftime('%B') for date in last_five_months_dates][::-1]
+
+    return formatted_months
+
+# Example usage
+previous_5_months = last_five_months()
 
 # ------------------#
 name_with_web_scraper = 'TDA_YAHOO_DATA_'
@@ -130,9 +142,9 @@ column_headers = [
     'mkt beta* mkt price*contracts', 'Qty',
     'mkt price *number of contracts', 'Trade Price/premium', 'trade price as percent of notional',
     'annual yield at strike at time of trade', 'yield on cost at time of trade', 'multiple on cost',
-    'yield at current mkt price at time of trade', 'premium', 'contracted in august', 'contracted in september',
-    'contracted in october', 'contracted in november', 'contracted in december', 'cash if exercised', 'days >>',
-    '10', '17', '24', '31', '38', '45', '50', '73', '101',
+    'yield at current mkt price at time of trade', 'premium', f'contracted in {previous_5_months[0]}', f'contracted in {previous_5_months[1]}',
+    f'contracted in {previous_5_months[2]}', f'contracted in {previous_5_months[3]}', f'contracted in {previous_5_months[4]}', 'cash if exercised', 'days >>',
+    '=AK1-A1', '=AL1-A1', '=AM1-A1', '=AN1-A1', '=AO1-A1', '=AP1-A1', '=AQ1-A1', '=AR1-A1', '=AS1-A1',
 ]
 
 # first line content
