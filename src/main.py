@@ -16,7 +16,10 @@ def main():
     df = format_data(column_headers)
     save_data(df, data_output_directory)
     insert_line_after(data_output_directory, 'Sheet1', 1, first_line_data)
-    format_line(data_output_directory, 'Sheet1', 'L', 'percentage', '0.00%')
+    format_columns(data_output_directory, 'Sheet1', ['L', 'N'], 'percentage', '0.00%')
+
+
+
 
 
 
@@ -42,7 +45,8 @@ def format_data(column_headers):
     df['days till exp (current)'] = days_till_exp_date_current
     df['underlying price at time of trade'] = underlying_price_at_time_of_trade
     df['otm at time of trade'] = otm_at_time_of_trade
-    df ['underlying price, current'] = underlying_price_current
+    df['underlying price, current'] = underlying_price_current
+    df['otm, current'] = otm_current
     df['mkt beta'] = mkt_beta_list
     df.insert(0, 'check date >>', '')  # or use an empty string: ''
 
@@ -75,26 +79,27 @@ def insert_line_after(file_path, sheet_name, row_number, data):
     # Save the changes
     wb.save(file_path)
 
-def format_line (file_path, sheet_name, column_letter, formatting_name, formatting_number):
+def format_columns(file_path, sheet_name, column_letters, formatting_name, formatting_number):
     # Load the Excel file
     workbook = openpyxl.load_workbook(file_path)
 
     # Select the desired sheet
-    sheet = workbook[sheet_name]  # Replace 'Sheet1' with the actual sheet name
+    sheet = workbook[sheet_name]
 
     # Define the starting row
     starting_row = 3  # Change this to the row where formatting should begin
 
-    # Convert column letter to column index
-    column_index = openpyxl.utils.column_index_from_string(column_letter)
+    # Convert column letters to column indices
+    column_indices = [openpyxl.utils.column_index_from_string(col) for col in column_letters]
 
-    # Create a custom style with percentage format
+    # Create a custom style with the specified formatting
     formatting_style = NamedStyle(name=formatting_name, number_format=formatting_number)
 
-    # Apply the custom style to the specified range in the column
-    for row in sheet.iter_rows(min_col=column_index, max_col=column_index, min_row=starting_row):
-        for cell in row:
-            cell.style = formatting_style
+    # Apply the custom style to the specified range in each column
+    for col_index in column_indices:
+        for row in sheet.iter_rows(min_col=col_index, max_col=col_index, min_row=starting_row):
+            for cell in row:
+                cell.style = formatting_style
 
     # Save the changes to the Excel file
     workbook.save(file_path)
@@ -173,7 +178,7 @@ column_headers = [
     'check date >>', header_time_stamp, 'trade date', 'option Expiration date', 'days till exp (trade date)',
     'days till exp (current)', 'order expiration date "time in force"', 'days till expiration (if an order)',
     'Strike', 'underlying symbol',
-    'underlying price at time of trade', 'otm at time of trade', 'underlying price, current', 'otm, current.',
+    'underlying price at time of trade', 'otm at time of trade', 'underlying price, current', 'otm, current',
     '$ amount of stock itm can be called (-) or put (+)', 'weight', 'weighted otm', 'mkt beta', 'Type',
     'mkt beta* mkt price*contracts', 'Qty',
     'mkt price *number of contracts', 'Trade Price/premium', 'trade price as percent of notional',

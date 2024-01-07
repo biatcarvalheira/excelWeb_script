@@ -182,6 +182,7 @@ result_lists = []
 underlying_symbol = []
 otm_at_time_of_trade = []
 underlying_price_current = []
+otm_current = []
 option_expiration_date = []
 strike = []
 stock_type = []
@@ -269,8 +270,12 @@ if xlsx_file is not None:
             otm_at_time_of_trade.append(formula_get_otm_at_time_of_date)
 
             # underlying price, current
-            formula_underlying_price_current = '"=IFERROR(GOOGLEFINANCE("'+underlying_symbol[index]+'"), 59.06)'
+            formula_underlying_price_current = '=IFERROR(GOOGLEFINANCE("'+underlying_symbol[index]+'"), 59.06)'
             underlying_price_current.append(formula_underlying_price_current)
+
+            # otm, current
+            formula_otm_current = '=(I'+string_index+'-M'+string_index+')/M'+string_index
+            otm_current.append(formula_otm_current)
 
     else:
         print(
