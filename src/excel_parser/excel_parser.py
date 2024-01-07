@@ -194,10 +194,12 @@ mkt_beta_px_contracts = []
 mkt_price_of_contracts = []
 premium = []
 price = []
+trade_price_percent_notional = []
 date_of_extraction = []
 days_till_exp_date = []
 days_till_exp_date_current = []
 stock_buy_list = []
+
 
 xlsx_file = get_xlsx(data_input_directory)
 if xlsx_file is not None:
@@ -301,6 +303,13 @@ if xlsx_file is not None:
             # mkt price * # of contracts
             formula_mkt_price_hashtag_contracts = '=U'+string_index+'*M'+string_index
             mkt_price_of_contracts.append(formula_mkt_price_hashtag_contracts)
+
+            # trade price as percent of notional
+            formula_trade_price = '=-AC'+string_index+'/AI'+string_index
+            trade_price_percent_notional.append(formula_trade_price)
+
+
+
 
     else:
         print(
