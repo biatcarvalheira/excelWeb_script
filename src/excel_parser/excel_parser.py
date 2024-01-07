@@ -190,6 +190,7 @@ option_expiration_date = []
 strike = []
 stock_type = []
 quantity = []
+mkt_beta_px_contracts = []
 premium = []
 price = []
 date_of_extraction = []
@@ -291,6 +292,10 @@ if xlsx_file is not None:
             # weighted otm
             formula_weighted_otm = '=U'+string_index+'*N'+string_index+'*I'+string_index
             weighted_otm.append(formula_weighted_otm)
+
+            # mkt beta * mkt px * contracts
+            formula_mkt_beta_px_contracts = '=R'+string_index+'*M'+string_index+'*U'+string_index
+            mkt_beta_px_contracts.append(formula_mkt_beta_px_contracts)
 
 
     else:

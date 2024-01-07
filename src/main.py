@@ -16,8 +16,11 @@ def main():
     df = format_data(column_headers)
     save_data(df, data_output_directory)
     insert_line_after(data_output_directory, 'Sheet1', 1, first_line_data)
+    # format percentage cells
     format_columns(data_output_directory, 'Sheet1', ['L', 'N', 'Q'], 'percentage', '0.00%')
 
+    # format currency cells
+    format_columns(data_output_directory, 'Sheet1', ['T'], 'currency_format', '"$"#,##0.00')
 
 
 
@@ -37,6 +40,7 @@ def format_data(column_headers):
     df['Strike'] = strike
     df['underlying symbol'] = underlying_symbol
     df['Type'] = stock_type
+    df['mkt beta* mkt px*contracts'] = mkt_beta_px_contracts
     df['Qty'] = quantity
     df['Trade Price/premium'] = price
     df['premium'] = premium
@@ -183,7 +187,7 @@ column_headers = [
     'Strike', 'underlying symbol',
     'underlying price at time of trade', 'otm at time of trade', 'underlying price, current', 'otm, current',
     '$ amount of stock itm can be called (-) or put (+)', 'weight', 'weighted otm', 'mkt beta', 'Type',
-    'mkt beta* mkt price*contracts', 'Qty',
+    'mkt beta* mkt px*contracts', 'Qty',
     'mkt price *number of contracts', 'Trade Price/premium', 'trade price as percent of notional',
     'annual yield at strike at time of trade', 'yield on cost at time of trade', 'multiple on cost',
     'yield at current mkt price at time of trade', 'premium', f'contracted in {previous_5_months[0]}', f'contracted in {previous_5_months[1]}',
