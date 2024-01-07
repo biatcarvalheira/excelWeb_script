@@ -196,7 +196,9 @@ premium = []
 price = []
 trade_price_percent_notional = []
 annual_yield_at_strike = []
-date_of_extraction = []
+yield_on_cost_at_trade = []
+yield_at_current_mkt_price_at_trade = []
+trade_date = []
 days_till_exp_date = []
 days_till_exp_date_current = []
 stock_buy_list = []
@@ -215,6 +217,12 @@ if xlsx_file is not None:
         final_resultList = removeEmptyList(new_resultList)
 
         ### - - - - - separating the content of the first list => result: 4 lists - - - - - #
+        # remove string content
+        final_resultList[0].remove('***END OF FILE***')
+        # get trade date (1st column)
+        for n in final_resultList[0]:
+            formatted_date = n.strftime("%m/%d/%y")
+            trade_date.append(formatted_date)
 
         # New Lists: option_expiration_date, strike, underlying_symbol, stock_type
         for n in final_resultList[1]:
@@ -225,7 +233,7 @@ if xlsx_file is not None:
 
             # --- option_expiration_date -- #
             expiration_date = remove_and_extract_date(n)
-            formatted_date = convert_date_to_dd_mm_yyyy("%b %d %Y", "%m/%d/%Y", expiration_date)
+            formatted_date = convert_date_to_dd_mm_yyyy("%b %d %Y", "%m/%d/%y", expiration_date)
             option_expiration_date.append(formatted_date)
 
             # --- strike -- #
@@ -256,14 +264,10 @@ if xlsx_file is not None:
         for y in final_resultList[5]:
             premium.append(y)
 
+
         # EXCEL FORMULAS
         length_of_data = len(final_resultList[1])
         for index in range(length_of_data):
-            # get extraction date
-            today = str(datetime.today().date())
-            today_formatted = convert_date_to_dd_mm_yyyy("%Y-%m-%d", "%m/%d/%Y", today)
-            date_of_extraction.append(today_formatted)
-
             # get days till exp -
             string_index = str(index + 3)
             formula_exp_date = '=D' + string_index + '-C' + string_index
@@ -312,6 +316,18 @@ if xlsx_file is not None:
             # annual yield at strike at time of trade
             formula_annual_yield = '=W'+string_index+'*(365/E'+string_index+')/I'+string_index
             annual_yield_at_strike.append(formula_annual_yield)
+
+            # yield_on_cost_at_trade ----- THIS IS WAITING FOR CONFIRMATION REG THE FORMULA !! --- INCOMPLETE as of 01/07
+            formula_yield_on_cost = ''
+            yield_on_cost_at_trade.append(formula_yield_on_cost)
+
+
+            # yield at current mkt price at trade
+            formula_yield_current_mkt = '=$W'+string_index+'*(365/$E'+string_index+')/K'+string_index
+            yield_at_current_mkt_price_at_trade.append(formula_yield_current_mkt)
+
+
+
 
 
 
