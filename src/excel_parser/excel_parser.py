@@ -173,6 +173,7 @@ def retrieve_numerical_value (input_text):
 header_list_check = ['Date', 'Description', 'Quantity', 'Symbol', 'Price', 'Amount']
 result_lists = []
 underlying_symbol = []
+otm_at_time_of_trade = []
 option_expiration_date = []
 strike = []
 stock_type = []
@@ -241,7 +242,7 @@ if xlsx_file is not None:
         for y in final_resultList[5]:
             premium.append(y)
 
-        # data calculation
+        # EXCEL FORMULAS
         length_of_data = len(final_resultList[1])
         for index in range(length_of_data):
             # get extraction date
@@ -249,14 +250,18 @@ if xlsx_file is not None:
             today_formatted = convert_date_to_dd_mm_yyyy("%Y-%m-%d", "%m/%d/%Y", today)
             date_of_extraction.append(today_formatted)
 
-            # get days till exp
-            string_index = str(index+2)
-            formula_exp_date = '=C' + string_index + '-B'+ string_index
+            # get days till exp -
+            string_index = str(index+3)
+            formula_exp_date = '=D' + string_index + '-C'+ string_index
             days_till_exp_date.append(formula_exp_date)
 
             # get days till exp current
-            formula_exp_date_current = '=C' + string_index + '-TODAY()'
+            formula_exp_date_current = '=D' + string_index + '-A1'
             days_till_exp_date_current.append(formula_exp_date_current)
+
+            #get otm at time of trade
+            formula_get_otm_at_time_of_date = '=(I' + string_index + '-K' + string_index + ')/K'+string_index
+            otm_at_time_of_trade.append(formula_get_otm_at_time_of_date)
 
     else:
         print(f'INVALID INPUT FILE. The file should have headers with the following titles in this order:{header_list_check}')

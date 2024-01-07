@@ -1,14 +1,35 @@
-from datetime import datetime, timedelta
+import openpyxl
 
-def last_five_months():
-    today = datetime.now()
-    last_five_months_dates = [today - timedelta(days=30*i) for i in range(5)]
+# Create a new Excel workbook and select the active sheet
+wb = openpyxl.Workbook()
+sheet = wb.active
 
-    # Formatting the month names and printing in reverse order
-    formatted_months = [date.strftime('%B') for date in last_five_months_dates][::-1]
+# Sample data
+data = [
+    ['A', 'B', 'C'],
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+]
 
-    return formatted_months
+# Populate the sheet with data
+for row in data:
+    sheet.append(row)
 
-# Example usage
-result = last_five_months()
-print(result)
+# List of formulas
+formulas = [
+    '=SUM(A2:C2)/C2',  # Example formula 1
+    '=SUM(A3:C3)/C3',  # Example formula 2
+    '=SUM(A4:C4)/C4'   # Example formula 3
+]
+
+# Apply formulas to entire column D
+for row_num, formula in enumerate(formulas, start=2):  # Start from the second row
+    sheet[f'D{row_num}'].value = formula
+
+# Apply percentage formatting to entire column D
+for cell in sheet['D'][1:]:
+    cell.number_format = '0.00%'
+
+# Save the workbook
+wb.save('output.xlsx')
