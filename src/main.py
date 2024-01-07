@@ -48,6 +48,7 @@ def format_data(column_headers):
     df['underlying price, current'] = underlying_price_current
     df['otm, current'] = otm_current
     df['$ amount of stock itm can be called (-) or put (+)'] = amount_of_stock_itm_can_be_called
+    df['weight'] = weight
     df['mkt beta'] = mkt_beta_list
     df.insert(0, 'check date >>', '')  # or use an empty string: ''
 
