@@ -16,7 +16,7 @@ def main():
     df = format_data(column_headers)
     save_data(df, data_output_directory)
     insert_line_after(data_output_directory, 'Sheet1', 1, first_line_data)
-    format_columns(data_output_directory, 'Sheet1', ['L', 'N'], 'percentage', '0.00%')
+    format_columns(data_output_directory, 'Sheet1', ['L', 'N', 'Q'], 'percentage', '0.00%')
 
 
 
@@ -49,6 +49,7 @@ def format_data(column_headers):
     df['otm, current'] = otm_current
     df['$ amount of stock itm can be called (-) or put (+)'] = amount_of_stock_itm_can_be_called
     df['weight'] = weight
+    df['weighted otm'] = weighted_otm
     df['mkt beta'] = mkt_beta_list
     df.insert(0, 'check date >>', '')  # or use an empty string: ''
 

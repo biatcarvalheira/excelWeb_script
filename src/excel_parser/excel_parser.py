@@ -185,6 +185,7 @@ underlying_price_current = []
 otm_current = []
 amount_of_stock_itm_can_be_called = []
 weight = []
+weighted_otm = []
 option_expiration_date = []
 strike = []
 stock_type = []
@@ -283,9 +284,14 @@ if xlsx_file is not None:
             formula_amount_itm = '=IF(AND(LOWER(S' + string_index + ')="call",N' + string_index + '<0), I' + string_index + '*100*U' + string_index + ', 0)'
             amount_of_stock_itm_can_be_called.append(formula_amount_itm)
 
-            #weight
+            # weight
             formula_weight = '=U'+string_index+'*I'+string_index
             weight.append(formula_weight)
+
+            # weighted otm
+            formula_weighted_otm = '=U'+string_index+'*N'+string_index+'*I'+string_index
+            weighted_otm.append(formula_weighted_otm)
+
 
     else:
         print(
