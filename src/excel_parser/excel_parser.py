@@ -16,7 +16,7 @@ script_directory = os.path.dirname(script_path)
 project_root = os.path.abspath(os.path.join(script_directory, ".."))
 
 # ---- to use when exporting as an executable --- #
-#project_root = os.path.abspath(os.path.join(script_directory))
+# project_root = os.path.abspath(os.path.join(script_directory))
 
 # Specify the relative path to the data/input directory
 data_input_directory = os.path.join(project_root, "data", "input")
@@ -67,7 +67,8 @@ def get_data_from_range(file_path, sheet_name, column_letters, start_row, end_ro
 
         # Get header values excluding 'none'
         header_row = worksheet[1]
-        header_values = [str(cell.value).lower().replace(' ', '_') for cell in header_row if str(cell.value).lower() != 'none']
+        header_values = [str(cell.value).lower().replace(' ', '_') for cell in header_row if
+                         str(cell.value).lower() != 'none']
 
         # Iterate over the rows within the specified range
         for row_number in range(start_row, end_row + 1):
@@ -84,6 +85,7 @@ def get_data_from_range(file_path, sheet_name, column_letters, start_row, end_ro
     except Exception as e:
         print(f"Error while processing the file '{file_path}': {e}")
         return None, None
+
 
 def removeNone_listOfLists(listName):
     for i, sublist in enumerate(listName):
@@ -138,6 +140,7 @@ def extract_stock_type(text):
     else:
         return 'not found'
 
+
 def check_buying_situation(text):
     buying_sit_pattern = re.compile(r'\b(Sold|Bought)\b', re.IGNORECASE)
     match = buying_sit_pattern.search(text)
@@ -146,6 +149,7 @@ def check_buying_situation(text):
     else:
         return 'not found'
 
+
 def has_sequence_case_insensitive(my_list, sequence):
     # Convert both the list and the sequence to lowercase
     my_list_lower = [str(item).lower() for item in my_list]
@@ -153,9 +157,10 @@ def has_sequence_case_insensitive(my_list, sequence):
 
     # Iterate through the modified list and check for the modified sequence
     for i in range(len(my_list_lower) - len(sequence_lower) + 1):
-        if my_list_lower[i:i+len(sequence_lower)] == sequence_lower:
+        if my_list_lower[i:i + len(sequence_lower)] == sequence_lower:
             return True
     return False
+
 
 def convert_date_to_dd_mm_yyyy(input_format, output_format, date_item):
     # Parse the date string into a datetime object
@@ -164,16 +169,19 @@ def convert_date_to_dd_mm_yyyy(input_format, output_format, date_item):
     # Extract the date part and return it as datetime.date
     return date_formatted
 
-def retrieve_numerical_value (input_text):
+
+def retrieve_numerical_value(input_text):
     numeric_part = re.search(r'\d+', input_text).group()
     numeric_value = int(numeric_part)
     return numeric_value
+
 
 # - - - Lists to be used - - - - #
 header_list_check = ['Date', 'Description', 'Quantity', 'Symbol', 'Price', 'Amount']
 result_lists = []
 underlying_symbol = []
 otm_at_time_of_trade = []
+underlying_price_current = []
 option_expiration_date = []
 strike = []
 stock_type = []
@@ -206,7 +214,6 @@ if xlsx_file is not None:
             stock_symbol = ', '.join(remove_value)
             underlying_symbol.append(stock_symbol)
 
-
             # --- option_expiration_date -- #
             expiration_date = remove_and_extract_date(n)
             formatted_date = convert_date_to_dd_mm_yyyy("%b %d %Y", "%m/%d/%Y", expiration_date)
@@ -223,8 +230,6 @@ if xlsx_file is not None:
             # --- Stock buying situation -- #
             stock_buy = check_buying_situation(n)
             stock_buy_list.append(stock_buy)
-
-
 
         # New list: price
         for y in final_resultList[4]:
@@ -251,21 +256,24 @@ if xlsx_file is not None:
             date_of_extraction.append(today_formatted)
 
             # get days till exp -
-            string_index = str(index+3)
-            formula_exp_date = '=D' + string_index + '-C'+ string_index
+            string_index = str(index + 3)
+            formula_exp_date = '=D' + string_index + '-C' + string_index
             days_till_exp_date.append(formula_exp_date)
 
             # get days till exp current
             formula_exp_date_current = '=D' + string_index + '-A1'
             days_till_exp_date_current.append(formula_exp_date_current)
 
-            #get otm at time of trade
-            formula_get_otm_at_time_of_date = '=(I' + string_index + '-K' + string_index + ')/K'+string_index
+            # get otm at time of trade
+            formula_get_otm_at_time_of_date = '=(I' + string_index + '-K' + string_index + ')/K' + string_index
             otm_at_time_of_trade.append(formula_get_otm_at_time_of_date)
 
+            # underlying price, current
+            formula_underlying_price_current = '"=IFERROR(GOOGLEFINANCE("'+underlying_symbol[index]+'"), 59.06)'
+            underlying_price_current.append(formula_underlying_price_current)
+
     else:
-        print(f'INVALID INPUT FILE. The file should have headers with the following titles in this order:{header_list_check}')
+        print(
+            f'INVALID INPUT FILE. The file should have headers with the following titles in this order:{header_list_check}')
         print('Please start the program again!')
         sys.exit()
-
-

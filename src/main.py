@@ -42,6 +42,7 @@ def format_data(column_headers):
     df['days till exp (current)'] = days_till_exp_date_current
     df['underlying price at time of trade'] = underlying_price_at_time_of_trade
     df['otm at time of trade'] = otm_at_time_of_trade
+    df ['underlying price, current'] = underlying_price_current
     df['mkt beta'] = mkt_beta_list
     df.insert(0, 'check date >>', '')  # or use an empty string: ''
 
