@@ -183,6 +183,7 @@ underlying_symbol = []
 otm_at_time_of_trade = []
 underlying_price_current = []
 otm_current = []
+amount_of_stock_itm_can_be_called = []
 option_expiration_date = []
 strike = []
 stock_type = []
@@ -270,12 +271,16 @@ if xlsx_file is not None:
             otm_at_time_of_trade.append(formula_get_otm_at_time_of_date)
 
             # underlying price, current
-            formula_underlying_price_current = '=IFERROR(GOOGLEFINANCE("'+underlying_symbol[index]+'"), 59.06)'
+            formula_underlying_price_current = '=IFERROR(GOOGLEFINANCE("' + underlying_symbol[index] + '"), 59.06)'
             underlying_price_current.append(formula_underlying_price_current)
 
             # otm, current
-            formula_otm_current = '=(I'+string_index+'-M'+string_index+')/M'+string_index
+            formula_otm_current = '=(I' + string_index + '-M' + string_index + ')/M' + string_index
             otm_current.append(formula_otm_current)
+
+            # $ amount of stock itm can be called (-) or put (+)
+            formula_amount_itm = '=IF(AND(LOWER(S' + string_index + ')="call",N' + string_index + '<0), I' + string_index + '*100*U' + string_index + ', 0)'
+            amount_of_stock_itm_can_be_called.append(formula_amount_itm)
 
     else:
         print(
