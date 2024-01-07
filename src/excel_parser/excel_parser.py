@@ -195,6 +195,7 @@ mkt_price_of_contracts = []
 premium = []
 price = []
 trade_price_percent_notional = []
+annual_yield_at_strike = []
 date_of_extraction = []
 days_till_exp_date = []
 days_till_exp_date_current = []
@@ -307,6 +308,10 @@ if xlsx_file is not None:
             # trade price as percent of notional
             formula_trade_price = '=-AC'+string_index+'/AI'+string_index
             trade_price_percent_notional.append(formula_trade_price)
+
+            # annual yield at strike at time of trade
+            formula_annual_yield = '=W'+string_index+'*(365/E'+string_index+')/I'+string_index
+            annual_yield_at_strike.append(formula_annual_yield)
 
 
 

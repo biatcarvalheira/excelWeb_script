@@ -17,7 +17,7 @@ def main():
     save_data(df, data_output_directory)
     insert_line_after(data_output_directory, 'Sheet1', 1, first_line_data)
     # format percentage cells
-    format_columns(data_output_directory, 'Sheet1', ['L', 'N', 'Q', 'X'], 'percentage', '0.00%')
+    format_columns(data_output_directory, 'Sheet1', ['L', 'N', 'Q', 'X', 'Y'], 'percentage', '0.00%')
 
     # format currency cells
     format_columns(data_output_directory, 'Sheet1', ['T', 'V'], 'currency_format', '"$"#,##0.00')
@@ -45,6 +45,7 @@ def format_data(column_headers):
     df['mkt price *number of contracts'] = mkt_price_of_contracts
     df['Trade Price/premium'] = price
     df['trade price as percent of notional'] = trade_price_percent_notional
+    df['annual yield at strike at time of trade'] = annual_yield_at_strike
     df['premium'] = premium
     df['trade date'] = date_of_extraction
     df['days till exp (trade date)'] = days_till_exp_date
@@ -58,6 +59,7 @@ def format_data(column_headers):
     df['weighted otm'] = weighted_otm
     df['mkt beta'] = mkt_beta_list
     df.insert(0, 'check date >>', '')  # or use an empty string: ''
+
 
 
     return df
