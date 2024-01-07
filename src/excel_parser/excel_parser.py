@@ -202,6 +202,7 @@ trade_date = []
 days_till_exp_date = []
 days_till_exp_date_current = []
 stock_buy_list = []
+cash_if_exercised = []
 
 
 xlsx_file = get_xlsx(data_input_directory)
@@ -326,11 +327,9 @@ if xlsx_file is not None:
             formula_yield_current_mkt = '=$W'+string_index+'*(365/$E'+string_index+')/K'+string_index
             yield_at_current_mkt_price_at_trade.append(formula_yield_current_mkt)
 
-
-
-
-
-
+            # cash if exercised
+            formula_cash_if_exercised = '=IF(LOWER(S'+string_index+')="put", U'+string_index+'*I'+string_index+'*100,-U'+string_index+'*I'+string_index+'*100)'
+            cash_if_exercised.append(formula_cash_if_exercised)
 
     else:
         print(

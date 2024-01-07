@@ -20,7 +20,7 @@ def main():
     format_columns(data_output_directory, 'Sheet1', ['L', 'N', 'Q', 'X', 'Y', 'AB'], 'percentage', '0.00%')
 
     # format currency cells
-    format_columns(data_output_directory, 'Sheet1', ['T', 'V'], 'currency_format', '"$"#,##0.00')
+    format_columns(data_output_directory, 'Sheet1', ['T', 'V', 'AI'], 'currency_format', '"$"#,##0.00')
 
 
 
@@ -59,6 +59,7 @@ def format_data(column_headers):
     df['weight'] = weight
     df['weighted otm'] = weighted_otm
     df['mkt beta'] = mkt_beta_list
+    df['cash if exercised'] = cash_if_exercised
     df.insert(0, 'check date >>', '')  # or use an empty string: ''
 
 
