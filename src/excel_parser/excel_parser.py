@@ -191,6 +191,7 @@ strike = []
 stock_type = []
 quantity = []
 mkt_beta_px_contracts = []
+mkt_price_of_contracts = []
 premium = []
 price = []
 date_of_extraction = []
@@ -297,6 +298,9 @@ if xlsx_file is not None:
             formula_mkt_beta_px_contracts = '=R'+string_index+'*M'+string_index+'*U'+string_index
             mkt_beta_px_contracts.append(formula_mkt_beta_px_contracts)
 
+            # mkt price * # of contracts
+            formula_mkt_price_hashtag_contracts = '=U'+string_index+'*M'+string_index
+            mkt_price_of_contracts.append(formula_mkt_price_hashtag_contracts)
 
     else:
         print(

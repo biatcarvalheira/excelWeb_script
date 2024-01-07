@@ -20,7 +20,7 @@ def main():
     format_columns(data_output_directory, 'Sheet1', ['L', 'N', 'Q'], 'percentage', '0.00%')
 
     # format currency cells
-    format_columns(data_output_directory, 'Sheet1', ['T'], 'currency_format', '"$"#,##0.00')
+    format_columns(data_output_directory, 'Sheet1', ['T', 'V'], 'currency_format', '"$"#,##0.00')
 
 
 
@@ -42,6 +42,7 @@ def format_data(column_headers):
     df['Type'] = stock_type
     df['mkt beta* mkt px*contracts'] = mkt_beta_px_contracts
     df['Qty'] = quantity
+    df['mkt price *number of contracts'] = mkt_price_of_contracts
     df['Trade Price/premium'] = price
     df['premium'] = premium
     df['trade date'] = date_of_extraction
