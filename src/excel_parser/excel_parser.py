@@ -4,7 +4,7 @@ import datetime as datetime
 import openpyxl
 import sys
 import re
-from datetime import datetime
+from datetime import datetime, timedelta
 
 # Get the absolute path to the script
 script_path = os.path.abspath(sys.argv[0])
@@ -175,6 +175,16 @@ def retrieve_numerical_value(input_text):
     numeric_value = int(numeric_part)
     return numeric_value
 
+def last_five_months_numbers():
+    # Get today's date
+    today = datetime.now()
+
+    # Calculate the last five months
+    last_five_months = [today - timedelta(days=30 * i) for i in range(5)]
+
+    # Extract and print only the month numbers in 'mm' format
+    month_numbers = [date.strftime('%m') for date in last_five_months]
+    return month_numbers
 
 # - - - Lists to be used - - - - #
 header_list_check = ['Date', 'Description', 'Quantity', 'Symbol', 'Price', 'Amount']
@@ -204,6 +214,12 @@ days_till_exp_date_current = []
 stock_buy_list = []
 cash_if_exercised = []
 
+#months
+month_1 = []
+month_2 = []
+month_3 = []
+month_4 = []
+month_5 = []
 
 xlsx_file = get_xlsx(data_input_directory)
 if xlsx_file is not None:
@@ -220,6 +236,7 @@ if xlsx_file is not None:
         ### - - - - - separating the content of the first list => result: 4 lists - - - - - #
         # remove string content
         final_resultList[0].remove('***END OF FILE***')
+
         # get trade date (1st column)
         for n in final_resultList[0]:
             formatted_date = n.strftime("%m/%d/%y")
@@ -269,8 +286,43 @@ if xlsx_file is not None:
         # EXCEL FORMULAS
         length_of_data = len(final_resultList[1])
         for index in range(length_of_data):
-            # get days till exp -
             string_index = str(index + 3)
+
+
+            # values for the month contracted columns
+            trade_date_comparison = trade_date[index]
+            date_object = datetime.strptime(trade_date_comparison, '%m/%d/%y')
+
+            # Extract the month and format it as 'mm'
+            trade_month = date_object.strftime('%m')
+            header_months = last_five_months_numbers()
+
+            if trade_month == header_months[0]:
+                month_5.append('=AC' + string_index)
+            else:
+                month_5.append('')
+
+            if trade_month == header_months[1]:
+                month_1.append('=AC' + string_index)
+            else:
+                month_1.append('')
+
+            if trade_month == header_months[2]:
+                month_2.append('=AC' + string_index)
+            else:
+                month_2.append('')
+
+            if trade_month == header_months[3]:
+                month_3.append('=AC' + string_index)
+            else:
+                month_3.append('')
+
+            if trade_month == header_months[4]:
+                month_4.append('=AC' + string_index)
+            else:
+                month_4.append('')
+
+            # get days till exp -
             formula_exp_date = '=D' + string_index + '-C' + string_index
             days_till_exp_date.append(formula_exp_date)
 

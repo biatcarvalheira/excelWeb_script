@@ -48,6 +48,11 @@ def format_data(column_headers):
     df['annual yield at strike at time of trade'] = annual_yield_at_strike
     df['yield at current mkt price at time of trade'] = yield_at_current_mkt_price_at_trade
     df['premium'] = premium
+    df[f'contracted in {previous_5_months[4]}'] = month_5
+    df[f'contracted in {previous_5_months[3]}'] = month_1
+    df[f'contracted in {previous_5_months[2]}'] = month_2
+    df[f'contracted in {previous_5_months[1]}'] = month_3
+    df[f'contracted in {previous_5_months[0]}'] = month_4
     df['trade date'] = trade_date
     df['days till exp (trade date)'] = days_till_exp_date
     df['days till exp (current)'] = days_till_exp_date_current
@@ -137,7 +142,7 @@ def find_next_9_fridays():
     return next_fridays
 
 # --- Last Five Months --- #
-def last_five_months():
+def last_five_months_writing():
     today = datetime.now()
     last_five_months_dates = [today - timedelta(days=30*i) for i in range(5)]
 
@@ -175,7 +180,7 @@ header_time_stamp = datetime.now().strftime('%m/%d/%y')
 today = datetime.now().date()
 
 # --- Previous Months function usage --- #
-previous_5_months = last_five_months()
+previous_5_months = last_five_months_writing()
 
 # -- formatting styles --#
 percentage_style = NamedStyle(name='percentage', number_format='0.00%')

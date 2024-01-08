@@ -1,35 +1,57 @@
-import openpyxl
+from datetime import datetime, timedelta
 
-# Create a new Excel workbook and select the active sheet
-wb = openpyxl.Workbook()
-sheet = wb.active
+trade_date = ['01/08/22', '08/23/23', '09/12/21', '03/02/19']
+month_1 = []
+month_2 = []
+month_3 = []
+month_4 = []
+month_5 = []
 
-# Sample data
-data = [
-    ['A', 'B', 'C'],
-    [1, 2, 3],
-    [4, 5, 6],
-    [7, 8, 9]
-]
 
-# Populate the sheet with data
-for row in data:
-    sheet.append(row)
 
-# List of formulas
-formulas = [
-    '=SUM(A2:C2)/C2',  # Example formula 1
-    '=SUM(A3:C3)/C3',  # Example formula 2
-    '=SUM(A4:C4)/C4'   # Example formula 3
-]
 
-# Apply formulas to entire column D
-for row_num, formula in enumerate(formulas, start=2):  # Start from the second row
-    sheet[f'D{row_num}'].value = formula
+# Get today's date
+today = datetime.now()
 
-# Apply percentage formatting to entire column D
-for cell in sheet['D'][1:]:
-    cell.number_format = '0.00%'
+# Calculate the last five months
+last_five_months = [today - timedelta(days=30 * i) for i in range(5)]
 
-# Save the workbook
-wb.save('output.xlsx')
+# Extract and print only the month numbers in 'mm' format
+month_numbers = [date.strftime('%m') for date in last_five_months]
+print(month_numbers)
+for t in trade_date:
+
+    # Parse the date string
+    date_object = datetime.strptime(t, '%m/%d/%y')
+
+    # Extract the month and format it as 'mm'
+    month = date_object.strftime('%m')
+    print(month_numbers[0])
+    print(month)
+
+    if month == month_numbers[0]:
+        month_5.append('x')
+    else:
+        month_5.append('')
+    if month == month_numbers[1]:
+        month_1.append('x')
+    else:
+        month_1.append('')
+    if month == month_numbers[2]:
+        month_2.append('x')
+    else:
+        month_2.append('')
+    if month == month_numbers[3]:
+        month_3.append('x')
+    else:
+        month_3.append('')
+    if month == month_numbers[4]:
+        month_4.append('x')
+    else:
+        month_4.append('')
+
+print('current month:', month_5)
+print('month 1:', month_1)
+print('month 2:', month_2)
+print('month 3:', month_3)
+print('month 4:', month_4)
