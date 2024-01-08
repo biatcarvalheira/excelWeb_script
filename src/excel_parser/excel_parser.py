@@ -186,6 +186,25 @@ def last_five_months_numbers():
     month_numbers = [date.strftime('%m') for date in last_five_months]
     return month_numbers
 
+def find_next_9_fridays():
+    # Get today's date
+    today = datetime.now().date()
+
+    # Find the next Friday from today
+    days_until_next_friday = (4 - today.weekday() + 7) % 7
+    next_friday = today + timedelta(days=days_until_next_friday)
+
+    # Calculate the dates for the next 9 Fridays
+    next_fridays_primary_list = [next_friday + timedelta(weeks=i) for i in range(9)]
+    next_fridays = []
+    # Print the result in "mm/dd/yy" format
+    for date in next_fridays_primary_list:
+        formatted_date = date.strftime("%m/%d/%y")
+        next_fridays.append(formatted_date)
+
+    return next_fridays
+
+
 # - - - Lists to be used - - - - #
 header_list_check = ['Date', 'Description', 'Quantity', 'Symbol', 'Price', 'Amount']
 result_lists = []
@@ -214,12 +233,24 @@ days_till_exp_date_current = []
 stock_buy_list = []
 cash_if_exercised = []
 
-#months
+# months
 month_1 = []
 month_2 = []
 month_3 = []
 month_4 = []
 month_5 = []
+
+# fridays
+week_1 = []
+week_2 = []
+week_3 = []
+week_4 = []
+week_5 = []
+week_6 = []
+week_7 = []
+week_8 = []
+week_9 = []
+
 
 xlsx_file = get_xlsx(data_input_directory)
 if xlsx_file is not None:
@@ -288,7 +319,6 @@ if xlsx_file is not None:
         for index in range(length_of_data):
             string_index = str(index + 3)
 
-
             # values for the month contracted columns
             trade_date_comparison = trade_date[index]
             date_object = datetime.strptime(trade_date_comparison, '%m/%d/%y')
@@ -321,6 +351,22 @@ if xlsx_file is not None:
                 month_4.append('=AC' + string_index)
             else:
                 month_4.append('')
+
+
+            # get values for the friday cells
+            fridays_list = find_next_9_fridays()
+
+            friday_date_1 = datetime.strptime(fridays_list[0], "%m/%d/%y")
+            option_date = datetime.strptime(option_expiration_date[index], "%m/%d/%y")
+            date_difference = option_date - friday_date_1
+            days_difference = date_difference.days
+            if days_difference < 7:
+                week_1.append('=AI' + string_index)
+            else:
+                week_1.append('')
+
+
+
 
             # get days till exp -
             formula_exp_date = '=D' + string_index + '-C' + string_index
