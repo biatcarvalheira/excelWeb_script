@@ -20,7 +20,8 @@ def main():
     format_columns(data_output_directory, 'Sheet1', ['L', 'N', 'Q', 'X', 'Y', 'AB'], 'percentage', '0.00%')
 
     # format currency cells
-    format_columns(data_output_directory, 'Sheet1', ['T', 'V', 'AI', 'AK'], 'currency_format', '"$"#,##0.00')
+    format_columns(data_output_directory, 'Sheet1', ['T', 'V', 'AI', 'AK', 'AL', 'AM', 'AN', 'AO', 'AP', 'AQ', 'AR', 'AS'], 'currency_format', '"$"#,##0.00')
+
 
 
 
@@ -68,9 +69,15 @@ def format_data(column_headers):
     df['mkt beta'] = mkt_beta_list
     df['cash if exercised'] = cash_if_exercised
     df['=AK1-A1'] = week_1
+    df['=AL1-A1'] = week_2
+    df['=AM1-A1'] = week_3
+    df['=AN1-A1'] = week_4
+    df['=AO1-A1'] = week_5
+    df['=AP1-A1'] = week_6
+    df['=AQ1-A1'] = week_7
+    df['=AR1-A1'] = week_8
+    df['=AS1-A1'] = week_9
     df.insert(0, 'check date >>', '')  # or use an empty string: ''
-
-
 
     return df
     # Specify the Excel file path

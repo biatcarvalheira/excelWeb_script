@@ -16,7 +16,7 @@ script_directory = os.path.dirname(script_path)
 project_root = os.path.abspath(os.path.join(script_directory, ".."))
 
 # ---- to use when exporting as an executable --- #
-# project_root = os.path.abspath(os.path.join(script_directory))
+#project_root = os.path.abspath(os.path.join(script_directory))
 
 # Specify the relative path to the data/input directory
 data_input_directory = os.path.join(project_root, "data", "input")
@@ -175,6 +175,7 @@ def retrieve_numerical_value(input_text):
     numeric_value = int(numeric_part)
     return numeric_value
 
+
 def last_five_months_numbers():
     # Get today's date
     today = datetime.now()
@@ -185,6 +186,7 @@ def last_five_months_numbers():
     # Extract and print only the month numbers in 'mm' format
     month_numbers = [date.strftime('%m') for date in last_five_months]
     return month_numbers
+
 
 def find_next_9_fridays():
     # Get today's date
@@ -203,6 +205,11 @@ def find_next_9_fridays():
         next_fridays.append(formatted_date)
 
     return next_fridays
+
+
+def calculate_days_difference(date1, date2):
+    result = date1 - date2
+    return result.days
 
 
 # - - - Lists to be used - - - - #
@@ -251,6 +258,7 @@ week_7 = []
 week_8 = []
 week_9 = []
 
+fridays_list = find_next_9_fridays()
 
 xlsx_file = get_xlsx(data_input_directory)
 if xlsx_file is not None:
@@ -313,7 +321,6 @@ if xlsx_file is not None:
         for y in final_resultList[5]:
             premium.append(y)
 
-
         # EXCEL FORMULAS
         length_of_data = len(final_resultList[1])
         for index in range(length_of_data):
@@ -352,28 +359,74 @@ if xlsx_file is not None:
             else:
                 month_4.append('')
 
+            option_date = option_expiration_date[index]
 
             # get values for the friday cells
             fridays_list = find_next_9_fridays()
 
-            friday_date_1 = datetime.strptime(fridays_list[0], "%m/%d/%y")
-            option_date = datetime.strptime(option_expiration_date[index], "%m/%d/%y")
-            date_difference = option_date - friday_date_1
-            days_difference = date_difference.days
-            if days_difference < 7:
-                week_1.append('=AI' + string_index)
+
+            friday_1 = fridays_list[0]
+            friday_2 = fridays_list[1]
+            friday_3 = fridays_list[2]
+            friday_4 = fridays_list[3]
+            friday_5 = fridays_list[4]
+            friday_6 = fridays_list[5]
+            friday_7 = fridays_list[6]
+            friday_8 = fridays_list[7]
+            friday_9 = fridays_list[8]
+
+
+            if option_date == friday_1:
+                week_1.append('=AI'+string_index)
             else:
                 week_1.append('')
 
+            if option_date == friday_2:
+                week_2.append('=AI' + string_index)
+            else:
+                week_2.append('')
 
+            if option_date == friday_3:
+                week_3.append('=AI' + string_index)
+            else:
+                week_3.append('')
 
+            if option_date == friday_4:
+                week_4.append('=AI' + string_index)
+            else:
+                week_4.append('')
+
+            if option_date == friday_5:
+                week_5.append('=AI' + string_index)
+            else:
+                week_5.append('')
+
+            if option_date == friday_6:
+                week_6.append('=AI' + string_index)
+            else:
+                week_6.append('')
+
+            if option_date == friday_7:
+                week_7.append('=AI' + string_index)
+            else:
+                week_7.append('')
+
+            if option_date == friday_8:
+                week_8.append('=AI' + string_index)
+            else:
+                week_8.append('')
+
+            if option_date == friday_9:
+                week_9.append('=AI' + string_index)
+            else:
+                week_9.append('')
 
             # get days till exp -
             formula_exp_date = '=D' + string_index + '-C' + string_index
             days_till_exp_date.append(formula_exp_date)
 
             # get days till exp current
-            formula_exp_date_current = '=D' + string_index + '-A1'
+            formula_exp_date_current = '=D' + string_index + '-$BE$1'
             days_till_exp_date_current.append(formula_exp_date_current)
 
             # get otm at time of trade
@@ -393,40 +446,39 @@ if xlsx_file is not None:
             amount_of_stock_itm_can_be_called.append(formula_amount_itm)
 
             # weight
-            formula_weight = '=U'+string_index+'*I'+string_index
+            formula_weight = '=U' + string_index + '*I' + string_index
             weight.append(formula_weight)
 
             # weighted otm
-            formula_weighted_otm = '=U'+string_index+'*N'+string_index+'*I'+string_index
+            formula_weighted_otm = '=U' + string_index + '*N' + string_index + '*I' + string_index
             weighted_otm.append(formula_weighted_otm)
 
             # mkt beta * mkt px * contracts
-            formula_mkt_beta_px_contracts = '=R'+string_index+'*M'+string_index+'*U'+string_index
+            formula_mkt_beta_px_contracts = '=R' + string_index + '*M' + string_index + '*U' + string_index
             mkt_beta_px_contracts.append(formula_mkt_beta_px_contracts)
 
             # mkt price * # of contracts
-            formula_mkt_price_hashtag_contracts = '=U'+string_index+'*M'+string_index
+            formula_mkt_price_hashtag_contracts = '=U' + string_index + '*M' + string_index
             mkt_price_of_contracts.append(formula_mkt_price_hashtag_contracts)
 
             # trade price as percent of notional
-            formula_trade_price = '=-AC'+string_index+'/AI'+string_index
+            formula_trade_price = '=-AC' + string_index + '/AI' + string_index
             trade_price_percent_notional.append(formula_trade_price)
 
             # annual yield at strike at time of trade
-            formula_annual_yield = '=W'+string_index+'*(365/E'+string_index+')/I'+string_index
+            formula_annual_yield = '=W' + string_index + '*(365/E' + string_index + ')/I' + string_index
             annual_yield_at_strike.append(formula_annual_yield)
 
             # yield_on_cost_at_trade ----- THIS IS WAITING FOR CONFIRMATION REG THE FORMULA !! --- INCOMPLETE as of 01/07
             formula_yield_on_cost = ''
             yield_on_cost_at_trade.append(formula_yield_on_cost)
 
-
             # yield at current mkt price at trade
-            formula_yield_current_mkt = '=$W'+string_index+'*(365/$E'+string_index+')/K'+string_index
+            formula_yield_current_mkt = '=$W' + string_index + '*(365/$E' + string_index + ')/K' + string_index
             yield_at_current_mkt_price_at_trade.append(formula_yield_current_mkt)
 
             # cash if exercised
-            formula_cash_if_exercised = '=IF(LOWER(S'+string_index+')="put", U'+string_index+'*I'+string_index+'*100,-U'+string_index+'*I'+string_index+'*100)'
+            formula_cash_if_exercised = '=IF(LOWER(S' + string_index + ')="put", U' + string_index + '*I' + string_index + '*100,-U' + string_index + '*I' + string_index + '*100)'
             cash_if_exercised.append(formula_cash_if_exercised)
 
     else:
@@ -434,3 +486,5 @@ if xlsx_file is not None:
             f'INVALID INPUT FILE. The file should have headers with the following titles in this order:{header_list_check}')
         print('Please start the program again!')
         sys.exit()
+
+
