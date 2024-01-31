@@ -13,10 +13,10 @@ script_path = os.path.abspath(sys.argv[0])
 script_directory = os.path.dirname(script_path)
 
 # ---- to use when working in IDE ---- #
-project_root = os.path.abspath(os.path.join(script_directory, ".."))
+#project_root = os.path.abspath(os.path.join(script_directory, ".."))
 
 # ---- to use when exporting as an executable --- #
-#project_root = os.path.abspath(os.path.join(script_directory))
+project_root = os.path.abspath(os.path.join(script_directory))
 
 # Specify the relative path to the data/input directory
 data_input_directory = os.path.join(project_root, "data", "input")
@@ -201,7 +201,7 @@ def find_next_9_fridays():
     next_fridays = []
     # Print the result in "mm/dd/yy" format
     for date in next_fridays_primary_list:
-        formatted_date = date.strftime("%m/%d/%y")
+        formatted_date = date.strftime("%-m/%d/%y")
         next_fridays.append(formatted_date)
 
     return next_fridays
@@ -278,7 +278,7 @@ if xlsx_file is not None:
 
         # get trade date (1st column)
         for n in final_resultList[0]:
-            formatted_date = n.strftime("%m/%d/%y")
+            formatted_date = n.strftime("%-m/%d/%y")
             trade_date.append(formatted_date)
 
         # New Lists: option_expiration_date, strike, underlying_symbol, stock_type
@@ -290,7 +290,7 @@ if xlsx_file is not None:
 
             # --- option_expiration_date -- #
             expiration_date = remove_and_extract_date(n)
-            formatted_date = convert_date_to_dd_mm_yyyy("%b %d %Y", "%m/%d/%y", expiration_date)
+            formatted_date = convert_date_to_dd_mm_yyyy("%b %d %Y", "%-m/%d/%y", expiration_date)
             option_expiration_date.append(formatted_date)
 
             # --- strike -- #
@@ -438,7 +438,7 @@ if xlsx_file is not None:
             underlying_price_current.append(formula_underlying_price_current)
 
             # otm, current
-            formula_otm_current = '=(I' + string_index + '-M' + string_index + ')/M' + string_index
+            formula_otm_current = '=(M' + string_index + '-I' + string_index + ')/M' + string_index
             otm_current.append(formula_otm_current)
 
             # $ amount of stock itm can be called (-) or put (+)

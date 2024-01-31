@@ -5,10 +5,10 @@ import os
 import requests
 from bs4 import BeautifulSoup
 # ---- to use when working in Executable ---- #
-#from excel_parser.excel_parser import underlying_symbol
+from excel_parser.excel_parser import underlying_symbol
 
 # ---- to use when working in IDE ---- #
-from src.excel_parser.excel_parser import underlying_symbol
+#from src.excel_parser.excel_parser import underlying_symbol
 
 
 # Get the absolute path to the script
@@ -18,10 +18,10 @@ script_path = os.path.abspath(sys.argv[0])
 script_directory = os.path.dirname(script_path)
 
 # ---- to use when working in IDE ---- #
-project_root = os.path.abspath(os.path.join(script_directory, ".."))
+#project_root = os.path.abspath(os.path.join(script_directory, ".."))
 
 # ---- to use when working in Executable ---- #
-#project_root = os.path.abspath(os.path.join(script_directory))
+project_root = os.path.abspath(os.path.join(script_directory))
 
 driver_directory = os.path.join(project_root, "config", "chromedriver")
 

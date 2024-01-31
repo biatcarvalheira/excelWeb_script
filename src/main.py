@@ -146,7 +146,7 @@ def find_next_9_fridays():
     next_fridays = []
     # Print the result in "mm/dd/yy" format
     for date in next_fridays_primary_list:
-        formatted_date = date.strftime("%m/%d/%y")
+        formatted_date = date.strftime("%-m/%d/%y")
         next_fridays.append(formatted_date)
 
     return next_fridays
