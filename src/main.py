@@ -37,7 +37,6 @@ from excel_parser.excel_parser import (
 )
 import openpyxl
 import sys
-
 import os
 import pandas as pd
 from datetime import datetime, timedelta
