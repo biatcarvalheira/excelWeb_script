@@ -23,12 +23,6 @@ def main():
     format_columns(data_output_directory, 'Sheet1', ['T', 'V', 'AI', 'AK', 'AL', 'AM', 'AN', 'AO', 'AP', 'AQ', 'AR', 'AS'], 'currency_format', '"$"#,##0.00')
 
 
-
-
-
-
-
-
 def format_data(column_headers):
     number_of_headers = len(column_headers)
 
@@ -82,13 +76,11 @@ def format_data(column_headers):
     return df
     # Specify the Excel file path
 
-
 def save_data(data_frame, saving_directory):
     # Save the DataFrame to an Excel file
     data_frame.to_excel(saving_directory, index=False)
     print(f'Data saved to {saving_directory}')
     print('************ Processes completed successfully! ************')
-
 
 def insert_line_after(file_path, sheet_name, row_number, data):
     # Load the existing workbook
