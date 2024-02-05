@@ -15,6 +15,7 @@ script_directory = os.path.dirname(script_path)
 # ---- to use when working in IDE ---- #
 #project_root = os.path.abspath(os.path.join(script_directory, ".."))
 
+
 # ---- to use when exporting as an executable --- #
 project_root = os.path.abspath(os.path.join(script_directory))
 
@@ -52,7 +53,6 @@ def get_xlsx(directory_path):
     except Exception as e:
         print(f"Error while listing directory '{directory_path}': {e}")
 
-
 def get_data_from_range(file_path, sheet_name, column_letters, start_row, end_row):
     try:
         # Load the Excel workbook
@@ -86,17 +86,14 @@ def get_data_from_range(file_path, sheet_name, column_letters, start_row, end_ro
         print(f"Error while processing the file '{file_path}': {e}")
         return None, None
 
-
 def removeNone_listOfLists(listName):
     for i, sublist in enumerate(listName):
         listName[i] = [value for value in sublist if value is not None]
     return listName
 
-
 def removeEmptyList(listName):
     cleaned_list = [sublist for sublist in listName if sublist]
     return cleaned_list
-
 
 def remove_stock_symbol(text):
     # Define a regular expression pattern to match stock symbols
@@ -110,7 +107,6 @@ def remove_stock_symbol(text):
     # return stock value
     return stock_symbols
 
-
 def remove_and_extract_date(text):
     date_pattern = re.compile(r'(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) \d{1,2} \d{4}')
     match = date_pattern.search(text)
@@ -119,7 +115,6 @@ def remove_and_extract_date(text):
         return extracted_date
     else:
         return 'not found'
-
 
 def extract_strike_value(text):
     strike_pattern = re.compile(r'\b\d+\.\d+\b')
@@ -130,7 +125,6 @@ def extract_strike_value(text):
     else:
         return 'not found'
 
-
 def extract_stock_type(text):
     stock_type_pattern = re.compile(r'\b(Call|Put)\b', re.IGNORECASE)
     match = stock_type_pattern.search(text)
@@ -140,7 +134,6 @@ def extract_stock_type(text):
     else:
         return 'not found'
 
-
 def check_buying_situation(text):
     buying_sit_pattern = re.compile(r'\b(Sold|Bought)\b', re.IGNORECASE)
     match = buying_sit_pattern.search(text)
@@ -148,7 +141,6 @@ def check_buying_situation(text):
         return match.group()
     else:
         return 'not found'
-
 
 def has_sequence_case_insensitive(my_list, sequence):
     # Convert both the list and the sequence to lowercase
@@ -161,7 +153,6 @@ def has_sequence_case_insensitive(my_list, sequence):
             return True
     return False
 
-
 def convert_date_to_dd_mm_yyyy(input_format, output_format, date_item):
     # Parse the date string into a datetime object
     datetime_object = datetime.strptime(date_item, input_format)
@@ -169,12 +160,10 @@ def convert_date_to_dd_mm_yyyy(input_format, output_format, date_item):
     # Extract the date part and return it as datetime.date
     return date_formatted
 
-
 def retrieve_numerical_value(input_text):
     numeric_part = re.search(r'\d+', input_text).group()
     numeric_value = int(numeric_part)
     return numeric_value
-
 
 def last_five_months_numbers():
     # Get today's date
@@ -186,7 +175,6 @@ def last_five_months_numbers():
     # Extract and print only the month numbers in 'mm' format
     month_numbers = [date.strftime('%m') for date in last_five_months]
     return month_numbers
-
 
 def find_next_9_fridays():
     # Get today's date
@@ -206,11 +194,9 @@ def find_next_9_fridays():
 
     return next_fridays
 
-
 def calculate_days_difference(date1, date2):
     result = date1 - date2
     return result.days
-
 
 # - - - Lists to be used - - - - #
 header_list_check = ['Date', 'Description', 'Quantity', 'Symbol', 'Price', 'Amount']
@@ -259,15 +245,12 @@ week_8 = []
 week_9 = []
 
 fridays_list = find_next_9_fridays()
-
 xlsx_file = get_xlsx(data_input_directory)
 if xlsx_file is not None:
     first_sheet_name, file_path, columns, last_row = xlsx_file
     result_lists, headers = get_data_from_range(file_path, first_sheet_name, columns, 2, last_row)
     if has_sequence_case_insensitive(headers, header_list_check):
-        print('File validation ✓')
-        print('Reading XLSX file...')
-        print('XLSX file processed ✓')
+
         # cleaning result list
         new_resultList = removeNone_listOfLists(result_lists)
         final_resultList = removeEmptyList(new_resultList)
@@ -469,7 +452,7 @@ if xlsx_file is not None:
             formula_annual_yield = '=W' + string_index + '*(365/E' + string_index + ')/I' + string_index
             annual_yield_at_strike.append(formula_annual_yield)
 
-            # yield_on_cost_at_trade ----- THIS IS WAITING FOR CONFIRMATION REG THE FORMULA !! --- INCOMPLETE as of 01/07
+            # yield on cost at trade
             formula_yield_on_cost = ''
             yield_on_cost_at_trade.append(formula_yield_on_cost)
 
