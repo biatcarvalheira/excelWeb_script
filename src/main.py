@@ -66,8 +66,11 @@ def trade_mixer_run_all():
     format_columns(data_output_directory, 'Sheet1',
                    ['T', 'V', 'AI', 'AK', 'AL', 'AM', 'AN', 'AO', 'AP', 'AQ', 'AR', 'AS'], 'currency_format',
                    '"$"#,##0.00')
-
-
+def order_mixer_run_all():
+    print('Running order mixer')
+    print('New Result List')
+    from excel_parser.excel_parser import final_resultList
+    print(final_resultList)
 def format_data(column_headers, list1_excel, list2_excel, list3_excel, list4_excel, list5_excel, list6_excel,
                 list7_excel, list8_excel, list9_excel, list10_excel, list11_excel, list12_excel,
                 list13_excel, list14_excel, list15_excel, list16_excel, list17_excel, list18_excel,
@@ -178,7 +181,7 @@ def format_columns(file_path, sheet_name, column_letters, formatting_name, forma
     workbook.save(file_path)
 
 # --- Next 9 Fridays Dates --- #
-def find_next_9_fridays():
+def find_next_11_fridays():
     # Get today's date
     today = datetime.now().date()
 
@@ -186,8 +189,8 @@ def find_next_9_fridays():
     days_until_next_friday = (4 - today.weekday() + 7) % 7
     next_friday = today + timedelta(days=days_until_next_friday)
 
-    # Calculate the dates for the next 9 Fridays
-    next_fridays_primary_list = [next_friday + timedelta(weeks=i) for i in range(9)]
+    # Calculate the dates for the next 10 Fridays
+    next_fridays_primary_list = [next_friday + timedelta(weeks=i) for i in range(11)]
     next_fridays = []
     # Print the result in "mm/dd/yy" format
     for date in next_fridays_primary_list:
@@ -253,10 +256,10 @@ name_with_web_scraper = 'TDA_YAHOO_DATA_'
 name_without_web_scraper = 'TDA_DATA_'
 excel_filename = f'{name_with_web_scraper}{timestamp}.xlsx'
 #IDE
-#project_root_for_saving = os.path.join(project_root, "..")
+project_root_for_saving = os.path.join(project_root, "..")
 
 #Executable
-project_root_for_saving = os.path.join(project_root)
+#project_root_for_saving = os.path.join(project_root)
 data_output_directory = os.path.join(project_root_for_saving, "data", "output", excel_filename)
 
 column_headers = [
@@ -268,16 +271,14 @@ column_headers = [
     'mkt beta* mkt px*contracts', 'Qty',
     'mkt price *number of contracts', 'Trade Price/premium', 'trade price as percent of notional',
     'annual yield at strike at time of trade', 'yield on cost at time of trade', 'multiple on cost',
-    'yield at current mkt price at time of trade', 'premium', f'contracted in {previous_5_months[0]}',
-    f'contracted in {previous_5_months[1]}',
-    f'contracted in {previous_5_months[2]}', f'contracted in {previous_5_months[3]}',
-    f'contracted in {previous_5_months[4]}', 'cash if exercised', 'days >>',
-    '=AK1-A1', '=AL1-A1', '=AM1-A1', '=AN1-A1', '=AO1-A1', '=AP1-A1', '=AQ1-A1', '=AR1-A1', '=AS1-A1',
+    'yield at current mkt price at time of trade', 'premium', f'contracted in {previous_5_months[0]}', f'contracted in {previous_5_months[1]}',
+    f'contracted in {previous_5_months[2]}', f'contracted in {previous_5_months[3]}', f'contracted in {previous_5_months[4]}', 'cash if exercised', 'days >>',
+    '=AK1-A1', '=AL1-A1', '=AM1-A1', '=AN1-A1', '=AO1-A1', '=AP1-A1', '=AQ1-A1', '=AR1-A1', '=AS1-A1', '=AT1-A1', '=AU1-A1'
 ]
 
 # first line content
 first_line_data = [header_time_stamp, formatted_date, 'Open Positions', "Total"] + [None] * (len(column_headers) - 3)
-fridays_list = find_next_9_fridays()
+fridays_list = find_next_11_fridays()
 start_position = 36
 for f in fridays_list:
     first_line_data[start_position] = f
@@ -285,7 +286,6 @@ for f in fridays_list:
 
 try:
     while True:
-
         display_menu()
         choice = input('Choose 0-3')
         if choice == '1':
@@ -294,14 +294,17 @@ try:
             from web_scraper.web_scraper import underlying_price_at_time_of_trade
             trade_mixer_run_all()
         if choice == '2':
-            print('Orders')
+            order_mixer_run_all()
+
         if choice == '3':
             print('Trade and Orders')
+            from web_scraper.web_scraper import mkt_beta_list
+            from web_scraper.web_scraper import underlying_price_at_time_of_trade
+            trade_mixer_run_all()
+            order_mixer_run_all()
         if choice == '0':
             print('Program finalized')
             break
-
-
 
 except Exception as e:
     print(f'Error loading the program. {e}\nPlease try again.')
