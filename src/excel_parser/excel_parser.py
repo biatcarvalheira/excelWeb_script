@@ -188,7 +188,7 @@ def last_five_months_numbers():
     return month_numbers
 
 
-def find_next_9_fridays():
+def find_next_11_fridays():
     # Get today's date
     today = datetime.now().date()
 
@@ -196,8 +196,8 @@ def find_next_9_fridays():
     days_until_next_friday = (4 - today.weekday() + 7) % 7
     next_friday = today + timedelta(days=days_until_next_friday)
 
-    # Calculate the dates for the next 9 Fridays
-    next_fridays_primary_list = [next_friday + timedelta(weeks=i) for i in range(9)]
+    # Calculate the dates for the next 10 Fridays
+    next_fridays_primary_list = [next_friday + timedelta(weeks=i) for i in range(11)]
     next_fridays = []
     # Print the result in "mm/dd/yy" format
     for date in next_fridays_primary_list:
@@ -257,8 +257,10 @@ week_6 = []
 week_7 = []
 week_8 = []
 week_9 = []
+week_10 = []
+week_11 = []
 
-fridays_list = find_next_9_fridays()
+fridays_list = find_next_11_fridays()
 
 xlsx_file = get_xlsx(data_input_directory)
 if xlsx_file is not None:
@@ -362,7 +364,7 @@ if xlsx_file is not None:
             option_date = option_expiration_date[index]
 
             # get values for the friday cells
-            fridays_list = find_next_9_fridays()
+            fridays_list = find_next_11_fridays()
 
 
             friday_1 = fridays_list[0]
@@ -374,7 +376,8 @@ if xlsx_file is not None:
             friday_7 = fridays_list[6]
             friday_8 = fridays_list[7]
             friday_9 = fridays_list[8]
-
+            friday_10 = fridays_list[9]
+            friday_11 = fridays_list[10]
 
             if option_date == friday_1:
                 week_1.append('=AI'+string_index)
@@ -421,6 +424,16 @@ if xlsx_file is not None:
             else:
                 week_9.append('')
 
+            if option_date == friday_10:
+                week_10.append('=AI' + string_index)
+            else:
+                week_10.append('')
+
+            if option_date == friday_11:
+                week_11.append('=AI' + string_index)
+            else:
+                week_11.append('')
+
             # get days till exp -
             formula_exp_date = '=D' + string_index + '-C' + string_index
             days_till_exp_date.append(formula_exp_date)
@@ -438,7 +451,7 @@ if xlsx_file is not None:
             underlying_price_current.append(formula_underlying_price_current)
 
             # otm, current
-            formula_otm_current = '=(M' + string_index + '-I' + string_index + ')/M' + string_index
+            formula_otm_current = '=IF(S' + string_index + '= "Call", (I' + string_index + '-M' + string_index + ')/M' + string_index + ', (M' + string_index + '-I' + string_index + ')/M' + string_index + ')'
             otm_current.append(formula_otm_current)
 
             # $ amount of stock itm can be called (-) or put (+)
@@ -474,7 +487,7 @@ if xlsx_file is not None:
             yield_on_cost_at_trade.append(formula_yield_on_cost)
 
             # yield at current mkt price at trade
-            formula_yield_current_mkt = '=$W' + string_index + '*(365/$E' + string_index + ')/K' + string_index
+            formula_yield_current_mkt = '=X' + string_index + '*(365/F' + string_index + ')/L' + string_index
             yield_at_current_mkt_price_at_trade.append(formula_yield_current_mkt)
 
             # cash if exercised
