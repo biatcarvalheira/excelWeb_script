@@ -1,6 +1,5 @@
 from excel_parser.excel_parser import *
-from web_scraper.web_scraper import mkt_beta_list
-from web_scraper.web_scraper import underlying_price_at_time_of_trade
+
 import os
 import pandas as pd
 from datetime import datetime, timedelta

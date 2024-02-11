@@ -1,10 +1,11 @@
 import os
-
 import datetime as datetime
 import openpyxl
 import sys
 import re
 from datetime import datetime, timedelta
+from src.web_scraper.web_scraper import underlying_price_at_time_of_trade
+from src.web_scraper.web_scraper import mkt_beta_list
 
 # Get the absolute path to the script
 script_path = os.path.abspath(sys.argv[0])
@@ -496,7 +497,7 @@ def process_xlsx(data_input):
                 cash_if_exercised.append(formula_cash_if_exercised)
 
                 combined_filled_lists = (
-                            underlying_symbol + otm_at_time_of_trade + underlying_price_current + otm_current +
+                            mkt_beta_list + underlying_price_at_time_of_trade + underlying_symbol + otm_at_time_of_trade + underlying_price_current + otm_current +
                             amount_of_stock_itm_can_be_called + weight + weighted_otm + option_expiration_date +
                             strike + stock_type + quantity + mkt_beta_px_contracts + mkt_price_of_contracts +
                             premium + price + trade_price_percent_notional + annual_yield_at_strike +
