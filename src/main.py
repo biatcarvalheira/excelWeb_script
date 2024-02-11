@@ -5,15 +5,15 @@ from openpyxl import load_workbook
 from pandas.tseries.offsets import BMonthBegin
 from openpyxl.styles import NamedStyle
 import openpyxl
-from excel_parser.excel_parser import project_root, process_xlsx_trade, extract_underlying_symbol
+from excel_parser.excel_parser import project_root, process_xlsx_trade, extract_underlying_symbol, process_xlsx_orders
 from web_scraper.web_scraper import run_all_web
 
 
 def main():
     c = menu()
     if c == '1':
-        c_list = process_xlsx_trade(data_input_directory)
-        df = format_data(column_headers, c_list, data_input_directory)
+        c_list = process_xlsx_trade(data_input_directory_trade)
+        df = format_data(column_headers, c_list, data_input_directory_trade, c)
         save_data(df, data_output_directory)
         insert_line_after(data_output_directory, 'Sheet1', 1, first_line_data)
         # format percentage cells
@@ -22,9 +22,10 @@ def main():
         format_columns(data_output_directory, 'Sheet1',
                        ['T', 'V', 'AI', 'AK', 'AL', 'AM', 'AN', 'AO', 'AP', 'AQ', 'AR', 'AS'], 'currency_format',
                        '"$"#,##0.00')
-    else:
-        print('other options')
-
+    if c == '2':
+        orders_c_list = process_xlsx_orders(data_input_directory_orders)
+        df = format_data(column_headers, orders_c_list, data_input_directory_orders, c)
+        save_data(df, data_output_directory)
 
 def menu():
     print('choose')
@@ -33,11 +34,9 @@ def menu():
     return choice
 
 
-def format_data(column_h, content_list, data_input):
+def format_data(column_h, content_list, data_input, choice_number):
     und_symbol = extract_underlying_symbol(data_input)
     uptt_list, mkt_b_list = run_all_web(und_symbol)
-    print(uptt_list)
-
     number_of_headers = len(column_h)
     # Create an empty DataFrame with 40 columns
     columns = [column_h[i] for i in range(1, number_of_headers)]
@@ -61,15 +60,16 @@ def format_data(column_h, content_list, data_input):
             print(index)
             print('LABEL', df_list[index])
             print('CONTENT LIST ITEM', c)
-            if df_list[index] == 'underlying price at time of trade':
+            if df_list[index] == 'underlying price at time of trade' and choice_number == '1':
                 print('upp list')
                 c = uptt_list
-            if df_list[index] == 'mkt beta':
+            if df_list[index] == 'mkt beta' and choice_number == '1':
                 c = mkt_b_list
             df[df_list[index]] = c
         except IndexError:
             # Print the index of the list that caused the error
             print(f"List at index {index} is out of range.")
+
     # Fill specific columns with initial values
     df.insert(0, 'check date >>', '')  # or use an empty string: ''
 
@@ -202,14 +202,22 @@ date_style = NamedStyle(name='date', number_format='d-mmm-yyyy')
 name_with_web_scraper = 'TDA_YAHOO_DATA_'
 name_without_web_scraper = 'TDA_DATA_'
 excel_filename = f'{name_with_web_scraper}{timestamp}.xlsx'
+
+
 # IDE
 data_output_directory = os.path.join(project_root, "excelWeb_script", "data", "output", excel_filename)
 
 # executable
 # data_output_directory = os.path.join(project_root, "data", "output", excel_filename)
 
-# IDE
-data_input_directory = os.path.join(project_root, "excelWeb_script", "data", "input")
+# ---- IDE ---- #
+# --trade -- #
+data_input_directory_trade = os.path.join(project_root, "excelWeb_script", "data", "input", "trade")
+
+# --orders -- #
+data_input_directory_orders = os.path.join(project_root, "excelWeb_script", "data", "input", "orders")
+
+
 
 # executable
 # data_input_directory = os.path.join(project_root, "data", "input")

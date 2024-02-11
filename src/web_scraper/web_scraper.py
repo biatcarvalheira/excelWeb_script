@@ -7,8 +7,7 @@ from bs4 import BeautifulSoup
 # ---- to use when working in Executable ---- #
 ##from excel_parser.excel_parser import underlying_symbol
 
-# ---- to use when working in IDE ---- #
-from src.excel_parser.excel_parser import underlying_symbol
+
 
 
 # Get the absolute path to the script

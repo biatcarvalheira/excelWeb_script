@@ -22,8 +22,7 @@ project_root = os.path.abspath(os.path.join(script_directory, "..", ".."))
 
 # Specify the relative path to the data/input directory
 data_input_directory = os.path.join(project_root, "data", "input")
-print(data_input_directory)
-underlying_symbol = ['JBLU', 'WBD', 'BABA']
+data_input_directory_orders = os.path.join(project_root, "data", "input", "orders")
 
 
 def get_xlsx(directory_path):
@@ -54,7 +53,43 @@ def get_xlsx(directory_path):
         # If no XLSX file with a sheet is found
         return None
     except Exception as e:
-        print(f"Excel processing. Error while listing directory '{directory_path}': {e}")
+        print(f"Trade Excel processing error: error while listing directory '{directory_path}': {e}")
+
+
+def remove_first_row_from_sheet(sheet):
+    # Remove the first row
+    removed_row = sheet[1]
+    sheet.delete_rows(1)
+    return removed_row
+
+
+def get_xlsx_orders(directory_path):
+    try:
+        # Get a list of all files in the directory
+        files = os.listdir(directory_path)
+        # Check if any of the files has a .xlsx extension
+        for file in files:
+            if file.lower().endswith('.xlsx') and not file.startswith('~$'):
+                file_path = os.path.join(directory_path, file)
+                try:
+                    wb = openpyxl.load_workbook(file_path)
+                    sheet_names = wb.sheetnames
+                    if sheet_names:
+                        first_sheet_name = sheet_names[0]
+                        sheet = wb[first_sheet_name]
+                        removed_row = remove_first_row_from_sheet(sheet)
+
+                        active_columns_letters = [openpyxl.utils.get_column_letter(col) for col in
+                                                  range(1, sheet.max_column + 1)]
+
+                        # Get the last active row
+                        last_active_row = sheet.max_row
+                        return first_sheet_name, file_path, active_columns_letters, last_active_row
+
+                except Exception as e:
+                    print(f"Error while processing file '{file}': {e}")
+    except Exception as e:
+        print(f"Trade Excel processing error: error while listing directory '{directory_path}': {e}")
 
 
 def get_data_from_range(file_path, sheet_name, column_letters, start_row, end_row):
@@ -241,7 +276,7 @@ def extract_underlying_symbol(data_input):
     return u_symbol
 
 
-def process_xlsx_trade (data_input):
+def process_xlsx_trade(data_input):
     # - - - Lists to be used - - - - #
     global combined_filled_lists
     header_list_check = ['Date', 'Description', 'Quantity', 'Symbol', 'Price', 'Amount']
@@ -545,3 +580,70 @@ def process_xlsx_trade (data_input):
             print('Please start the program again!')
             sys.exit()
     return combined_filled_lists
+
+
+def process_xlsx_orders(data_input):
+    trade_date_list = []
+    option_expiration_date_list = []
+    order_expiration_date_time_in_force = []
+    strike_list = []
+    underlying_list = []
+    type_list = []
+    qty_list = []
+    trade_price_premium = []
+    order_content_filled_list = []
+
+    xlsx_file = get_xlsx_orders(data_input)
+    if xlsx_file is not None:
+        today_date = datetime.now().strftime('%-m/%d/%Y')
+
+        first_sheet_name, file_path, columns, last_row = xlsx_file
+        result_lists, headers = get_data_from_range(file_path, first_sheet_name, columns, 2, last_row)
+        new_resultList = removeNone_listOfLists(result_lists)
+        final_resultList = removeEmptyList(new_resultList)
+
+        # loop through quantity list
+        for n in final_resultList[3]:
+            qty_list.append(n)
+
+        # loop through symbol list to get multiple values:
+        for n in final_resultList[4]:
+
+            # --- option_expiration_date -- #
+            expiration_date = remove_and_extract_date(n)
+            formatted_date = convert_date_to_dd_mm_yyyy("%b %d %Y", "%-m/%d/%y", expiration_date)
+            print(formatted_date)
+            option_expiration_date_list.append(formatted_date)
+
+            # --- strike -- #
+            strike_value = extract_strike_value(n)
+            strike_list.append(strike_value)
+
+            # --- underlying -- #
+            remove_value = remove_stock_symbol(n)
+            stock_symbol = ', '.join(remove_value)
+            underlying_list.append(stock_symbol)
+
+            # --- type -- #
+            stock_type_v = extract_stock_type(n)
+            type_list.append(stock_type_v)
+
+        # loop through price list:
+        for n in final_resultList[7]:
+            trade_price_premium.append(n)
+            trade_date_list.append(today_date)
+
+        # loop through time in force list
+        for n in final_resultList[9]:
+            order_expiration_date_time_in_force.append(n)
+
+        order_content_filled_list = [trade_date_list, option_expiration_date_list, order_expiration_date_time_in_force,
+                                     strike_list, underlying_list, type_list, qty_list, trade_price_premium]
+
+        return order_content_filled_list
+
+
+
+
+
+
