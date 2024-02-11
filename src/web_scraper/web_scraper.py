@@ -5,10 +5,10 @@ import os
 import requests
 from bs4 import BeautifulSoup
 # ---- to use when working in Executable ---- #
-from excel_parser.excel_parser import underlying_symbol
+##from excel_parser.excel_parser import underlying_symbol
 
 # ---- to use when working in IDE ---- #
-#from src.excel_parser.excel_parser import underlying_symbol
+from src.excel_parser.excel_parser import underlying_symbol
 
 
 # Get the absolute path to the script

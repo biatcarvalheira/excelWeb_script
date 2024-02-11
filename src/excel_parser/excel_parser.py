@@ -4,8 +4,8 @@ import openpyxl
 import sys
 import re
 from datetime import datetime, timedelta
-from src.web_scraper.web_scraper import underlying_price_at_time_of_trade
-from src.web_scraper.web_scraper import mkt_beta_list
+#from src.web_scraper.web_scraper import underlying_price_at_time_of_trade
+#from src.web_scraper.web_scraper import mkt_beta_list
 
 # Get the absolute path to the script
 script_path = os.path.abspath(sys.argv[0])
@@ -22,7 +22,7 @@ project_root = os.path.abspath(os.path.join(script_directory, "..", ".."))
 # Specify the relative path to the data/input directory
 data_input_directory = os.path.join(project_root, "data", "input")
 print(data_input_directory)
-
+underlying_symbol = ['JBLU', 'WBD', 'BABA']
 
 def get_xlsx(directory_path):
     try:
@@ -52,7 +52,7 @@ def get_xlsx(directory_path):
         # If no XLSX file with a sheet is found
         return None
     except Exception as e:
-        print(f"Error while listing directory '{directory_path}': {e}")
+        print(f"Excel processing. Error while listing directory '{directory_path}': {e}")
 
 
 def get_data_from_range(file_path, sheet_name, column_letters, start_row, end_row):
@@ -263,6 +263,9 @@ def process_xlsx(data_input):
     week_9 = []
     week_10 = []
     week_11 = []
+
+    underlying_price_at_time_of_trade_temporary = ['1', '2', '3']
+    mkt_beta_list_temporary = ['2', '7', '8']
 
     fridays_list = find_next_11_fridays()
     xlsx_file = get_xlsx(data_input)
@@ -496,16 +499,19 @@ def process_xlsx(data_input):
                 formula_cash_if_exercised = '=IF(LOWER(S' + string_index + ')="put", U' + string_index + '*I' + string_index + '*100,-U' + string_index + '*I' + string_index + '*100)'
                 cash_if_exercised.append(formula_cash_if_exercised)
 
-                combined_filled_lists = (
-                            mkt_beta_list + underlying_price_at_time_of_trade + underlying_symbol + otm_at_time_of_trade + underlying_price_current + otm_current +
-                            amount_of_stock_itm_can_be_called + weight + weighted_otm + option_expiration_date +
-                            strike + stock_type + quantity + mkt_beta_px_contracts + mkt_price_of_contracts +
-                            premium + price + trade_price_percent_notional + annual_yield_at_strike +
-                            yield_on_cost_at_trade + yield_at_current_mkt_price_at_trade + trade_date +
-                            days_till_exp_date + days_till_exp_date_current + stock_buy_list +
-                            cash_if_exercised + month_1 + month_2 + month_3 + month_4 + month_5 +
-                            week_1 + week_2 + week_3 + week_4 + week_5 + week_6 + week_7 + week_8 +
-                            week_9 + week_10 + week_11)
+                combined_filled_lists = [
+                    trade_date, option_expiration_date, days_till_exp_date, days_till_exp_date_current, strike,
+                    underlying_symbol,
+                    underlying_price_at_time_of_trade_temporary, otm_at_time_of_trade, underlying_price_current,
+                    otm_current,
+                    amount_of_stock_itm_can_be_called, weight, weighted_otm, mkt_beta_list_temporary, stock_type,
+                    mkt_beta_px_contracts, quantity,
+                    mkt_price_of_contracts, price, trade_price_percent_notional, annual_yield_at_strike,
+                    yield_on_cost_at_trade,
+                    yield_at_current_mkt_price_at_trade, premium, month_1, month_2, month_3, month_4, month_5,
+                    cash_if_exercised, week_1,
+                    week_2, week_3, week_4, week_5, week_6, week_7, week_8, week_9, week_10, week_11
+                ]
 
         else:
             print(

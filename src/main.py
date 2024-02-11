@@ -1,18 +1,18 @@
-from excel_parser.excel_parser import *
-
 import os
 import pandas as pd
 from datetime import datetime, timedelta
 from openpyxl import load_workbook
 from pandas.tseries.offsets import BMonthBegin
 from openpyxl.styles import NamedStyle
+import openpyxl
+from excel_parser.excel_parser import project_root, process_xlsx
 
 
 
 def main():
-    # print(project_root)
-    # print(data_input_directory)
-    df = format_data(column_headers)
+    c_list = process_xlsx(data_input_directory)
+    print(len(c_list))
+    df = format_data(column_headers, c_list)
     save_data(df, data_output_directory)
     insert_line_after(data_output_directory, 'Sheet1', 1, first_line_data)
     # format percentage cells
@@ -22,16 +22,34 @@ def main():
     format_columns(data_output_directory, 'Sheet1', ['T', 'V', 'AI', 'AK', 'AL', 'AM', 'AN', 'AO', 'AP', 'AQ', 'AR', 'AS'], 'currency_format', '"$"#,##0.00')
 
 
-def format_data(column_headers, *content_list):
-    number_of_headers = len(column_headers)
-
+def format_data(column_h, content_list):
+    number_of_headers = len(column_h)
     # Create an empty DataFrame with 40 columns
-    columns = [column_headers[i] for i in range(1, number_of_headers)]
+    columns = [column_h[i] for i in range(1, number_of_headers)]
     df = pd.DataFrame(columns=columns)
     percent_format = '{:.2%}'
-    df_list = ['option Expiration date', 'Strike', 'underlying symbol', 'Type', 'mkt beta* mkt px*contracts', 'Qty', 'mkt price *number of contracts', 'Trade Price/premium', 'trade price as percent of notional', 'annual yield at strike at time of trade', 'yield at current mkt price at time of trade', 'premium', 'contracted in {previous_5_months[4]}', 'contracted in {previous_5_months[3]}', 'contracted in {previous_5_months[2]}', 'contracted in {previous_5_months[1]}', 'contracted in {previous_5_months[0]}', 'trade date', 'days till exp (trade date)', 'days till exp (current)', 'underlying price at time of trade', 'otm at time of trade', 'underlying price, current', 'otm, current', '$ amount of stock itm can be called (-) or put (+)', 'weight', 'weighted otm', 'mkt beta', 'cash if exercised', '=AK1-A1', '=AL1-A1', '=AM1-A1', '=AN1-A1', '=AO1-A1', '=AP1-A1', '=AQ1-A1', '=AR1-A1', '=AS1-A1', '=AT1-A1', '=AU1-A1']
+    df_list = ['trade date', 'option Expiration date', 'days till exp (trade date)', 'days till exp (current)',
+               'Strike', 'underlying symbol', 'underlying price at time of trade', 'otm at time of trade',
+               'underlying price, current', 'otm, current', '$ amount of stock itm can be called (-) or put (+)',
+               'weight', 'weighted otm', 'mkt beta', 'Type', 'mkt beta* mkt px*contracts', 'Qty',
+               'mkt price *number of contracts', 'Trade Price/premium', 'trade price as percent of notional',
+               'annual yield at strike at time of trade', 'yield at current mkt price at time of trade', 'premium',
+               'contracted in {previous_5_months[4]}', 'contracted in {previous_5_months[3]}',
+               'contracted in {previous_5_months[2]}', 'contracted in {previous_5_months[1]}',
+               'contracted in {previous_5_months[0]}', 'cash if exercised', '=AK1-A1', '=AL1-A1', '=AM1-A1', '=AN1-A1',
+               '=AO1-A1', '=AP1-A1', '=AQ1-A1', '=AR1-A1', '=AS1-A1', '=AT1-A1', '=AU1-A1'
+               ]
+    print(len(content_list))
+    print(content_list)
     for index, c in enumerate(content_list):
-        df[df_list[index]] = c
+      try:
+          print(index)
+          print('LABEL', df_list[index])
+          print('CONTENT LIST ITEM', c)
+          df[df_list[index]] = c
+      except IndexError:
+          # Print the index of the list that caused the error
+          print(f"List at index {index} is out of range.")
     # Fill specific columns with initial values
     df.insert(0, 'check date >>', '')  # or use an empty string: ''
 
@@ -102,8 +120,12 @@ def find_next_11_fridays():
     next_fridays = []
     # Print the result in "mm/dd/yy" format
     for date in next_fridays_primary_list:
-        formatted_date = date.strftime("%-m/%d/%y")
-        next_fridays.append(formatted_date)
+        try:
+            formatted_date = date.strftime("%-m/%d/%y")
+            next_fridays.append(formatted_date)
+        except IndexError:
+            # Print the index of the list that caused the error
+            print(f"List at index {date} is out of range.")
 
     return next_fridays
 
@@ -156,7 +178,17 @@ date_style = NamedStyle(name='date', number_format='d-mmm-yyyy')
 name_with_web_scraper = 'TDA_YAHOO_DATA_'
 name_without_web_scraper = 'TDA_DATA_'
 excel_filename = f'{name_with_web_scraper}{timestamp}.xlsx'
-data_output_directory = os.path.join(project_root, "data", "output", excel_filename)
+#IDE
+data_output_directory = os.path.join(project_root, "excelWeb_script", "data", "output", excel_filename)
+
+#executable
+#data_output_directory = os.path.join(project_root, "data", "output", excel_filename)
+
+#IDE
+data_input_directory = os.path.join(project_root, "excelWeb_script","data", "input")
+
+#executable
+#data_input_directory = os.path.join(project_root, "data", "input")
 
 column_headers = [
     'check date >>', header_time_stamp, 'trade date', 'option Expiration date', 'days till exp (trade date)',
@@ -184,4 +216,4 @@ try:
     main()
 
 except Exception as e:
-    print(f'Error loading the program. {e}\nPlease try again.')
+    print(f'Main. Error loading the program. {e}\nPlease try again.')
