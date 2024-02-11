@@ -70,28 +70,30 @@ def get_values_from_cnbc(source):
     return open_val, beta_value
 
 
-underlying_price_at_time_of_trade = []
-mkt_beta_list = []
+def run_all_web(underlying_symbol_excel):
+    print('UNDERLYING SYMBOL', underlying_symbol_excel)
+    underlying_price_at_time_of_trade = []
+    mkt_beta_list = []
 
-for u in underlying_symbol:
-    new_url = 'https://finance.yahoo.com/quote/'+ u
-    page_content = make_request_bs4(new_url)
-    if page_content is not None:
-        open_value = get_open_value_yahoo(page_content)
-        mkt_value = get_mkt_beta_value_yahoo(page_content)
-        underlying_price_at_time_of_trade.append(open_value)
-        mkt_beta_list.append(mkt_value)
-    else:
-        new_url = 'https://www.cnbc.com/quotes/' + u
+    for u in underlying_symbol_excel:
+        new_url = 'https://finance.yahoo.com/quote/' + u
         page_content = make_request_bs4(new_url)
-        time.sleep(1)
         if page_content is not None:
-            open_value, mkt_value = get_values_from_cnbc(page_content)
+            open_value = get_open_value_yahoo(page_content)
+            mkt_value = get_mkt_beta_value_yahoo(page_content)
             underlying_price_at_time_of_trade.append(open_value)
             mkt_beta_list.append(mkt_value)
         else:
-            underlying_price_at_time_of_trade.append('N/A')
-            mkt_beta_list.append('N/A')
-            continue
-
+            new_url = 'https://www.cnbc.com/quotes/' + u
+            page_content = make_request_bs4(new_url)
+            time.sleep(1)
+            if page_content is not None:
+                open_value, mkt_value = get_values_from_cnbc(page_content)
+                underlying_price_at_time_of_trade.append(open_value)
+                mkt_beta_list.append(mkt_value)
+            else:
+                underlying_price_at_time_of_trade.append('N/A')
+                mkt_beta_list.append('N/A')
+                continue
+    return underlying_price_at_time_of_trade, mkt_beta_list
 

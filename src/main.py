@@ -5,24 +5,39 @@ from openpyxl import load_workbook
 from pandas.tseries.offsets import BMonthBegin
 from openpyxl.styles import NamedStyle
 import openpyxl
-from excel_parser.excel_parser import project_root, process_xlsx
-
+from excel_parser.excel_parser import project_root, process_xlsx_trade, extract_underlying_symbol
+from web_scraper.web_scraper import run_all_web
 
 
 def main():
-    c_list = process_xlsx(data_input_directory)
-    print(len(c_list))
-    df = format_data(column_headers, c_list)
-    save_data(df, data_output_directory)
-    insert_line_after(data_output_directory, 'Sheet1', 1, first_line_data)
-    # format percentage cells
-    format_columns(data_output_directory, 'Sheet1', ['L', 'N', 'Q', 'X', 'Y', 'AB'], 'percentage', '0.00%')
+    c = menu()
+    if c == '1':
+        c_list = process_xlsx_trade(data_input_directory)
+        df = format_data(column_headers, c_list, data_input_directory)
+        save_data(df, data_output_directory)
+        insert_line_after(data_output_directory, 'Sheet1', 1, first_line_data)
+        # format percentage cells
+        format_columns(data_output_directory, 'Sheet1', ['L', 'N', 'Q', 'X', 'Y', 'AB'], 'percentage', '0.00%')
+        # format currency cells
+        format_columns(data_output_directory, 'Sheet1',
+                       ['T', 'V', 'AI', 'AK', 'AL', 'AM', 'AN', 'AO', 'AP', 'AQ', 'AR', 'AS'], 'currency_format',
+                       '"$"#,##0.00')
+    else:
+        print('other options')
 
-    # format currency cells
-    format_columns(data_output_directory, 'Sheet1', ['T', 'V', 'AI', 'AK', 'AL', 'AM', 'AN', 'AO', 'AP', 'AQ', 'AR', 'AS'], 'currency_format', '"$"#,##0.00')
+
+def menu():
+    print('choose')
+    choice = input('select here')
+
+    return choice
 
 
-def format_data(column_h, content_list):
+def format_data(column_h, content_list, data_input):
+    und_symbol = extract_underlying_symbol(data_input)
+    uptt_list, mkt_b_list = run_all_web(und_symbol)
+    print(uptt_list)
+
     number_of_headers = len(column_h)
     # Create an empty DataFrame with 40 columns
     columns = [column_h[i] for i in range(1, number_of_headers)]
@@ -34,22 +49,27 @@ def format_data(column_h, content_list):
                'weight', 'weighted otm', 'mkt beta', 'Type', 'mkt beta* mkt px*contracts', 'Qty',
                'mkt price *number of contracts', 'Trade Price/premium', 'trade price as percent of notional',
                'annual yield at strike at time of trade', 'yield at current mkt price at time of trade', 'premium',
-               'contracted in {previous_5_months[4]}', 'contracted in {previous_5_months[3]}',
-               'contracted in {previous_5_months[2]}', 'contracted in {previous_5_months[1]}',
-               'contracted in {previous_5_months[0]}', 'cash if exercised', '=AK1-A1', '=AL1-A1', '=AM1-A1', '=AN1-A1',
+               f'contracted in {previous_5_months[4]}', f'contracted in {previous_5_months[3]}',
+               f'contracted in {previous_5_months[2]}', f'contracted in {previous_5_months[1]}',
+               f'contracted in {previous_5_months[0]}', 'cash if exercised', '=AK1-A1', '=AL1-A1', '=AM1-A1', '=AN1-A1',
                '=AO1-A1', '=AP1-A1', '=AQ1-A1', '=AR1-A1', '=AS1-A1', '=AT1-A1', '=AU1-A1'
                ]
     print(len(content_list))
     print(content_list)
     for index, c in enumerate(content_list):
-      try:
-          print(index)
-          print('LABEL', df_list[index])
-          print('CONTENT LIST ITEM', c)
-          df[df_list[index]] = c
-      except IndexError:
-          # Print the index of the list that caused the error
-          print(f"List at index {index} is out of range.")
+        try:
+            print(index)
+            print('LABEL', df_list[index])
+            print('CONTENT LIST ITEM', c)
+            if df_list[index] == 'underlying price at time of trade':
+                print('upp list')
+                c = uptt_list
+            if df_list[index] == 'mkt beta':
+                c = mkt_b_list
+            df[df_list[index]] = c
+        except IndexError:
+            # Print the index of the list that caused the error
+            print(f"List at index {index} is out of range.")
     # Fill specific columns with initial values
     df.insert(0, 'check date >>', '')  # or use an empty string: ''
 
@@ -81,6 +101,7 @@ def insert_line_after(file_path, sheet_name, row_number, data):
     # Save the changes
     wb.save(file_path)
 
+
 def format_columns(file_path, sheet_name, column_letters, formatting_name, formatting_number):
     # Load the Excel file
     workbook = openpyxl.load_workbook(file_path)
@@ -106,6 +127,7 @@ def format_columns(file_path, sheet_name, column_letters, formatting_name, forma
     # Save the changes to the Excel file
     workbook.save(file_path)
 
+
 # --- Next 9 Fridays Dates --- #
 def find_next_11_fridays():
     # Get today's date
@@ -129,15 +151,17 @@ def find_next_11_fridays():
 
     return next_fridays
 
+
 # --- Last Five Months --- #
 def last_five_months_writing():
     today = datetime.now()
-    last_five_months_dates = [today - timedelta(days=30*i) for i in range(5)]
+    last_five_months_dates = [today - timedelta(days=30 * i) for i in range(5)]
 
     # Formatting the month names and printing in reverse order
     formatted_months = [date.strftime('%B') for date in last_five_months_dates][::-1]
 
     return formatted_months
+
 
 # --- LISTS AND OTHER DATA --- #
 
@@ -178,17 +202,17 @@ date_style = NamedStyle(name='date', number_format='d-mmm-yyyy')
 name_with_web_scraper = 'TDA_YAHOO_DATA_'
 name_without_web_scraper = 'TDA_DATA_'
 excel_filename = f'{name_with_web_scraper}{timestamp}.xlsx'
-#IDE
+# IDE
 data_output_directory = os.path.join(project_root, "excelWeb_script", "data", "output", excel_filename)
 
-#executable
-#data_output_directory = os.path.join(project_root, "data", "output", excel_filename)
+# executable
+# data_output_directory = os.path.join(project_root, "data", "output", excel_filename)
 
-#IDE
-data_input_directory = os.path.join(project_root, "excelWeb_script","data", "input")
+# IDE
+data_input_directory = os.path.join(project_root, "excelWeb_script", "data", "input")
 
-#executable
-#data_input_directory = os.path.join(project_root, "data", "input")
+# executable
+# data_input_directory = os.path.join(project_root, "data", "input")
 
 column_headers = [
     'check date >>', header_time_stamp, 'trade date', 'option Expiration date', 'days till exp (trade date)',
@@ -199,9 +223,12 @@ column_headers = [
     'mkt beta* mkt px*contracts', 'Qty',
     'mkt price *number of contracts', 'Trade Price/premium', 'trade price as percent of notional',
     'annual yield at strike at time of trade', 'yield on cost at time of trade', 'multiple on cost',
-    'yield at current mkt price at time of trade', 'premium', f'contracted in {previous_5_months[0]}', f'contracted in {previous_5_months[1]}',
-    f'contracted in {previous_5_months[2]}', f'contracted in {previous_5_months[3]}', f'contracted in {previous_5_months[4]}', 'cash if exercised', 'days >>',
-    '=AK1-A1', '=AL1-A1', '=AM1-A1', '=AN1-A1', '=AO1-A1', '=AP1-A1', '=AQ1-A1', '=AR1-A1', '=AS1-A1', '=AT1-A1', '=AU1-A1'
+    'yield at current mkt price at time of trade', 'premium', f'contracted in {previous_5_months[0]}',
+    f'contracted in {previous_5_months[1]}',
+    f'contracted in {previous_5_months[2]}', f'contracted in {previous_5_months[3]}',
+    f'contracted in {previous_5_months[4]}', 'cash if exercised', 'days >>',
+    '=AK1-A1', '=AL1-A1', '=AM1-A1', '=AN1-A1', '=AO1-A1', '=AP1-A1', '=AQ1-A1', '=AR1-A1', '=AS1-A1', '=AT1-A1',
+    '=AU1-A1'
 ]
 
 # first line content

@@ -4,8 +4,9 @@ import openpyxl
 import sys
 import re
 from datetime import datetime, timedelta
-#from src.web_scraper.web_scraper import underlying_price_at_time_of_trade
-#from src.web_scraper.web_scraper import mkt_beta_list
+
+# from src.web_scraper.web_scraper import underlying_price_at_time_of_trade
+# from src.web_scraper.web_scraper import mkt_beta_list
 
 # Get the absolute path to the script
 script_path = os.path.abspath(sys.argv[0])
@@ -17,12 +18,13 @@ script_directory = os.path.dirname(script_path)
 project_root = os.path.abspath(os.path.join(script_directory, "..", ".."))
 
 # ---- to use when exporting as an executable --- #
-#project_root = os.path.abspath(os.path.join(script_directory))
+# project_root = os.path.abspath(os.path.join(script_directory))
 
 # Specify the relative path to the data/input directory
 data_input_directory = os.path.join(project_root, "data", "input")
 print(data_input_directory)
 underlying_symbol = ['JBLU', 'WBD', 'BABA']
+
 
 def get_xlsx(directory_path):
     try:
@@ -214,7 +216,32 @@ def calculate_days_difference(date1, date2):
     return result.days
 
 
-def process_xlsx(data_input):
+def extract_underlying_symbol(data_input):
+    u_symbol = []
+    header_list_check = ['Date', 'Description', 'Quantity', 'Symbol', 'Price', 'Amount']
+    xlsx_file = get_xlsx(data_input)
+    if xlsx_file is not None:
+        first_sheet_name, file_path, columns, last_row = xlsx_file
+        result_lists, headers = get_data_from_range(file_path, first_sheet_name, columns, 2, last_row)
+        if has_sequence_case_insensitive(headers, header_list_check):
+            # cleaning result list
+            new_resultList = removeNone_listOfLists(result_lists)
+            final_resultList = removeEmptyList(new_resultList)
+
+            ### - - - - - separating the content of the first list => result: 4 lists - - - - - #
+            # remove string content
+            final_resultList[0].remove('***END OF FILE***')
+
+            # New Lists: option_expiration_date, strike, underlying_symbol, stock_type
+            for n in final_resultList[1]:
+                # --- underlying_symbol -- #
+                remove_value = remove_stock_symbol(n)
+                stock_symbol = ', '.join(remove_value)
+                u_symbol.append(stock_symbol)
+    return u_symbol
+
+
+def process_xlsx_trade (data_input):
     # - - - Lists to be used - - - - #
     global combined_filled_lists
     header_list_check = ['Date', 'Description', 'Quantity', 'Symbol', 'Price', 'Amount']
@@ -507,7 +534,6 @@ def process_xlsx(data_input):
                     amount_of_stock_itm_can_be_called, weight, weighted_otm, mkt_beta_list_temporary, stock_type,
                     mkt_beta_px_contracts, quantity,
                     mkt_price_of_contracts, price, trade_price_percent_notional, annual_yield_at_strike,
-                    yield_on_cost_at_trade,
                     yield_at_current_mkt_price_at_trade, premium, month_1, month_2, month_3, month_4, month_5,
                     cash_if_exercised, week_1,
                     week_2, week_3, week_4, week_5, week_6, week_7, week_8, week_9, week_10, week_11
@@ -519,4 +545,3 @@ def process_xlsx(data_input):
             print('Please start the program again!')
             sys.exit()
     return combined_filled_lists
-
