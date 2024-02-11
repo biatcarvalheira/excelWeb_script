@@ -399,41 +399,38 @@ def process_xlsx_trade(data_input):
                 # values for the month contracted columns
                 trade_date_comparison = trade_date[index]
                 date_object = datetime.strptime(trade_date_comparison, '%m/%d/%y')
-                print(date_object)
-
 
                 # Extract the month and format it as 'mm'
                 trade_month = date_object.strftime('%m')
                 header_months = last_five_months_numbers()
-                print('HEADER MONTHS', header_months)
-                print(trade_month)
+                print('header months', header_months)
                 if trade_month == header_months[0]:
-                    month_5.append('=AC' + string_index)
-                    print('month1', header_months[0])
-                else:
-                    month_5.append('')
-
-                if trade_month == header_months[1]:
                     month_1.append('=AC' + string_index)
                 else:
                     month_1.append('')
 
-                if trade_month == header_months[2]:
+                if trade_month == header_months[1]:
                     month_2.append('=AC' + string_index)
                 else:
                     month_2.append('')
 
-                if trade_month == header_months[3]:
+                if trade_month == header_months[2]:
                     month_3.append('=AC' + string_index)
                 else:
                     month_3.append('')
 
-                if trade_month == header_months[4]:
+                if trade_month == header_months[3]:
                     month_4.append('=AC' + string_index)
                 else:
                     month_4.append('')
 
+                if trade_month == header_months[4]:
+                    month_5.append('=AC' + string_index)
+                else:
+                    month_5.append('')
+
                 option_date = option_expiration_date[index]
+
 
                 # get values for the friday cells
                 fridays_list = find_next_11_fridays()
