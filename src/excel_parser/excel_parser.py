@@ -399,13 +399,17 @@ def process_xlsx_trade(data_input):
                 # values for the month contracted columns
                 trade_date_comparison = trade_date[index]
                 date_object = datetime.strptime(trade_date_comparison, '%m/%d/%y')
+                print(date_object)
+
 
                 # Extract the month and format it as 'mm'
                 trade_month = date_object.strftime('%m')
                 header_months = last_five_months_numbers()
-
+                print('HEADER MONTHS', header_months)
+                print(trade_month)
                 if trade_month == header_months[0]:
                     month_5.append('=AC' + string_index)
+                    print('month1', header_months[0])
                 else:
                     month_5.append('')
 

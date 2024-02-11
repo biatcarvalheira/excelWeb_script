@@ -11,22 +11,34 @@ from web_scraper.web_scraper import run_all_web
 
 def main():
     c = menu()
-    if c == '1':
+    df_trade = ''
+    df_orders = ''
+    if c == '1' or c == '3':
         c_list = process_xlsx_trade(data_input_directory_trade)
-        df = format_data(column_headers, c_list, data_input_directory_trade, c)
-        save_data(df, data_output_directory)
-        insert_line_after(data_output_directory, 'Sheet1', 1, first_line_data)
+        df_trade = format_data(column_headers, c_list, data_input_directory_trade, c)
+    if c == '2' or c == '3':
+        orders_c_list = process_xlsx_orders(data_input_directory_orders)
+        df_orders = format_data(column_headers, orders_c_list, data_input_directory_orders, c)
+    if c == '1':
+        save_data(df_trade, data_output_directory_trade)
+        insert_line_after(data_output_directory_trade, 'Sheet1', 1, first_line_data)
         # format percentage cells
-        format_columns(data_output_directory, 'Sheet1', ['L', 'N', 'Q', 'X', 'Y', 'AB'], 'percentage', '0.00%')
+        format_columns(data_output_directory_trade, 'Sheet1', ['L', 'N', 'Q', 'X', 'Y', 'AB'], 'percentage', '0.00%')
         # format currency cells
-        format_columns(data_output_directory, 'Sheet1',
+        format_columns(data_output_directory_trade, 'Sheet1',
                        ['T', 'V', 'AI', 'AK', 'AL', 'AM', 'AN', 'AO', 'AP', 'AQ', 'AR', 'AS'], 'currency_format',
                        '"$"#,##0.00')
     if c == '2':
-        orders_c_list = process_xlsx_orders(data_input_directory_orders)
-        df = format_data(column_headers, orders_c_list, data_input_directory_orders, c)
-        save_data(df, data_output_directory)
-
+        save_data(df_orders, data_output_directory_orders)
+    if c == '3':
+        save_multiple_dataframes(df_trade, df_orders, data_output_directory_trade_and_orders)
+        insert_line_after(data_output_directory_trade_and_orders, 'Sheet1', 1, first_line_data)
+        # format percentage cells
+        format_columns(data_output_directory_trade_and_orders, 'Sheet1', ['L', 'N', 'Q', 'X', 'Y', 'AB'], 'percentage', '0.00%')
+        # format currency cells
+        format_columns(data_output_directory_trade_and_orders, 'Sheet1',
+                      ['T', 'V', 'AI', 'AK', 'AL', 'AM', 'AN', 'AO', 'AP', 'AQ', 'AR', 'AS'], 'currency_format',
+                       '"$"#,##0.00')
 def menu():
     print('choose')
     choice = input('select here')
@@ -53,17 +65,18 @@ def format_data(column_h, content_list, data_input, choice_number):
                f'contracted in {previous_5_months[0]}', 'cash if exercised', '=AK1-A1', '=AL1-A1', '=AM1-A1', '=AN1-A1',
                '=AO1-A1', '=AP1-A1', '=AQ1-A1', '=AR1-A1', '=AS1-A1', '=AT1-A1', '=AU1-A1'
                ]
-    print(len(content_list))
-    print(content_list)
+    #print(len(content_list))
+   # print(content_list)
     for index, c in enumerate(content_list):
         try:
-            print(index)
-            print('LABEL', df_list[index])
-            print('CONTENT LIST ITEM', c)
-            if df_list[index] == 'underlying price at time of trade' and choice_number == '1':
-                print('upp list')
+          #  print(index)
+          #  print('LABEL', df_list[index])
+          #  print('CONTENT LIST ITEM', c)
+           # print('length of content list item', len(c))
+            if df_list[index] == 'underlying price at time of trade' and len(c) <= 3 and (choice_number == '1' or choice_number == '3'):
+                print('upp list', uptt_list)
                 c = uptt_list
-            if df_list[index] == 'mkt beta' and choice_number == '1':
+            if df_list[index] == 'mkt beta' and len(c) <= 3 and (choice_number == '1' or choice_number == '3'):
                 c = mkt_b_list
             df[df_list[index]] = c
         except IndexError:
@@ -83,6 +96,17 @@ def save_data(data_frame, saving_directory):
     print(f'Data saved to {saving_directory}')
     print('************ Processes completed successfully! ************')
 
+def save_multiple_dataframes(df1, df2, saving_directory, sheet1_name='Sheet1', sheet2_name='Sheet2'):
+    # Use ExcelWriter to save to a specific sheet
+    with pd.ExcelWriter(saving_directory, mode='w', engine='openpyxl') as writer:
+        # Save the first DataFrame to the first sheet
+        df1.to_excel(writer, sheet_name=sheet1_name, index=False)
+
+        # Save the second DataFrame to the second sheet
+        df2.to_excel(writer, sheet_name=sheet2_name, index=False)
+
+    print(f'Data saved to {saving_directory} in sheets "{sheet1_name}" and "{sheet2_name}"')
+    print('************ Processes completed successfully! ************')
 
 def insert_line_after(file_path, sheet_name, row_number, data):
     # Load the existing workbook
@@ -199,13 +223,19 @@ percentage_style = NamedStyle(name='percentage', number_format='0.00%')
 date_style = NamedStyle(name='date', number_format='d-mmm-yyyy')
 
 # ------------------#
-name_with_web_scraper = 'TDA_YAHOO_DATA_'
-name_without_web_scraper = 'TDA_DATA_'
-excel_filename = f'{name_with_web_scraper}{timestamp}.xlsx'
+trade_name = 'TDA_YAHOO_CNBC_DATA_TRADE_DATA_'
+orders_name = 'TDA_YAHOO_CNBC_DATA_ORDERS_DATA_'
+trade_and_orders = 'TDA_YAHOO_CNBC_DATA_TRADE_AND_ORDERS_DATA_'
+
+excel_filename_trade = f'{trade_name}{timestamp}.xlsx'
+excel_filename_orders = f'{orders_name}{timestamp}.xlsx'
+excel_filename_trade_and_orders = f'{trade_and_orders}{timestamp}.xlsx'
 
 
-# IDE
-data_output_directory = os.path.join(project_root, "excelWeb_script", "data", "output", excel_filename)
+data_output_directory_trade = os.path.join(project_root, "excelWeb_script", "data", "output", excel_filename_trade)
+data_output_directory_orders = os.path.join(project_root, "excelWeb_script", "data", "output", excel_filename_orders)
+data_output_directory_trade_and_orders = os.path.join(project_root, "excelWeb_script", "data", "output", excel_filename_trade_and_orders)
+
 
 # executable
 # data_output_directory = os.path.join(project_root, "data", "output", excel_filename)
