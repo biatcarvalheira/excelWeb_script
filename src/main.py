@@ -60,9 +60,9 @@ def format_data(column_h, content_list, data_input, choice_number):
                'weight', 'weighted otm', 'mkt beta', 'Type', 'mkt beta* mkt px*contracts', 'Qty',
                'mkt price *number of contracts', 'Trade Price/premium', 'trade price as percent of notional',
                'annual yield at strike at time of trade', 'yield at current mkt price at time of trade', 'premium',
-               f'contracted in {previous_5_months[0]}', f'contracted in {previous_5_months[1]}',
-               f'contracted in {previous_5_months[2]}', f'contracted in {previous_5_months[3]}',
-               f'contracted in {previous_5_months[4]}', 'cash if exercised', '=AK1-A1', '=AL1-A1', '=AM1-A1', '=AN1-A1',
+               f'contracted in {previous_5_months[4]}', f'contracted in {previous_5_months[3]}',
+               f'contracted in {previous_5_months[2]}', f'contracted in {previous_5_months[1]}',
+               f'contracted in {previous_5_months[0]}', 'cash if exercised', '=AK1-A1', '=AL1-A1', '=AM1-A1', '=AN1-A1',
                '=AO1-A1', '=AP1-A1', '=AQ1-A1', '=AR1-A1', '=AS1-A1', '=AT1-A1', '=AU1-A1'
                ]
     #print(len(content_list))

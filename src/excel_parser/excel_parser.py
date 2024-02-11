@@ -405,29 +405,29 @@ def process_xlsx_trade(data_input):
                 header_months = last_five_months_numbers()
                 print('header months', header_months)
                 if trade_month == header_months[0]:
+                    month_5.append('=AC' + string_index)
+                else:
+                    month_5.append('')
+
+                if trade_month == header_months[1]:
                     month_1.append('=AC' + string_index)
                 else:
                     month_1.append('')
 
-                if trade_month == header_months[1]:
+                if trade_month == header_months[2]:
                     month_2.append('=AC' + string_index)
                 else:
                     month_2.append('')
 
-                if trade_month == header_months[2]:
+                if trade_month == header_months[3]:
                     month_3.append('=AC' + string_index)
                 else:
                     month_3.append('')
 
-                if trade_month == header_months[3]:
+                if trade_month == header_months[4]:
                     month_4.append('=AC' + string_index)
                 else:
                     month_4.append('')
-
-                if trade_month == header_months[4]:
-                    month_5.append('=AC' + string_index)
-                else:
-                    month_5.append('')
 
                 option_date = option_expiration_date[index]
 
@@ -570,7 +570,7 @@ def process_xlsx_trade(data_input):
                     amount_of_stock_itm_can_be_called, weight, weighted_otm, mkt_beta_list_temporary, stock_type,
                     mkt_beta_px_contracts, quantity,
                     mkt_price_of_contracts, price, trade_price_percent_notional, annual_yield_at_strike,
-                    yield_at_current_mkt_price_at_trade, premium, month_1, month_2, month_3, month_4, month_5,
+                    yield_at_current_mkt_price_at_trade, premium, month_5, month_1, month_2, month_3, month_4,
                     cash_if_exercised, week_1,
                     week_2, week_3, week_4, week_5, week_6, week_7, week_8, week_9, week_10, week_11
                 ]
