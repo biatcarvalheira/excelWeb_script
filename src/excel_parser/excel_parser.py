@@ -18,12 +18,7 @@ script_directory = os.path.dirname(script_path)
 project_root = os.path.abspath(os.path.join(script_directory, "..", ".."))
 
 # ---- to use when exporting as an executable --- #
-# project_root = os.path.abspath(os.path.join(script_directory))
-
-# Specify the relative path to the data/input directory
-data_input_directory = os.path.join(project_root, "data", "input")
-data_input_directory_orders = os.path.join(project_root, "data", "input", "orders")
-
+#project_root = os.path.abspath(os.path.join(script_directory))
 
 def get_xlsx(directory_path):
     try:
@@ -36,6 +31,7 @@ def get_xlsx(directory_path):
                 try:
                     wb = openpyxl.load_workbook(file_path)
                     sheet_names = wb.sheetnames
+                    print(sheet_names)
                     if sheet_names:
                         first_sheet_name = sheet_names[0]
                         sheet = wb[first_sheet_name]
@@ -220,7 +216,7 @@ def last_five_months_numbers():
     today = datetime.now()
 
     # Calculate the last five months
-    last_five_months = [today - timedelta(days=30 * i) for i in range(5)]
+    last_five_months = [today - timedelta(days=30 * i) for i in range(4)]
 
     # Extract and print only the month numbers in 'mm' format
     month_numbers = [date.strftime('%m') for date in last_five_months]
@@ -280,7 +276,6 @@ def process_xlsx_trade(data_input):
     # - - - Lists to be used - - - - #
     global combined_filled_lists
     header_list_check = ['Date', 'Description', 'Quantity', 'Symbol', 'Price', 'Amount']
-
     underlying_symbol = []
     otm_at_time_of_trade = []
     underlying_price_current = []
@@ -403,11 +398,11 @@ def process_xlsx_trade(data_input):
                 # Extract the month and format it as 'mm'
                 trade_month = date_object.strftime('%m')
                 header_months = last_five_months_numbers()
-                print('header months', header_months)
+
                 if trade_month == header_months[0]:
-                    month_5.append('=AC' + string_index)
+                    month_4.append('=AC' + string_index)
                 else:
-                    month_5.append('')
+                    month_4.append('')
 
                 if trade_month == header_months[1]:
                     month_1.append('=AC' + string_index)
@@ -423,11 +418,6 @@ def process_xlsx_trade(data_input):
                     month_3.append('=AC' + string_index)
                 else:
                     month_3.append('')
-
-                if trade_month == header_months[4]:
-                    month_4.append('=AC' + string_index)
-                else:
-                    month_4.append('')
 
                 option_date = option_expiration_date[index]
 
@@ -448,57 +438,57 @@ def process_xlsx_trade(data_input):
                 friday_11 = fridays_list[10]
 
                 if option_date == friday_1:
-                    week_1.append('=AI' + string_index)
+                    week_1.append('=AH' + string_index)
                 else:
                     week_1.append('')
 
                 if option_date == friday_2:
-                    week_2.append('=AI' + string_index)
+                    week_2.append('=AH' + string_index)
                 else:
                     week_2.append('')
 
                 if option_date == friday_3:
-                    week_3.append('=AI' + string_index)
+                    week_3.append('=AH' + string_index)
                 else:
                     week_3.append('')
 
                 if option_date == friday_4:
-                    week_4.append('=AI' + string_index)
+                    week_4.append('=AH' + string_index)
                 else:
                     week_4.append('')
 
                 if option_date == friday_5:
-                    week_5.append('=AI' + string_index)
+                    week_5.append('=AH' + string_index)
                 else:
                     week_5.append('')
 
                 if option_date == friday_6:
-                    week_6.append('=AI' + string_index)
+                    week_6.append('=AH' + string_index)
                 else:
                     week_6.append('')
 
                 if option_date == friday_7:
-                    week_7.append('=AI' + string_index)
+                    week_7.append('=AH' + string_index)
                 else:
                     week_7.append('')
 
                 if option_date == friday_8:
-                    week_8.append('=AI' + string_index)
+                    week_8.append('=AH' + string_index)
                 else:
                     week_8.append('')
 
                 if option_date == friday_9:
-                    week_9.append('=AI' + string_index)
+                    week_9.append('=AH' + string_index)
                 else:
                     week_9.append('')
 
                 if option_date == friday_10:
-                    week_10.append('=AI' + string_index)
+                    week_10.append('=AH' + string_index)
                 else:
                     week_10.append('')
 
                 if option_date == friday_11:
-                    week_11.append('=AI' + string_index)
+                    week_11.append('=AH' + string_index)
                 else:
                     week_11.append('')
 
@@ -543,7 +533,7 @@ def process_xlsx_trade(data_input):
                 mkt_price_of_contracts.append(formula_mkt_price_hashtag_contracts)
 
                 # trade price as percent of notional
-                formula_trade_price = '=-AC' + string_index + '/AI' + string_index
+                formula_trade_price = '=-AC' + string_index + '/AH' + string_index
                 trade_price_percent_notional.append(formula_trade_price)
 
                 # annual yield at strike at time of trade
@@ -570,7 +560,7 @@ def process_xlsx_trade(data_input):
                     amount_of_stock_itm_can_be_called, weight, weighted_otm, mkt_beta_list_temporary, stock_type,
                     mkt_beta_px_contracts, quantity,
                     mkt_price_of_contracts, price, trade_price_percent_notional, annual_yield_at_strike,
-                    yield_at_current_mkt_price_at_trade, premium, month_5, month_1, month_2, month_3, month_4,
+                    yield_at_current_mkt_price_at_trade, premium, month_4, month_1, month_2, month_3,
                     cash_if_exercised, week_1,
                     week_2, week_3, week_4, week_5, week_6, week_7, week_8, week_9, week_10, week_11
                 ]
@@ -584,19 +574,56 @@ def process_xlsx_trade(data_input):
 
 
 def process_xlsx_orders(data_input):
+
     trade_date_list = []
+    underlying_list = []
+    otm_at_time_of_trade = []
+    underlying_price_current = []
+    otm_current = []
+    amount_of_stock_itm_can_be_called = []
+    weight = []
+    weighted_otm = []
     option_expiration_date_list = []
     order_expiration_date_time_in_force = []
     strike_list = []
-    underlying_list = []
     type_list = []
     qty_list = []
+    mkt_beta_px_contracts = []
+    mkt_price_of_contracts = []
     trade_price_premium = []
-    order_content_filled_list = []
+    trade_price_percent_notional = []
+    annual_yield_at_strike = []
+    yield_on_cost_at_trade = []
+    yield_at_current_mkt_price_at_trade = []
+    trade_date = []
+    days_till_exp_date = []
+    days_till_exp_date_current = []
+    stock_buy_list = []
+    cash_if_exercised = []
+
+    # months
+    month_1 = []
+    month_2 = []
+    month_3 = []
+    month_4 = []
+    month_5 = []
+
+    # fridays
+    week_1 = []
+    week_2 = []
+    week_3 = []
+    week_4 = []
+    week_5 = []
+    week_6 = []
+    week_7 = []
+    week_8 = []
+    week_9 = []
+    week_10 = []
+    week_11 = []
 
     xlsx_file = get_xlsx_orders(data_input)
     if xlsx_file is not None:
-        today_date = datetime.now().strftime('%-m/%d/%Y')
+        today_date = datetime.now().strftime('%-m/%d/%y')
 
         first_sheet_name, file_path, columns, last_row = xlsx_file
         result_lists, headers = get_data_from_range(file_path, first_sheet_name, columns, 2, last_row)
@@ -608,38 +635,231 @@ def process_xlsx_orders(data_input):
             qty_list.append(n)
 
         # loop through symbol list to get multiple values:
-        for n in final_resultList[4]:
+        for index, n in enumerate(final_resultList[4]):
+            length_of_item = len(n)
+            if length_of_item < 6:
+                # --- option_expiration_date --
+                option_expiration_date_list.append(final_resultList[9][index])
 
-            # --- option_expiration_date -- #
-            expiration_date = remove_and_extract_date(n)
-            formatted_date = convert_date_to_dd_mm_yyyy("%b %d %Y", "%-m/%d/%y", expiration_date)
-            print(formatted_date)
-            option_expiration_date_list.append(formatted_date)
+                # --- underlying -- #
+                remove_value = remove_stock_symbol(n)
+                stock_symbol = ', '.join(remove_value)
+                underlying_list.append(stock_symbol)
 
-            # --- strike -- #
-            strike_value = extract_strike_value(n)
-            strike_list.append(strike_value)
+                # --- strike -- #
+                strike_list.append(final_resultList[7][index])
 
-            # --- underlying -- #
-            remove_value = remove_stock_symbol(n)
-            stock_symbol = ', '.join(remove_value)
-            underlying_list.append(stock_symbol)
+                # --- type -- #
+                type_list.append(' ')
+            else:
+                # --- option_expiration_date -- #
+                expiration_date = remove_and_extract_date(n)
+                formatted_date = convert_date_to_dd_mm_yyyy("%b %d %Y", "%-m/%d/%y", expiration_date)
+                option_expiration_date_list.append(formatted_date)
 
-            # --- type -- #
-            stock_type_v = extract_stock_type(n)
-            type_list.append(stock_type_v)
+                # --- strike -- #
+                strike_value = extract_strike_value(n)
+                strike_list.append(strike_value)
+
+                # --- underlying -- #
+                remove_value = remove_stock_symbol(n)
+                stock_symbol = ', '.join(remove_value)
+                underlying_list.append(stock_symbol)
+
+                # --- type -- #
+                stock_type_v = extract_stock_type(n)
+                type_list.append(stock_type_v)
 
         # loop through price list:
         for n in final_resultList[7]:
             trade_price_premium.append(n)
             trade_date_list.append(today_date)
 
+
         # loop through time in force list
         for n in final_resultList[9]:
             order_expiration_date_time_in_force.append(n)
 
-        order_content_filled_list = [trade_date_list, option_expiration_date_list, order_expiration_date_time_in_force,
-                                     strike_list, underlying_list, type_list, qty_list, trade_price_premium]
+        # EXCEL FORMULAS
+        length_of_data = len(final_resultList[1])
+        for index in range(length_of_data):
+            string_index = str(index + 3)
+
+            # values for the month contracted columns
+            trade_date_comparison = trade_date_list[index]
+            print(type(trade_date_list[index]))
+            date_object = datetime.strptime(trade_date_comparison, '%m/%d/%y')
+            print('date object', date_object)
+
+            # Extract the month and format it as 'mm'
+            trade_month = date_object.strftime('%m')
+            header_months = last_five_months_numbers()
+
+            if trade_month == header_months[0]:
+                month_4.append('=AC' + string_index)
+            else:
+                month_4.append('')
+
+            if trade_month == header_months[1]:
+                month_1.append('=AC' + string_index)
+            else:
+                month_1.append('')
+
+            if trade_month == header_months[2]:
+                month_2.append('=AC' + string_index)
+            else:
+                month_2.append('')
+
+            if trade_month == header_months[3]:
+                month_3.append('=AC' + string_index)
+            else:
+                month_3.append('')
+
+            option_date = option_expiration_date_list[index]
+
+            # get values for the friday cells
+            fridays_list = find_next_11_fridays()
+
+            friday_1 = fridays_list[0]
+            friday_2 = fridays_list[1]
+            friday_3 = fridays_list[2]
+            friday_4 = fridays_list[3]
+            friday_5 = fridays_list[4]
+            friday_6 = fridays_list[5]
+            friday_7 = fridays_list[6]
+            friday_8 = fridays_list[7]
+            friday_9 = fridays_list[8]
+            friday_10 = fridays_list[9]
+            friday_11 = fridays_list[10]
+
+            if option_date == friday_1:
+                week_1.append('=AH' + string_index)
+            else:
+                week_1.append('')
+
+            if option_date == friday_2:
+                week_2.append('=AH' + string_index)
+            else:
+                week_2.append('')
+
+            if option_date == friday_3:
+                week_3.append('=AH' + string_index)
+            else:
+                week_3.append('')
+
+            if option_date == friday_4:
+                week_4.append('=AH' + string_index)
+            else:
+                week_4.append('')
+
+            if option_date == friday_5:
+                week_5.append('=AH' + string_index)
+            else:
+                week_5.append('')
+
+            if option_date == friday_6:
+                week_6.append('=AH' + string_index)
+            else:
+                week_6.append('')
+
+            if option_date == friday_7:
+                week_7.append('=AH' + string_index)
+            else:
+                week_7.append('')
+
+            if option_date == friday_8:
+                week_8.append('=AH' + string_index)
+            else:
+                week_8.append('')
+
+            if option_date == friday_9:
+                week_9.append('=AH' + string_index)
+            else:
+                week_9.append('')
+
+            if option_date == friday_10:
+                week_10.append('=AH' + string_index)
+            else:
+                week_10.append('')
+
+            if option_date == friday_11:
+                week_11.append('=AH' + string_index)
+            else:
+                week_11.append('')
+
+            # get days till exp -
+            formula_exp_date = '=D' + string_index + '-C' + string_index
+            days_till_exp_date.append(formula_exp_date)
+
+            # get days till exp current
+            formula_exp_date_current = '=D' + string_index + '-$BE$1'
+            days_till_exp_date_current.append(formula_exp_date_current)
+
+            # get otm at time of trade
+            formula_get_otm_at_time_of_date = '=(I' + string_index + '-K' + string_index + ')/K' + string_index
+            otm_at_time_of_trade.append(formula_get_otm_at_time_of_date)
+
+            # underlying price, current
+            formula_underlying_price_current = '=IFERROR(GOOGLEFINANCE("' + underlying_list[index] + '"), 59.06)'
+            underlying_price_current.append(formula_underlying_price_current)
+
+            # otm, current
+            formula_otm_current = '=IF(S' + string_index + '= "Call", (I' + string_index + '-M' + string_index + ')/M' + string_index + ', (M' + string_index + '-I' + string_index + ')/M' + string_index + ')'
+            otm_current.append(formula_otm_current)
+
+            # $ amount of stock itm can be called (-) or put (+)
+            formula_amount_itm = '=IF(AND(LOWER(S' + string_index + ')="call",N' + string_index + '<0), I' + string_index + '*100*U' + string_index + ', 0)'
+            amount_of_stock_itm_can_be_called.append(formula_amount_itm)
+
+            # weight
+            formula_weight = '=U' + string_index + '*I' + string_index
+            weight.append(formula_weight)
+
+            # weighted otm
+            formula_weighted_otm = '=U' + string_index + '*N' + string_index + '*I' + string_index
+            weighted_otm.append(formula_weighted_otm)
+
+            # mkt beta * mkt px * contracts
+            formula_mkt_beta_px_contracts = '=R' + string_index + '*M' + string_index + '*U' + string_index
+            mkt_beta_px_contracts.append(formula_mkt_beta_px_contracts)
+
+            # mkt price * # of contracts
+            formula_mkt_price_hashtag_contracts = '=U' + string_index + '*M' + string_index
+            mkt_price_of_contracts.append(formula_mkt_price_hashtag_contracts)
+
+            # trade price as percent of notional
+            formula_trade_price = '=-AC' + string_index + '/AH' + string_index
+            trade_price_percent_notional.append(formula_trade_price)
+
+            # annual yield at strike at time of trade
+            formula_annual_yield = '=W' + string_index + '*(365/E' + string_index + ')/I' + string_index
+            annual_yield_at_strike.append(formula_annual_yield)
+
+            # yield_on_cost_at_trade ----- THIS IS WAITING FOR CONFIRMATION REG THE FORMULA !! --- INCOMPLETE as of 01/07
+            formula_yield_on_cost = ''
+            yield_on_cost_at_trade.append(formula_yield_on_cost)
+
+            # yield at current mkt price at trade
+            formula_yield_current_mkt = '=X' + string_index + '*(365/F' + string_index + ')/L' + string_index
+            yield_at_current_mkt_price_at_trade.append(formula_yield_current_mkt)
+
+            # cash if exercised
+            formula_cash_if_exercised = '=IF(LOWER(S' + string_index + ')="put", U' + string_index + '*I' + string_index + '*100,-U' + string_index + '*I' + string_index + '*100)'
+            cash_if_exercised.append(formula_cash_if_exercised)
+
+        order_content_filled_list = [
+            trade_date_list, option_expiration_date_list, days_till_exp_date, days_till_exp_date_current,
+            order_expiration_date_time_in_force, strike_list,
+            underlying_list,
+            otm_at_time_of_trade, underlying_price_current,
+            otm_current,
+            amount_of_stock_itm_can_be_called, weight, weighted_otm, type_list,
+            mkt_beta_px_contracts, qty_list,
+            mkt_price_of_contracts, trade_price_premium, trade_price_percent_notional, annual_yield_at_strike,
+            yield_at_current_mkt_price_at_trade, month_4, month_1, month_2, month_3,
+            cash_if_exercised, week_1,
+            week_2, week_3, week_4, week_5, week_6, week_7, week_8, week_9, week_10, week_11
+        ]
 
         return order_content_filled_list
 

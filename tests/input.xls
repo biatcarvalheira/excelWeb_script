@@ -1,0 +1,45 @@
+Status	Order Number	Action	Quantity	Symbol	Symbol Description	Type	Price	Act. Price	Time-in-Force	Reported	Entered Time	Entered Date
+												
+Open	'13276078929	Buy to Close	2	BABA Feb 16 2024 70.0 Put	'BABA Feb 16 2024 70 Put	Limit	0.07	--	2/14/24	'--	10:42:16	2/12/24
+												
+Open	'13234160854	Sell to Open	3	BMBL Feb 23 2024 16.0 Call	'BMBL Feb 23 2024 16 Call ...	Net Credit	0.15	--	2/23/24	'--	15:54:48	2/5/24
+												
+Open	'13234160854-1	Buy to Close	3	BMBL Feb 23 2024 17.0 Call	'BMBL Feb 23 2024 17 Call ...	Net Credit	0.15	--	2/23/24	'--	15:54:48	2/5/24
+												
+Open	'13266462622	Sell to Open	10	CWK Feb 16 2024 7.5 Put	'CWK Feb 16 2024 7.5 Put	Limit	0.15	--	2/15/24	'--	10:32:03	2/9/24
+												
+Open	'13151385996	Sell to Open	1	DHI Mar 15 2024 120.0 Put	'DHI Mar 15 2024 120 Put	Limit	0.75	--	3/15/24	'--	11:11:50	1/23/24
+												
+Open	'12421500761	Sell to Open	1	FL Feb 16 2024 22.5 Put	'FL Feb 16 2024 22.5 Put	Limit	0.5	--	2/16/24	'--	16:01:38	12/4/23
+												
+Open	'13266461891	Sell to Open	1	GNRC Feb 16 2024 101.0 Put	'GNRC Feb 16 2024 101 Put	Limit	1	--	2/13/24	'--	10:19:16	2/9/24
+												
+Open	'12639916682	Sell to Open	3	HTZ Mar 15 2024 15.0 Call	'HTZ Mar 15 2024 15 Call	Limit	0.25	--	3/15/24	'--	13:11:53	1/12/24
+												
+Open	'12666198493	Sell to Open	1	LUV Mar 01 2024 36.0 Call	'LUV Mar 1 2024 36 Call (W...	Limit	0.5	--	2/16/24	'--	15:39:00	1/18/24
+												
+Open	'12642256046	Sell to Open	2	MSOS Mar 15 2024 19.0 Call	'MSOS Mar 15 2024 19 Call	Limit	0.5	--	3/1/24	'--	15:50:06	1/12/24
+												
+Open	'12459169766	Sell to Open	1	OXY Feb 16 2024 50.0 Put	'OXY Feb 16 2024 50 Put	Limit	0.75	--	2/16/24	'--	12:33:37	12/11/23
+												
+Open	'13277095158	Sell to Open	2	PTON Apr 19 2024 4.0 Put	'PTON Apr 19 2024 4 Put	Limit	0.38	--	3/28/24	'--	10:48:58	2/12/24
+												
+Open	'13258215064	Sell to Open	1	PYPL Apr 19 2024 50.0 Put	'PYPL Apr 19 2024 50 Put	Limit	1.15	--	4/15/24	'--	10:36:41	2/8/24
+												
+Open	'13243738593	Sell to Open	4	RPRX Mar 15 2024 35.0 Call	'RPRX Mar 15 2024 35 Call	Limit	0.5	--	3/1/24	'--	15:57:32	2/6/24
+												
+Open	'13150352240	Sell to Open	3	SAVE Mar 15 2024 20.0 Call	'SAVE Mar 15 2024 20 Call	Limit	0.4	--	3/1/24	'--	10:20:07	1/23/24
+												
+Open	'13224406672	Sell to Open	2	SCHW Mar 15 2024 75.0 Call	'SCHW Mar 15 2024 75 Call	Limit	0.25	--	3/1/24	'--	14:46:26	2/2/24
+												
+Open	'13247896399	Sell to Open	2	SNAP Mar 22 2024 17.0 Call	'SNAP Mar 22 2024 17 Call ...	Limit	0.15	--	3/22/24	'--	10:13:28	2/7/24
+												
+Open	'13277095231	Sell to Open	2	SNAP Apr 19 2024 16.0 Call	'SNAP Apr 19 2024 16 Call	Limit	0.35	--	4/19/24	'--	10:52:17	2/12/24
+												
+Open	'13267309094	Sell to Open	3	UAA Mar 28 2024 7.0 Put	'UAA Mar 28 2024 7 Put (We...	Limit	0.25	--	3/14/24	'--	10:40:02	2/9/24
+												
+Open	'13266461396	Sell to Open	2	UBER Apr 19 2024 57.5 Put	'UBER Apr 19 2024 57.5 Put	Limit	1	--	4/5/24	'--	10:11:41	2/9/24
+												
+Open	'12673527310	Sell to Open	2	UDMY Mar 15 2024 17.5 Call	'UDMY Mar 15 2024 17.5 Call	Limit	0.4	--	2/23/24	'--	13:27:03	1/19/24
+												
+Open	'13147169037	Sell to Open	1	ZM Feb 23 2024 78.0 Call	'ZM Feb 23 2024 78 Call (W...	Limit	0.75	--	2/16/24	'--	16:03:10	1/22/24

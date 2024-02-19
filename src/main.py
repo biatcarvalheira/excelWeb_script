@@ -40,9 +40,12 @@ def main():
                       ['T', 'V', 'AI', 'AK', 'AL', 'AM', 'AN', 'AO', 'AP', 'AQ', 'AR', 'AS'], 'currency_format',
                        '"$"#,##0.00')
 def menu():
-    print('choose')
-    choice = input('select here')
-
+    print('Menu:')
+    print('1. Run Trade Mixer')
+    print('2. Run Orders Mixer')
+    print('3. Run Trade and Orders Mixer')
+    print('0. Exit')
+    choice = input('(Enter your choice (0-3):')
     return choice
 
 
@@ -54,27 +57,25 @@ def format_data(column_h, content_list, data_input, choice_number):
     columns = [column_h[i] for i in range(1, number_of_headers)]
     df = pd.DataFrame(columns=columns)
     percent_format = '{:.2%}'
-    df_list = ['trade date', 'option Expiration date', 'days till exp (trade date)', 'days till exp (current)',
+    df_list = ['trade date', 'option Expiration date', 'days till exp (trade date)', 'days till exp (current)', 'order expiration date "time in force"'
                'Strike', 'underlying symbol', 'underlying price at time of trade', 'otm at time of trade',
                'underlying price, current', 'otm, current', '$ amount of stock itm can be called (-) or put (+)',
                'weight', 'weighted otm', 'mkt beta', 'Type', 'mkt beta* mkt px*contracts', 'Qty',
                'mkt price *number of contracts', 'Trade Price/premium', 'trade price as percent of notional',
                'annual yield at strike at time of trade', 'yield at current mkt price at time of trade', 'premium',
-               f'contracted in {previous_5_months[4]}', f'contracted in {previous_5_months[3]}',
+               f'contracted in {previous_5_months[3]}',
                f'contracted in {previous_5_months[2]}', f'contracted in {previous_5_months[1]}',
                f'contracted in {previous_5_months[0]}', 'cash if exercised', '=AK1-A1', '=AL1-A1', '=AM1-A1', '=AN1-A1',
                '=AO1-A1', '=AP1-A1', '=AQ1-A1', '=AR1-A1', '=AS1-A1', '=AT1-A1', '=AU1-A1'
                ]
-    #print(len(content_list))
-   # print(content_list)
+    print('content list', content_list)
+
     for index, c in enumerate(content_list):
         try:
-          #  print(index)
-          #  print('LABEL', df_list[index])
-          #  print('CONTENT LIST ITEM', c)
+            print('LABEL', df_list[index])
+            print('CONTENT LIST ITEM', c)
            # print('length of content list item', len(c))
             if df_list[index] == 'underlying price at time of trade' and len(c) <= 3 and (choice_number == '1' or choice_number == '3'):
-                print('upp list', uptt_list)
                 c = uptt_list
             if df_list[index] == 'mkt beta' and len(c) <= 3 and (choice_number == '1' or choice_number == '3'):
                 c = mkt_b_list
@@ -179,12 +180,13 @@ def find_next_11_fridays():
 # --- Last Five Months --- #
 def last_five_months_writing():
     today = datetime.now()
-    last_five_months_dates = [today - timedelta(days=30 * i) for i in range(5)]
+    last_five_months_dates = [today - timedelta(days=30 * i) for i in range(4)]
 
     # Formatting the month names and printing in reverse order
     formatted_months = [date.strftime('%B') for date in last_five_months_dates][::-1]
 
     return formatted_months
+
 
 
 # --- LISTS AND OTHER DATA --- #
@@ -217,7 +219,7 @@ today = datetime.now().date()
 
 # --- Previous Months function usage --- #
 previous_5_months = last_five_months_writing()
-print(previous_5_months)
+
 
 # -- formatting styles --#
 percentage_style = NamedStyle(name='percentage', number_format='0.00%')
@@ -232,26 +234,35 @@ excel_filename_trade = f'{trade_name}{timestamp}.xlsx'
 excel_filename_orders = f'{orders_name}{timestamp}.xlsx'
 excel_filename_trade_and_orders = f'{trade_and_orders}{timestamp}.xlsx'
 
+#### ---- Executable ---- #####
+#data_output_directory_trade = os.path.join(project_root, "data", "output", excel_filename_trade)
+#data_output_directory_orders = os.path.join(project_root, "data", "output", excel_filename_orders)
+#data_output_directory_trade_and_orders = os.path.join(project_root, "data", "output", excel_filename_trade_and_orders)
 
+####---- IDE ---- #####
 data_output_directory_trade = os.path.join(project_root, "excelWeb_script", "data", "output", excel_filename_trade)
+
 data_output_directory_orders = os.path.join(project_root, "excelWeb_script", "data", "output", excel_filename_orders)
+
 data_output_directory_trade_and_orders = os.path.join(project_root, "excelWeb_script", "data", "output", excel_filename_trade_and_orders)
 
 
-# executable
-# data_output_directory = os.path.join(project_root, "data", "output", excel_filename)
-
-# ---- IDE ---- #
+# ---- Executable ---- #
 # --trade -- #
-data_input_directory_trade = os.path.join(project_root, "excelWeb_script", "data", "input", "trade")
+#data_input_directory_trade = os.path.join(project_root, "data", "input", "trade")
 
 # --orders -- #
+#data_input_directory_orders = os.path.join(project_root, "data", "input", "orders")
+
+
+# ---- IDE ---- #
+### --trade -- ####
+data_input_directory_trade = os.path.join(project_root, "excelWeb_script", "data", "input", "trade")
+
+### --orders -- ####
 data_input_directory_orders = os.path.join(project_root, "excelWeb_script", "data", "input", "orders")
 
 
-
-# executable
-# data_input_directory = os.path.join(project_root, "data", "input")
 
 column_headers = [
     'check date >>', header_time_stamp, 'trade date', 'option Expiration date', 'days till exp (trade date)',
@@ -264,7 +275,7 @@ column_headers = [
     'annual yield at strike at time of trade', 'yield on cost at time of trade', 'multiple on cost',
     'yield at current mkt price at time of trade', 'premium', f'contracted in {previous_5_months[0]}',
     f'contracted in {previous_5_months[1]}', f'contracted in {previous_5_months[2]}',
-    f'contracted in {previous_5_months[3]}', f'contracted in {previous_5_months[4]}', 'cash if exercised', 'days >>',
+    f'contracted in {previous_5_months[3]}', 'cash if exercised', 'days >>',
     '=AK1-A1', '=AL1-A1', '=AM1-A1', '=AN1-A1', '=AO1-A1', '=AP1-A1', '=AQ1-A1', '=AR1-A1', '=AS1-A1', '=AT1-A1',
     '=AU1-A1'
 ]
@@ -272,7 +283,7 @@ column_headers = [
 # first line content
 first_line_data = [header_time_stamp, formatted_date, 'Open Positions', "Total"] + [None] * (len(column_headers) - 3)
 fridays_list = find_next_11_fridays()
-start_position = 36
+start_position = 35
 for f in fridays_list:
     first_line_data[start_position] = f
     start_position += 1

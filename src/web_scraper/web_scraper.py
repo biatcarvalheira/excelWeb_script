@@ -4,20 +4,12 @@ import sys
 import os
 import requests
 from bs4 import BeautifulSoup
-# ---- to use when working in Executable ---- #
-##from excel_parser.excel_parser import underlying_symbol
-
-
-
 
 # Get the absolute path to the script
 script_path = os.path.abspath(sys.argv[0])
 
 # Get the directory where the script is located (folder containing scripts)
 script_directory = os.path.dirname(script_path)
-
-# ---- to use when working in IDE ---- #
-#project_root = os.path.abspath(os.path.join(script_directory, ".."))
 
 # ---- to use when working in Executable ---- #
 project_root = os.path.abspath(os.path.join(script_directory))
@@ -70,7 +62,6 @@ def get_values_from_cnbc(source):
 
 
 def run_all_web(underlying_symbol_excel):
-    print('UNDERLYING SYMBOL', underlying_symbol_excel)
     underlying_price_at_time_of_trade = []
     mkt_beta_list = []
 
