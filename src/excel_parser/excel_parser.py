@@ -32,7 +32,6 @@ def get_xlsx(directory_path):
                 try:
                     wb = openpyxl.load_workbook(file_path)
                     sheet_names = wb.sheetnames
-                    print(sheet_names)
                     if sheet_names:
                         first_sheet_name = sheet_names[0]
                         sheet = wb[first_sheet_name]
@@ -692,7 +691,6 @@ def process_xlsx_orders(data_input):
 
             # values for the month contracted columns
             trade_date_comparison = trade_date_list[index]
-            print(type(trade_date_list[index]))
             date_object = datetime.strptime(trade_date_comparison, '%m/%d/%y')
 
             # Extract the month and format it as 'mm'
