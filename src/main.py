@@ -105,12 +105,8 @@ def format_data(column_h, content_list, data_input, choice_number, type_of_list)
                    '=AN1-A1',
                    '=AO1-A1', '=AP1-A1', '=AQ1-A1', '=AR1-A1', '=AS1-A1', '=AT1-A1', '=AU1-A1'
                    ]
-    print('content list', content_list)
-
     for index, c in enumerate(content_list):
         try:
-            print('LABEL', df_list[index])
-            print('CONTENT LIST ITEM', c)
            # print('length of content list item', len(c))
             if df_list[index] == 'underlying price at time of trade' and len(c) <= 3 and (choice_number == '1' or choice_number == '3'):
                 c = uptt_list
@@ -272,32 +268,32 @@ excel_filename_orders = f'{orders_name}{timestamp}.xlsx'
 excel_filename_trade_and_orders = f'{trade_and_orders}{timestamp}.xlsx'
 
 #### ---- Executable ---- #####
-#data_output_directory_trade = os.path.join(project_root, "data", "output", excel_filename_trade)
-#data_output_directory_orders = os.path.join(project_root, "data", "output", excel_filename_orders)
-#data_output_directory_trade_and_orders = os.path.join(project_root, "data", "output", excel_filename_trade_and_orders)
+data_output_directory_trade = os.path.join(project_root, "data", "output", excel_filename_trade)
+data_output_directory_orders = os.path.join(project_root, "data", "output", excel_filename_orders)
+data_output_directory_trade_and_orders = os.path.join(project_root, "data", "output", excel_filename_trade_and_orders)
 
 ####---- IDE ---- #####
-data_output_directory_trade = os.path.join(project_root, "excelWeb_script", "data", "output", excel_filename_trade)
+#data_output_directory_trade = os.path.join(project_root, "excelWeb_script", "data", "output", excel_filename_trade)
 
-data_output_directory_orders = os.path.join(project_root, "excelWeb_script", "data", "output", excel_filename_orders)
+#data_output_directory_orders = os.path.join(project_root, "excelWeb_script", "data", "output", excel_filename_orders)
 
-data_output_directory_trade_and_orders = os.path.join(project_root, "excelWeb_script", "data", "output", excel_filename_trade_and_orders)
+#data_output_directory_trade_and_orders = os.path.join(project_root, "excelWeb_script", "data", "output", excel_filename_trade_and_orders)
 
 
 # ---- Executable ---- #
 # --trade -- #
-#data_input_directory_trade = os.path.join(project_root, "data", "input", "trade")
+data_input_directory_trade = os.path.join(project_root, "data", "input", "trade")
 
 # --orders -- #
-#data_input_directory_orders = os.path.join(project_root, "data", "input", "orders")
+data_input_directory_orders = os.path.join(project_root, "data", "input", "orders")
 
 
 # ---- IDE ---- #
 ### --trade -- ####
-data_input_directory_trade = os.path.join(project_root, "excelWeb_script", "data", "input", "trade")
+#data_input_directory_trade = os.path.join(project_root, "excelWeb_script", "data", "input", "trade")
 
 ### --orders -- ####
-data_input_directory_orders = os.path.join(project_root, "excelWeb_script", "data", "input", "orders")
+#data_input_directory_orders = os.path.join(project_root, "excelWeb_script", "data", "input", "orders")
 
 
 

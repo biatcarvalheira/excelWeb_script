@@ -15,11 +15,11 @@ script_path = os.path.abspath(sys.argv[0])
 script_directory = os.path.dirname(script_path)
 
 # ---- to use when working in IDE ---- #
-project_root = os.path.abspath(os.path.join(script_directory, "..", ".."))
+#project_root = os.path.abspath(os.path.join(script_directory, "..", ".."))
 
 
 # ---- to use when exporting as an executable --- #
-# project_root = os.path.abspath(os.path.join(script_directory))
+project_root = os.path.abspath(os.path.join(script_directory))
 
 def get_xlsx(directory_path):
     try:
