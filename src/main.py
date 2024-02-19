@@ -15,10 +15,12 @@ def main():
     df_orders = ''
     if c == '1' or c == '3':
         c_list = process_xlsx_trade(data_input_directory_trade)
-        df_trade = format_data(column_headers, c_list, data_input_directory_trade, c)
+        list_type = 'trade'
+        df_trade = format_data(column_headers, c_list, data_input_directory_trade, c, list_type)
     if c == '2' or c == '3':
         orders_c_list = process_xlsx_orders(data_input_directory_orders)
-        df_orders = format_data(column_headers, orders_c_list, data_input_directory_orders, c)
+        list_type = 'orders'
+        df_orders = format_data(column_headers, orders_c_list, data_input_directory_orders, c, list_type)
     if c == '1':
         save_data(df_trade, data_output_directory_trade)
         insert_line_after(data_output_directory_trade, 'Sheet1', 1, first_line_data)
@@ -30,6 +32,16 @@ def main():
                        '"$"#,##0.00')
     if c == '2':
         save_data(df_orders, data_output_directory_orders)
+        insert_line_after(data_output_directory_orders, 'Sheet1', 1, first_line_data)
+        # format percentage cells
+        format_columns(data_output_directory_orders, 'Sheet1', ['L', 'N', 'X', 'Y', 'AB'], 'percentage',
+                       '0.00%')
+        # format currency cells
+        format_columns(data_output_directory_orders, 'Sheet1',
+                       ['T', 'V', 'AI', 'AK', 'AL', 'AM', 'AN', 'AO', 'AP', 'AQ', 'AR', 'AS'], 'currency_format',
+                       '"$"#,##0.00')
+
+
     if c == '3':
         save_multiple_dataframes(df_trade, df_orders, data_output_directory_trade_and_orders)
         insert_line_after(data_output_directory_trade_and_orders, 'Sheet1', 1, first_line_data)
@@ -39,6 +51,17 @@ def main():
         format_columns(data_output_directory_trade_and_orders, 'Sheet1',
                       ['T', 'V', 'AI', 'AK', 'AL', 'AM', 'AN', 'AO', 'AP', 'AQ', 'AR', 'AS'], 'currency_format',
                        '"$"#,##0.00')
+
+        insert_line_after(data_output_directory_trade_and_orders, 'Sheet2', 1, first_line_data)
+        # format percentage cells
+        format_columns(data_output_directory_trade_and_orders, 'Sheet2', ['L', 'N', 'X', 'Y', 'AB'], 'percentage',
+                       '0.00%')
+        # format currency cells
+        format_columns(data_output_directory_trade_and_orders, 'Sheet2',
+                       ['T', 'V', 'AI', 'AK', 'AL', 'AM', 'AN', 'AO', 'AP', 'AQ', 'AR', 'AS'], 'currency_format',
+                       '"$"#,##0.00')
+
+
 def menu():
     print('Menu:')
     print('1. Run Trade Mixer')
@@ -49,25 +72,39 @@ def menu():
     return choice
 
 
-def format_data(column_h, content_list, data_input, choice_number):
+def format_data(column_h, content_list, data_input, choice_number, type_of_list):
     und_symbol = extract_underlying_symbol(data_input)
     uptt_list, mkt_b_list = run_all_web(und_symbol)
     number_of_headers = len(column_h)
+
     # Create an empty DataFrame with 40 columns
     columns = [column_h[i] for i in range(1, number_of_headers)]
     df = pd.DataFrame(columns=columns)
-    percent_format = '{:.2%}'
-    df_list = ['trade date', 'option Expiration date', 'days till exp (trade date)', 'days till exp (current)', 'order expiration date "time in force"'
-               'Strike', 'underlying symbol', 'underlying price at time of trade', 'otm at time of trade',
-               'underlying price, current', 'otm, current', '$ amount of stock itm can be called (-) or put (+)',
-               'weight', 'weighted otm', 'mkt beta', 'Type', 'mkt beta* mkt px*contracts', 'Qty',
-               'mkt price *number of contracts', 'Trade Price/premium', 'trade price as percent of notional',
-               'annual yield at strike at time of trade', 'yield at current mkt price at time of trade', 'premium',
-               f'contracted in {previous_5_months[3]}',
-               f'contracted in {previous_5_months[2]}', f'contracted in {previous_5_months[1]}',
-               f'contracted in {previous_5_months[0]}', 'cash if exercised', '=AK1-A1', '=AL1-A1', '=AM1-A1', '=AN1-A1',
-               '=AO1-A1', '=AP1-A1', '=AQ1-A1', '=AR1-A1', '=AS1-A1', '=AT1-A1', '=AU1-A1'
-               ]
+    df_list = ['']
+    if type_of_list == 'trade':
+        df_list = ['trade date', 'option Expiration date', 'days till exp (trade date)', 'days till exp (current)',
+                   'Strike', 'underlying symbol', 'underlying price at time of trade', 'otm at time of trade',
+                   'underlying price, current', 'otm, current', '$ amount of stock itm can be called (-) or put (+)',
+                   'weight', 'weighted otm', 'mkt beta', 'Type', 'mkt beta* mkt px*contracts', 'Qty',
+                   'mkt price *number of contracts', 'Trade Price/premium', 'trade price as percent of notional',
+                   'annual yield at strike at time of trade', 'yield at current mkt price at time of trade', 'premium',
+                   f'contracted in {previous_5_months[3]}',
+                   f'contracted in {previous_5_months[2]}', f'contracted in {previous_5_months[1]}',
+                   f'contracted in {previous_5_months[0]}', 'cash if exercised', '=AK1-A1', '=AL1-A1', '=AM1-A1', '=AN1-A1',
+                   '=AO1-A1', '=AP1-A1', '=AQ1-A1', '=AR1-A1', '=AS1-A1', '=AT1-A1', '=AU1-A1'
+                   ]
+    elif type_of_list == 'orders':
+        df_list = ['trade date', 'option Expiration date', 'days till exp (trade date)', 'days till exp (current)', 'order expiration date "time in force"',
+                   'Strike', 'underlying symbol', 'underlying price at time of trade', 'otm at time of trade',
+                   'underlying price, current', 'otm, current', '$ amount of stock itm can be called (-) or put (+)', 'Type', 'Qty',
+                   'Trade Price/premium', 'trade price as percent of notional',
+                   'annual yield at strike at time of trade', 'yield at current mkt price at time of trade', 'premium',
+                   f'contracted in {previous_5_months[3]}',
+                   f'contracted in {previous_5_months[2]}', f'contracted in {previous_5_months[1]}',
+                   f'contracted in {previous_5_months[0]}', 'cash if exercised', '=AK1-A1', '=AL1-A1', '=AM1-A1',
+                   '=AN1-A1',
+                   '=AO1-A1', '=AP1-A1', '=AQ1-A1', '=AR1-A1', '=AS1-A1', '=AT1-A1', '=AU1-A1'
+                   ]
     print('content list', content_list)
 
     for index, c in enumerate(content_list):
