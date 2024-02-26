@@ -268,32 +268,32 @@ excel_filename_orders = f'{orders_name}{timestamp}.xlsx'
 excel_filename_trade_and_orders = f'{trade_and_orders}{timestamp}.xlsx'
 
 #### ---- Executable ---- #####
-data_output_directory_trade = os.path.join(project_root, "data", "output", excel_filename_trade)
-data_output_directory_orders = os.path.join(project_root, "data", "output", excel_filename_orders)
-data_output_directory_trade_and_orders = os.path.join(project_root, "data", "output", excel_filename_trade_and_orders)
+#data_output_directory_trade = os.path.join(project_root, "data", "output", excel_filename_trade)
+#data_output_directory_orders = os.path.join(project_root, "data", "output", excel_filename_orders)
+#data_output_directory_trade_and_orders = os.path.join(project_root, "data", "output", excel_filename_trade_and_orders)
 
 ####---- IDE ---- #####
-#data_output_directory_trade = os.path.join(project_root, "excelWeb_script", "data", "output", excel_filename_trade)
+data_output_directory_trade = os.path.join(project_root, "excelWeb_script", "data", "output", excel_filename_trade)
 
-#data_output_directory_orders = os.path.join(project_root, "excelWeb_script", "data", "output", excel_filename_orders)
+data_output_directory_orders = os.path.join(project_root, "excelWeb_script", "data", "output", excel_filename_orders)
 
-#data_output_directory_trade_and_orders = os.path.join(project_root, "excelWeb_script", "data", "output", excel_filename_trade_and_orders)
+data_output_directory_trade_and_orders = os.path.join(project_root, "excelWeb_script", "data", "output", excel_filename_trade_and_orders)
 
 
 # ---- Executable ---- #
 # --trade -- #
-data_input_directory_trade = os.path.join(project_root, "data", "input", "trade")
+#data_input_directory_trade = os.path.join(project_root, "data", "input", "trade")
 
 # --orders -- #
-data_input_directory_orders = os.path.join(project_root, "data", "input", "orders")
+#data_input_directory_orders = os.path.join(project_root, "data", "input", "orders")
 
 
 # ---- IDE ---- #
 ### --trade -- ####
-#data_input_directory_trade = os.path.join(project_root, "excelWeb_script", "data", "input", "trade")
+data_input_directory_trade = os.path.join(project_root, "excelWeb_script", "data", "input", "trade")
 
 ### --orders -- ####
-#data_input_directory_orders = os.path.join(project_root, "excelWeb_script", "data", "input", "orders")
+data_input_directory_orders = os.path.join(project_root, "excelWeb_script", "data", "input", "orders")
 
 
 

@@ -15,11 +15,11 @@ script_path = os.path.abspath(sys.argv[0])
 script_directory = os.path.dirname(script_path)
 
 # ---- to use when working in IDE ---- #
-#project_root = os.path.abspath(os.path.join(script_directory, "..", ".."))
+project_root = os.path.abspath(os.path.join(script_directory, "..", ".."))
 
 
 # ---- to use when exporting as an executable --- #
-project_root = os.path.abspath(os.path.join(script_directory))
+#project_root = os.path.abspath(os.path.join(script_directory))
 
 def get_xlsx(directory_path):
     try:
@@ -632,7 +632,9 @@ def process_xlsx_orders(data_input):
 
         # loop through quantity list
         for n in final_resultList[3]:
-            qty_list.append(n)
+            calc_number = int(n)
+            result = calc_number/100
+            qty_list.append(result)
 
         # loop through symbol list to get multiple values:
         for index, n in enumerate(final_resultList[4]):
