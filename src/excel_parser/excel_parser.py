@@ -15,11 +15,11 @@ script_path = os.path.abspath(sys.argv[0])
 script_directory = os.path.dirname(script_path)
 
 # ---- to use when working in IDE ---- #
-project_root = os.path.abspath(os.path.join(script_directory, "..", ".."))
+#project_root = os.path.abspath(os.path.join(script_directory, "..", ".."))
 
 
 # ---- to use when exporting as an executable --- #
-#project_root = os.path.abspath(os.path.join(script_directory))
+project_root = os.path.abspath(os.path.join(script_directory))
 
 def get_xlsx(directory_path):
     try:
@@ -630,11 +630,17 @@ def process_xlsx_orders(data_input):
         new_resultList = removeNone_listOfLists(result_lists)
         final_resultList = removeEmptyList(new_resultList)
 
+        print('FINAL RESULT 2', final_resultList[2])
         # loop through quantity list
-        for n in final_resultList[3]:
+        for index, n in enumerate(final_resultList[3]):
+            action_field = final_resultList[2][index]
+            action_field_normalized = action_field.lower()
             calc_number = int(n)
-            result = calc_number/100
-            qty_list.append(result)
+            if 'sell' in action_field_normalized:
+                negative_y = calc_number * -1
+                qty_list.append(negative_y)
+            else:
+                qty_list.append(calc_number)
 
         # loop through symbol list to get multiple values:
         for index, n in enumerate(final_resultList[4]):

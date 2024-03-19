@@ -45,6 +45,7 @@ def main():
     if c == '3':
         save_multiple_dataframes(df_trade, df_orders, data_output_directory_trade_and_orders)
         insert_line_after(data_output_directory_trade_and_orders, 'Sheet1', 1, first_line_data)
+
         # format percentage cells
         format_columns(data_output_directory_trade_and_orders, 'Sheet1', ['L', 'N', 'Q', 'X', 'Y', 'AB'], 'percentage', '0.00%')
         # format currency cells
@@ -52,7 +53,6 @@ def main():
                       ['T', 'V', 'AI', 'AK', 'AL', 'AM', 'AN', 'AO', 'AP', 'AQ', 'AR', 'AS'], 'currency_format',
                        '"$"#,##0.00')
 
-        insert_line_after(data_output_directory_trade_and_orders, 'Sheet2', 1, first_line_data)
         # format percentage cells
         format_columns(data_output_directory_trade_and_orders, 'Sheet2', ['L', 'N', 'X', 'Y', 'AB'], 'percentage',
                        '0.00%')
@@ -60,6 +60,7 @@ def main():
         format_columns(data_output_directory_trade_and_orders, 'Sheet2',
                        ['T', 'V', 'AI', 'AK', 'AL', 'AM', 'AN', 'AO', 'AP', 'AQ', 'AR', 'AS'], 'currency_format',
                        '"$"#,##0.00')
+        insert_line_after(data_output_directory_trade_and_orders, 'Sheet2', 1, first_line_data)
 
 
 def menu():
@@ -90,8 +91,8 @@ def format_data(column_h, content_list, data_input, choice_number, type_of_list)
                    'annual yield at strike at time of trade', 'yield at current mkt price at time of trade', 'premium',
                    f'contracted in {previous_5_months[3]}',
                    f'contracted in {previous_5_months[2]}', f'contracted in {previous_5_months[1]}',
-                   f'contracted in {previous_5_months[0]}', 'cash if exercised', '=AK1-A1', '=AL1-A1', '=AM1-A1', '=AN1-A1',
-                   '=AO1-A1', '=AP1-A1', '=AQ1-A1', '=AR1-A1', '=AS1-A1', '=AT1-A1', '=AU1-A1'
+                   f'contracted in {previous_5_months[0]}', 'cash if exercised', '=AJ1-A1', '=AK1-A1', '=AL1-A1', '=AM1-A1',
+                   '=AN1-A1', '=AO1-A1', '=AP1-A1', '=AQ1-A1', '=AR1-A1', '=AS1-A1', '=AT1-A1'
                    ]
     elif type_of_list == 'orders':
         df_list = ['trade date', 'option Expiration date', 'days till exp (trade date)', 'days till exp (current)', 'order expiration date "time in force"',
@@ -101,9 +102,8 @@ def format_data(column_h, content_list, data_input, choice_number, type_of_list)
                    'annual yield at strike at time of trade', 'yield at current mkt price at time of trade', 'premium',
                    f'contracted in {previous_5_months[3]}',
                    f'contracted in {previous_5_months[2]}', f'contracted in {previous_5_months[1]}',
-                   f'contracted in {previous_5_months[0]}', 'cash if exercised', '=AK1-A1', '=AL1-A1', '=AM1-A1',
-                   '=AN1-A1',
-                   '=AO1-A1', '=AP1-A1', '=AQ1-A1', '=AR1-A1', '=AS1-A1', '=AT1-A1', '=AU1-A1'
+                   f'contracted in {previous_5_months[0]}', 'cash if exercised', '=AJ1-A1', '=AK1-A1', '=AL1-A1', '=AM1-A1',
+                   '=AN1-A1', '=AO1-A1', '=AP1-A1', '=AQ1-A1', '=AR1-A1', '=AS1-A1', '=AT1-A1'
                    ]
     for index, c in enumerate(content_list):
         try:
@@ -142,6 +142,8 @@ def save_multiple_dataframes(df1, df2, saving_directory, sheet1_name='Sheet1', s
     print(f'Data saved to {saving_directory} in sheets "{sheet1_name}" and "{sheet2_name}"')
     print('************ Processes completed successfully! ************')
 
+
+
 def insert_line_after(file_path, sheet_name, row_number, data):
     # Load the existing workbook
     wb = load_workbook(file_path)
@@ -149,12 +151,25 @@ def insert_line_after(file_path, sheet_name, row_number, data):
     # Select the desired sheet
     sheet = wb[sheet_name]
 
+    # Check if the style already exists, if yes, create a unique style name
+    formatting_name = "InsertLineAfterFormat"  # Different base name
+    all_style_names = wb.style_names
+    unique_formatting_name = formatting_name
+    i = 1
+    while unique_formatting_name in all_style_names:
+        unique_formatting_name = f"{formatting_name}_{i}"
+        i += 1
+
+    # Create a custom style with the specified formatting
+    formatting_style = NamedStyle(name=unique_formatting_name, number_format="0.00")
+    wb.add_named_style(formatting_style)
+
     # Shift existing rows down to make space for the new line
     sheet.insert_rows(row_number)
 
     # Write the data to the new line
     for col_num, value in enumerate(data, start=1):
-        sheet.cell(row=row_number, column=col_num, value=value)
+        sheet.cell(row=row_number, column=col_num, value=value).style = unique_formatting_name
 
     # Save the changes
     wb.save(file_path)
@@ -163,6 +178,16 @@ def insert_line_after(file_path, sheet_name, row_number, data):
 def format_columns(file_path, sheet_name, column_letters, formatting_name, formatting_number):
     # Load the Excel file
     workbook = openpyxl.load_workbook(file_path)
+
+    # Get the names of all styles in the workbook
+    all_style_names = workbook.style_names
+
+    # Ensure that the formatting_name is unique
+    unique_formatting_name = formatting_name
+    i = 1
+    while unique_formatting_name in all_style_names:
+        unique_formatting_name = f"{formatting_name}_{i}"
+        i += 1
 
     # Select the desired sheet
     sheet = workbook[sheet_name]
@@ -174,7 +199,7 @@ def format_columns(file_path, sheet_name, column_letters, formatting_name, forma
     column_indices = [openpyxl.utils.column_index_from_string(col) for col in column_letters]
 
     # Create a custom style with the specified formatting
-    formatting_style = NamedStyle(name=formatting_name, number_format=formatting_number)
+    formatting_style = openpyxl.styles.NamedStyle(name=unique_formatting_name, number_format=formatting_number)
 
     # Apply the custom style to the specified range in each column
     for col_index in column_indices:
@@ -184,6 +209,7 @@ def format_columns(file_path, sheet_name, column_letters, formatting_name, forma
 
     # Save the changes to the Excel file
     workbook.save(file_path)
+
 
 
 # --- Next 9 Fridays Dates --- #
@@ -268,32 +294,32 @@ excel_filename_orders = f'{orders_name}{timestamp}.xlsx'
 excel_filename_trade_and_orders = f'{trade_and_orders}{timestamp}.xlsx'
 
 #### ---- Executable ---- #####
-#data_output_directory_trade = os.path.join(project_root, "data", "output", excel_filename_trade)
-#data_output_directory_orders = os.path.join(project_root, "data", "output", excel_filename_orders)
-#data_output_directory_trade_and_orders = os.path.join(project_root, "data", "output", excel_filename_trade_and_orders)
+data_output_directory_trade = os.path.join(project_root, "data", "output", excel_filename_trade)
+data_output_directory_orders = os.path.join(project_root, "data", "output", excel_filename_orders)
+data_output_directory_trade_and_orders = os.path.join(project_root, "data", "output", excel_filename_trade_and_orders)
 
 ####---- IDE ---- #####
-data_output_directory_trade = os.path.join(project_root, "excelWeb_script", "data", "output", excel_filename_trade)
+#data_output_directory_trade = os.path.join(project_root, "excelWeb_script", "data", "output", excel_filename_trade)
 
-data_output_directory_orders = os.path.join(project_root, "excelWeb_script", "data", "output", excel_filename_orders)
+#data_output_directory_orders = os.path.join(project_root, "excelWeb_script", "data", "output", excel_filename_orders)
 
-data_output_directory_trade_and_orders = os.path.join(project_root, "excelWeb_script", "data", "output", excel_filename_trade_and_orders)
+#data_output_directory_trade_and_orders = os.path.join(project_root, "excelWeb_script", "data", "output", excel_filename_trade_and_orders)
 
 
 # ---- Executable ---- #
 # --trade -- #
-#data_input_directory_trade = os.path.join(project_root, "data", "input", "trade")
+data_input_directory_trade = os.path.join(project_root, "data", "input", "trade")
 
 # --orders -- #
-#data_input_directory_orders = os.path.join(project_root, "data", "input", "orders")
+data_input_directory_orders = os.path.join(project_root, "data", "input", "orders")
 
 
 # ---- IDE ---- #
 ### --trade -- ####
-data_input_directory_trade = os.path.join(project_root, "excelWeb_script", "data", "input", "trade")
+#data_input_directory_trade = os.path.join(project_root, "excelWeb_script", "data", "input", "trade")
 
 ### --orders -- ####
-data_input_directory_orders = os.path.join(project_root, "excelWeb_script", "data", "input", "orders")
+#data_input_directory_orders = os.path.join(project_root, "excelWeb_script", "data", "input", "orders")
 
 
 
@@ -309,8 +335,8 @@ column_headers = [
     'yield at current mkt price at time of trade', 'premium', f'contracted in {previous_5_months[0]}',
     f'contracted in {previous_5_months[1]}', f'contracted in {previous_5_months[2]}',
     f'contracted in {previous_5_months[3]}', 'cash if exercised', 'days >>',
-    '=AK1-A1', '=AL1-A1', '=AM1-A1', '=AN1-A1', '=AO1-A1', '=AP1-A1', '=AQ1-A1', '=AR1-A1', '=AS1-A1', '=AT1-A1',
-    '=AU1-A1'
+    '=AJ1-A1', '=AK1-A1', '=AL1-A1', '=AM1-A1', '=AN1-A1', '=AO1-A1', '=AP1-A1', '=AQ1-A1', '=AR1-A1', '=AS1-A1',
+    '=AT1-A1'
 ]
 
 # first line content
